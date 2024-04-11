@@ -1,0 +1,140 @@
+.main-sidebar{
+    /* background-color: blue; */
+    width: inherit;
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    background-color: white;
+}
+
+.top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.logo{
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    width: 50%;
+    background-color: #fff;
+    height: 70px;
+    object-fit: contain;
+    margin-top: 5px;
+}
+.logo :hover {
+    cursor:pointer;
+}
+.user-info {
+    display: flex;
+    align-items: center;
+}
+.profile-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    background-color: black;
+    margin: 0 20px;
+    object-fit: cover;
+}
+.who {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 80px;
+}
+
+.who p{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    color: #505050;
+    margin: 3px;
+}
+.who span {
+    font-size: 11px;
+    line-height: 16px;
+    color: #90A0B7;
+}
+.navs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 180px;
+    margin: 20px 0;
+}
+.navigation {
+    flex: 1;
+    cursor: pointer;
+    text-decoration: none;
+    width: 180px;
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px 0;
+    transition:all 350ms; 
+    font-size: 13px;
+    line-height: 20px;
+    font-weight: 500;
+    color: #838191;
+    transition: all 0.75s ease;
+    /* background-color: yellow; */
+}
+
+.navigation span {
+    /* background-color: pink; */
+    margin-left: 10px;
+}
+
+.navigation:hover{
+    color: #FFB703;
+}
+.nav-active {
+    border-left: 4px solid #023047;
+    border-radius: 3px 0px 0px 3px;
+    flex: 1;
+    cursor: pointer;
+    text-decoration: none;
+    width: 180px;
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px 0;
+    transition:all 350ms; 
+    font-size: 13px;
+    line-height: 20px;
+    font-weight: 500;
+    color: #023047;
+    padding-left: 10px;
+}
+.nav-active span{
+    margin-left: 10px;
+}
+.Log-out{
+    color: red;
+    width: 180px;
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 80px;
+    cursor: pointer;
+}
+.Log-in{
+    color: #023047;
+    width: 180px;
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 80px;
+    cursor: pointer;
+    text-decoration: none;
+}
+@media screen and (max-width: 736px) {
+    .main-sidebar {
+      display: none;
+    }
+}

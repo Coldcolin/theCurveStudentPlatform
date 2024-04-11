@@ -1,0 +1,134 @@
+.main-sidebar1{
+    /* background-color: blue; */
+    width: 60%;
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    background-color: white;
+}
+
+.top1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.logo1{
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    width: 70%;
+    height: 70px;
+    background-color: #fff;
+    height: 50px;
+    object-fit: contain;
+    margin-top: 5px;
+}
+.logo1 :hover {
+    cursor:pointer;
+}
+.user-info1 {
+    display: flex;
+    align-items: center;
+}
+.profile-image1 {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    background-color: black;
+    margin: 0 20px;
+    object-fit: cover;
+}
+.profile-1{
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    background-color: black;
+    margin: 0 20px;
+    object-fit: cover;
+}
+.who1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 80px;
+}
+
+.who1 p{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    color: #505050;
+    margin: 3px;
+}
+.who1 span {
+    font-size: 11px;
+    line-height: 16px;
+    color: #90A0B7;
+}
+.navs1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 120px;
+    margin: 20px 0;
+}
+.navigation1 {
+    flex: 1;
+    cursor: pointer;
+    text-decoration: none;
+    width: 180px;
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px 0;
+    transition:all 350ms; 
+    font-size: 13px;
+    line-height: 20px;
+    font-weight: 500;
+    color: #838191;
+    transition: all 0.75s ease;
+    /* background-color: yellow; */
+}
+
+.navigation1 span {
+    /* background-color: pink; */
+    margin-left: 10px;
+}
+
+.navigation1:hover{
+    color: #FFB703;
+}
+.nav-active1 {
+    border-left: 4px solid #023047;
+    border-radius: 3px 0px 0px 3px;
+    flex: 1;
+    cursor: pointer;
+    text-decoration: none;
+    width: 180px;
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px 0;
+    transition:all 350ms; 
+    font-size: 13px;
+    line-height: 20px;
+    font-weight: 500;
+    color: #023047;
+    padding-left: 10px;
+}
+.nav-active1 span{
+    margin-left: 10px;
+}
+.Log-out1{
+    color: red;
+    padding-left: 60px;
+    margin-top: 80px;
+    cursor: pointer;
+}
+/* @media screen and (max-width: 736px) {
+    .main-sidebar1 {
+      display: none;
+    }
+} */

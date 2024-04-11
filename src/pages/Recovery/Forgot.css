@@ -1,0 +1,74 @@
+
+.Container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #023047;
+}
+
+.formContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+}
+
+.Title{
+  color: #333;
+  /* margin-bottom: 20px; */
+}
+
+.input{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.Reset-signup-button {
+  width: 70%;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    background: rgb(247,103,7);
+    background: linear-gradient(0deg, rgba(247,103,7,1) 0%, rgba(251,179,7,0.9976365546218487) 99%, rgba(244,147,6,1) 100%);
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+}
+
+  @media screen and (width <= 600px){
+    .formContainer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .input{
+        width: 80%;
+    }
+    /* .Title{
+        font-size: 20px;
+    } */
+    p{
+        font-size: 13px;
+    }
+    .Reset-signup-button {
+        width: 60%; 
+        height: 40px;
+        font-size: 16px;
+        border-radius: 5px;
+    }
+    
+}

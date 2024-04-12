@@ -69,9 +69,7 @@ const Assessment = () => {
           Toast.fire({
           icon: 'success',
           title: 'Assessment Added'
-        });
-
-        setSubmitLoading(false);
+        })
       }
     }catch(error){
       if(error.response){

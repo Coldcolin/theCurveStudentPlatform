@@ -1,0 +1,160 @@
+.Uploadbody{
+    width: 100%;
+    height: 40rem;
+}
+.UploadHeader{
+    width: 100%;
+    height: 13%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-inline: 20px;
+}
+.UploadHeader h3{
+    font-size: 1.5rem;
+    color:  #34393C;
+    font-weight: 400;
+}
+.UploadHold{
+    width: 100%;
+    height: 85%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.UploadContainer{
+    width: 57%;
+    height: 80%;
+    background: #FDFDF7;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+.UploadIcon{
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+.UploadIcon p{
+    font-size: 1.2rem;
+    color: #34393C;
+
+}
+.Uploadic{
+    font-size: 5rem;
+    color: #FF9101;
+}
+.UploadSection{
+    width: 80%;
+    height: 50%;
+    border: 1px solid  #F6F5F6;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5%;
+}
+.UploadHeadText{
+    width: 100%;
+    height: 20%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.UploadHeadText p{
+    font-size: 18px;
+}
+.UploadProperties{
+    width: 100%;
+    height: 50%;
+
+}
+.UploadImageContain{
+    width: 100%;
+    height: 60%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+.UploadImagecontext{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.IconOne{
+    font-size: 2rem;
+    color: #219EBC;
+}
+.IconTwo{
+    font-size: 2rem;
+    color: #FF9101;
+}
+.UploadTextImage{
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.UploadTextImage p{
+    font-size: 18px;
+    color: #34393C;
+}
+.UploadBtn{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.UploadBtn button{
+    width: 35%;
+    height: 80%;
+    cursor: pointer;
+    background: #FFCC02;
+    border: none;
+    outline: none;
+    border-radius: 7px;
+    font-weight: 600;
+}
+
+@media screen and (max-width: 800px) {
+    .UploadContainer{
+        width: 70%;
+    }
+    .UploadBtn button{
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 490px) {
+    .UploadContainer{
+        width: 80%;
+    }
+    .UploadBtn button{
+        width: 70%;
+    }
+}
+
+
+@media screen and (max-width: 360px) {
+    .UploadContainer{
+        width: 90%;
+    }
+    .UploadBtn button{
+        width: 70%;
+    }
+}

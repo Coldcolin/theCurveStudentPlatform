@@ -13,6 +13,7 @@ import UserProfile from "./pages/UserProfile/UserProfile";
 import RequireAuth from "./components/Auth/RequireAuth"
 import ForgotPassword from "./pages/Recovery/ForgotPassword"
 import ResetPassword from "./pages/Recovery/ResetPassword"
+import Upload from "./Upload/Upload";
 
 
 
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
         element: <AllStudents />,
       },
       {
+        path:  '/upload',
+        element : <Upload/>
+      },
+      {
         path: "detail/:id",
         element: <RequireAuth />,
         children: [
@@ -49,7 +54,8 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <UserProfile />
-          }
+          },
+        
         ]
       },
       {
@@ -91,7 +97,8 @@ const router = createBrowserRouter([
     path: 'reg04',
     // errorElement: <ErrorPage/>,
     element:<Registration/>,
-  }
+  },
+  
 ])
 
 function App() {

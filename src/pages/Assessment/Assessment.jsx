@@ -35,7 +35,9 @@ const Assessment = () => {
   const [productD, setProductD] = useState([]);
   const [front, setFront] = useState("")
   const [back, setBack] = useState("")
+  const [submitLoading, setSubmitLoading] = useState(false)
   const [stack, setStack] = useState(1)
+  
   
 
 
@@ -82,6 +84,9 @@ const Assessment = () => {
       }else {
         console.log("Error", error.message)
       }
+    }
+    finally{
+      setSubmitLoading(false);
     }
   }
 
@@ -420,7 +425,7 @@ const Assessment = () => {
                   setPersonalDefense(value);
                 }}} min="0" max="20"/></td>
                 <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td>
-                <td><button className="assessment-submit" type="submit" onClick={(e)=> addAssessment(props.id)}>Submit</button></td>
+                <td><button className="assessment-submit" type="submit" onClick={(e)=> {addAssessment(props.id), setSubmitLoading(true)}}>{ submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td>
               </tr>
             )): null
             }

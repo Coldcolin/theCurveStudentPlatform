@@ -13,6 +13,7 @@ const Detail = () => {
     const [user, setUser] = useState();
     const [ratings, setRatings] = useState();
     const profile = useSelector((state) => state.Id.Id);
+    const [deleting, setDeleting] = useState(false)
 
     const getUser =async()=>{
         try{
@@ -75,6 +76,7 @@ const Detail = () => {
             )
             getUser();
           }
+          setDeleting(false)
         }catch(error){
           if (error.response) {
             console.log(error.response.data);
@@ -86,6 +88,9 @@ const Detail = () => {
             console.log('Error', error.message);
           }
           console.log(error.config);
+        }
+        finally{
+          setDeleting(false);
         }
       }
 
@@ -155,7 +160,7 @@ const Detail = () => {
             <td className={colorCode(props.classAssessment)}>{props.classAssessment}</td>
             <td className={colorCode(props.personalDefense)}>{props.personalDefense}</td>
             <td className={colorCode(props?.total)}>{(Math.round(((props?.total /20) * 100)* 10))/10}%</td>
-            {(profile?.role === "tutor" || profile?.role === "admin")? <td><button className="assessment-submit" onClick={()=> deleteRating(props.week)}>Delete</button></td>: null}
+            {(profile?.role === "tutor" || profile?.role === "admin")? <td><button className="assessment-submit" onClick={()=> {deleteRating(props.week), setDeleting(true)}}>{deleting ? <p style={{color: "white", background: "none"}}>deleting...</p> : <p style={{color: "white", background: "none"}}>Delete</p>}</button></td>: null}
           </tr>
             ))
           }

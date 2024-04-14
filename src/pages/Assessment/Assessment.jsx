@@ -35,7 +35,7 @@ const Assessment = () => {
   const [productD, setProductD] = useState([]);
   const [front, setFront] = useState("")
   const [back, setBack] = useState("")
-  const [submitLoading, setSubmitLoading] = useState(false)
+  const [submitLoading, setSubmitLoading] = useState()
   const [stack, setStack] = useState(1)
   
   
@@ -52,8 +52,15 @@ const Assessment = () => {
     }
   })
 
+  const submit = (id)=>{
+
+    setSubmitLoading(id)
+
+  }
+
  
   const addAssessment = async (id, name) =>{
+    
     try{
       const Toaster = await Swal.fire({
         title: 'Add Assessment?',
@@ -341,7 +348,7 @@ const Assessment = () => {
                   setPersonalDefense(value);
                 }}} min="0" max="20"/></td>
                 <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td>
-                <td><button className="assessment-submit" type="submit" onClick={(e)=> addAssessment(props.id, props.name)}>Submit</button></td>
+                <td><button className="assessment-submit" type="submit" onClick={(e)=> {addAssessment(props.id, props.name), submit(props.id)}}>{ props.id === submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td>
               </tr>
             )): stack === 2? backEnd.map((props)=>(
               <tr className="assessment-user-info" key={props?.id}>
@@ -383,7 +390,7 @@ const Assessment = () => {
                   setPersonalDefense(value);
                 }}} min="0" max="20"/></td>
                 <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td>
-                <td><button className="assessment-submit" type="submit" onClick={(e)=> addAssessment(props.id)}>Submit</button></td>
+                <td><button  className="assessment-submit" type="submit" onClick={(e)=> {addAssessment(props.id), submit(props.id)}}>{ props.id === submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td>
               </tr>
             )): stack === 3? productD.map((props)=>(
               <tr className="assessment-user-info" key={props.id}>
@@ -425,7 +432,7 @@ const Assessment = () => {
                   setPersonalDefense(value);
                 }}} min="0" max="20"/></td>
                 <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td>
-                <td><button className="assessment-submit" type="submit" onClick={(e)=> {addAssessment(props.id), setSubmitLoading(true)}}>{ submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td>
+                <td><button className="assessment-submit" type="submit" onClick={(e)=> {addAssessment(props.id), submit(props.id)}}>{ props.id === submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td>
               </tr>
             )): null
             }

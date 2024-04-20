@@ -17,12 +17,6 @@ const HandleUploadImage = ()=>{
 
 }
 
-
-
-
-
-
-
   return (
     <div className='Uploadbody'>
       <div className="UploadHeader">

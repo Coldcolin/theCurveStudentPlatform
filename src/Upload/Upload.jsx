@@ -56,7 +56,6 @@ const Upload = () => {
 
   const handleFileChange = (e) => {
     const file = e.target.files[0]
-    
     setSelectedImage(file);
     const formData = new FormData();
     formData.append('image', file);

@@ -1,0 +1,168 @@
+.uploadwrap{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* font-family: "poppins"; */
+    background-color: white;
+}
+.confirm{
+    width: 90%;
+    min-height: 90vh;
+    background-color: white;
+}
+.punctual{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 5%;
+    /* background-color: yellow; */
+}
+.confirmdetails{
+    width: 100%;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2%;
+    /* border-radius: 10px; */
+    background-color: #FAFAFA;
+}
+.detailHold{
+    width: 25%;
+    height: 280px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    /* background-color: yellow; */
+}
+.pic{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+}
+.actualImg{
+    width: 80%;
+    height: 90%;
+    border-radius: 10px;
+    background-color: black;
+}
+.actualImg img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+.actualrating{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2%;
+    padding-left: 5%;
+    padding-right: 5%;
+    background-color: white;
+}
+.actualrating p{
+    font-size: 15px;
+}
+.actualrating span{
+    font-weight: bold;
+    font-size: 15px;
+}
+.average{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    /* background-color: yellow; */
+}
+.average button{
+    width: 18%;
+    height: 40%;
+    background-color: orange;
+    border: none;
+    border-radius: 7px;
+    font-weight: bold;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10%;
+    cursor: pointer;
+}
+.average button:hover{
+    background-color: rgb(244, 178, 55);
+}
+.average button:active{
+    background-color: orange;
+}
+
+@media screen and (width < 737px) {
+    .confirmdetails{
+        flex-direction: column;
+        gap: 20px;
+        padding: 30px;
+    }
+    .detailHold{
+        width: 50%;
+    }
+    .average{
+        /* background-color: yellow; */
+        margin-bottom: 30px;
+    }
+    .average button{
+        height: 50%;
+        width: 45%;
+    }
+}
+
+@media screen and (width < 550px) {
+    .detailHold{
+        width: 75%;
+    }
+    .average button{
+        height: 50%;
+        width: 60%;
+    }
+}
+@media screen and (width < 350px) {
+    .detailHold{
+        width: 100%;
+    }
+    .average button{
+        height: 50%;
+        width: 85%;
+    }
+    .average h4{
+        font-size: 15px;
+        width: 70%;
+    }
+    .punctual h3{
+        font-size: 15px;
+    }
+}
+
+@media screen and (width < 250px) {
+    .average{
+        height: 120px;
+    }
+    .average button{
+        height: 35%;
+        width: 85%;
+    }
+    .confirm{
+        width: 100%;
+    }
+    .punctual h3{
+        font-size: 15px;
+    }
+}

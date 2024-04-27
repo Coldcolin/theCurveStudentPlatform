@@ -66,6 +66,19 @@ const Upload = () => {
   };
 
 
+=======
+
+
+  const [SelectedImage, setSelectedImage] = useState(null)
+
+
+  const HandleFileChange = (e)=>{
+    setSelectedImage(e.target.files[0])
+  }
+
+const HandleUploadImage = ()=>{
+
+}
 
   return (
     <div className="Uploadbody">

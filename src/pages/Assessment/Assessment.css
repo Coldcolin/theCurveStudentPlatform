@@ -70,17 +70,17 @@ tr:nth-child(even) {
     border: none;
     cursor: pointer;
     font-weight: 300;
-    transform: scale(1);
-    transition: all 450ms;
+    /* transform: scale(1); */
+    transition: all 450ms ease-in-out;
     padding-block: 10px;
 }
 
 .assessment-submit:hover{
     background-color: #023047;
-    transform: scale(1.05);
-    padding-block: 3px;
+    transform: scale(1.1);
+    /* padding-block: 3px;
     transition: all 350ms;
-    font-weight: 600;
+    font-weight: 600; */
 }
 
 .SOTWFE {

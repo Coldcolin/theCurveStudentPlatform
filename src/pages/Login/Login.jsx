@@ -45,12 +45,10 @@ const Login = () => {
     try{
       const {email, password}= data;
       const res = await axios.post(LOGIN_URL, { email, password});
-      const token = res.data.data.token
-      
+
       // console.log(email, password)
       dispatch(addId({id: res.data.data._id, name: res.data.data.name, stack: res.data.data.stack, role: res.data.data.role, image: res.data.data.image}));
       // console.log(res.data.data.name, res.data.data.stack);
-      localStorage.setItem('token',token)
       reset();
       Toast.fire({
         icon: 'success',

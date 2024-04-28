@@ -14,6 +14,7 @@ import RequireAuth from "./components/Auth/RequireAuth"
 import ForgotPassword from "./pages/Recovery/ForgotPassword"
 import ResetPassword from "./pages/Recovery/ResetPassword"
 import Upload from "./Upload/Upload";
+import Punctuality from "./pages/CheckIn/uploadImage";
 
 
 
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
           }
         ]
       },
+      {
+        path: "/checkin",
+        element: <Punctuality />
+      }
     ]
   },
   {

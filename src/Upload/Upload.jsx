@@ -9,9 +9,15 @@ const Upload = () => {
   const [SelectedImage, setSelectedImage] = useState(null)
 
 
-  const HandleFileChange = (e)=>{
-    setSelectedImage(e.target.files[0])
-  }
+  const handleFileChange = (e) => {
+    const file = e.target.files[0]
+    setSelectedImage(file);
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('latitude', latitude);
+    formData.append('longitude', longitude);
+    uploadImage(formData);
+  };
 
 const HandleUploadImage = ()=>{
 

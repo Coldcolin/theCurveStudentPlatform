@@ -34,10 +34,7 @@ const router = createBrowserRouter([
         path: "students",
         element: <AllStudents />,
       },
-      {
-        path:  '/upload',
-        element : <Upload/>
-      },
+      
       {
         path: "detail/:id",
         element: <RequireAuth />,
@@ -45,7 +42,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <Detail />
-          }
+          },
         ]
       },
       {
@@ -55,6 +52,17 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <UserProfile />
+          },
+        
+        ]
+      },
+      {
+        path: "upload",
+        element: <RequireAuth />,
+        children:[
+          {
+            index:  true,
+            element : <Upload/>
           },
         
         ]

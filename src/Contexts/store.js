@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit"
-import myIdReducer from "./IdReducer"
+import myIdReducer from "./IdReducer";
 import {
     persistStore,
     persistReducer,
@@ -16,6 +16,7 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
  
 const persistConfig = {
   key: 'root',
+  version: 1,
   storage,
 }
 const persistedReducer = persistReducer(persistConfig, myIdReducer)

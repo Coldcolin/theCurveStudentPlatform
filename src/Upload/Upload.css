@@ -44,7 +44,12 @@
 .UploadIcon p{
     font-size: 1.2rem;
     color: #34393C;
-
+}
+.UploadIcon img{
+    width: 90%;
+    height: 200%;
+    object-fit: contain;
+    margin-inline: 10%;
 }
 .Uploadic{
     font-size: 5rem;
@@ -119,6 +124,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 20px;
+    margin-top: 20px;
 }
 .UploadBtn button{
     width: 35%;
@@ -127,6 +134,20 @@
     background: #FFCC02;
     border: none;
     outline: none;
+    border-radius: 7px;
+    font-weight: 600;
+    font-size: 20px;
+}
+.button {
+    width: 35%;
+    height: 80%;
+    cursor: pointer;
+    background: #FFCC02;
+    border: none;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 7px;
     font-weight: 600;
 }

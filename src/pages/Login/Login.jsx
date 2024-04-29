@@ -48,6 +48,7 @@ const Login = () => {
 
       // console.log(email, password)
       dispatch(addId({id: res.data.data._id, name: res.data.data.name, stack: res.data.data.stack, role: res.data.data.role, image: res.data.data.image}));
+      localStorage.setItem("token", JSON.stringify( res.data.data.token))
       // console.log(res.data.data.name, res.data.data.stack);
       reset();
       Toast.fire({

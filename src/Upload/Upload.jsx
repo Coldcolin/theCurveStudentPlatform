@@ -1,27 +1,92 @@
-import React,{useState} from 'react'
+import {useEffect, useState} from 'react'
 import './Upload.css'
 import { IoCloudUploadOutline,IoImageSharp } from "react-icons/io5";
+import axios from "../api/axios.js";
+import Swal from "sweetalert2";
+import { useNavigate } from 'react-router-dom';
 
 
 const Upload = () => {
+  const navigate = useNavigate();
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [imageDB, setImageDB] = useState("")
+  const [avatar, setAvatar] = useState("");
+  const token = JSON.parse(localStorage.getItem("token"))
 
+  const HandleUploadImage = (e)=>{
+    const file = e.target.files[0];
+    const save = URL.createObjectURL(file);
+    setAvatar(save);
+    setImageDB(file);
+  }
 
-  const [SelectedImage, setSelectedImage] = useState(null)
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    timer: 3000,
+    showConfirmButton: false,
+    didOpen: (toast) =>{
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
 
+  const HandleCheckIn =async()=>{
+    try{
+      const formData = new FormData();
+      formData.append("latitude", latitude);
+      formData.append("longitude", longitude);
+      formData.append("image", imageDB);
+      const config = {
+        headers: {
+          "content-type": "multipart/formData",
+          "Authorization": `Bearer ${token}`
+        }
+      }
+      await axios.post(`https://thecurvepuntualityapi.onrender.com/api/v1/checkIn`,formData, config);
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0]
-    setSelectedImage(file);
-    const formData = new FormData();
-    formData.append('image', file);
-    formData.append('latitude', latitude);
-    formData.append('longitude', longitude);
-    uploadImage(formData);
-  };
+      Toast.fire({
+        icon: 'success',
+        title: 'Successfully Signed up'
+      })
+      navigate("/")
+    }catch(error){
+      if(error.response){
+        Toast.fire({
+          icon:'error',
+          title: error.response.data.message
+        })
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request){
+        console.log(error.request);
+      }else {
+        console.log("Error", error.message)
+      }
+    }
+    console.log("image:", imageDB, "image2:", avatar)
+  }
+  
+  useEffect(() => {
+    const fetchLocation = () => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLatitude(position.coords.latitude);
+          setLongitude(position.coords.longitude);
+        },
+        (error) => {
+          console.error('Error getting location:', error);
+        }
+      );
+    };
 
-const HandleUploadImage = ()=>{
+    fetchLocation();
+  }, []);
 
-}
+  useEffect(()=>{
+    console.log("longitude:", longitude, "latitude", latitude)
+  }, [longitude, latitude])
 
   return (
     <div className='Uploadbody'>
@@ -31,15 +96,15 @@ const HandleUploadImage = ()=>{
       <div className='UploadHold'>
         <section className='UploadContainer'>
           <div className='UploadIcon'>
-          <IoCloudUploadOutline className='Uploadic' />
-          <p>Upload Picture</p>
+          {avatar === ""? <IoCloudUploadOutline className='Uploadic' />: <img src={avatar} alt="avatar"/>}
+          {avatar === ""? <p>Upload Picture</p>: null}
           </div>
           <div className='UploadSection'>
             <div className="UploadHeadText">
-              <p>Supported Media Below </p>
+              {avatar === ""?<p>Supported Media Below </p>: null}
             </div>
             <div className="UploadProperties">
-              <div className='UploadImageContain'>
+              {avatar === ""?<div className='UploadImageContain'>
                <div className="UploadImagecontext">
                <IoImageSharp className='IconOne'/>
                 <IoImageSharp className='IconTwo'/>
@@ -48,9 +113,11 @@ const HandleUploadImage = ()=>{
                   <p>JPG</p>
                   <p>PNG</p>
                 </div>
-              </div>
+              </div>: null}
             <div className='UploadBtn'>
-              <button onClick={HandleUploadImage}>Browse Images</button>
+            <label className="button" htmlFor="upload">Browse Image</label>
+              <input type="file" id="upload" accept="image/*" onChange={HandleUploadImage} style={{display: "none"}}  />
+              <button onClick={HandleCheckIn} disabled={avatar === ""? true: false}>Check In</button>
             </div>
             </div>
           </div>

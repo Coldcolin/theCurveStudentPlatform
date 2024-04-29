@@ -105,7 +105,7 @@ const Registration = () => {
           <div className="reg-avatar-div">
             <img src={avatar} alt="avatar" className="reg-right-avatar" />
             <label className="reg-upload-button" htmlFor="upload">Upload Image</label>
-            <input id="upload" type="file" style={{display: "none"}} onChange={File}/>
+            <input id="upload" type="file" accept="image/*" style={{display: "none"}} onChange={File}/>
           </div>
           <input className="reg-input" placeholder="Full Name" {...register("name")}/>
           <label style={{color: "red", fontSize: "11px"}}>{errors.name && <p>Please enter the Name.</p>}</label>

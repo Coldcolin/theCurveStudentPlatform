@@ -122,12 +122,13 @@
     width: 100%;
     height: 50%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     gap: 20px;
     margin-top: 20px;
+    /* background-color: red; */
 }
-.UploadBtn button{
+/* .UploadBtn button{
     width: 35%;
     height: 80%;
     cursor: pointer;
@@ -137,9 +138,9 @@
     border-radius: 7px;
     font-weight: 600;
     font-size: 20px;
-}
+} */
 .button {
-    width: 35%;
+    flex: 1;
     height: 80%;
     cursor: pointer;
     background: #FFCC02;
@@ -150,6 +151,7 @@
     align-items: center;
     border-radius: 7px;
     font-weight: 600;
+    font-size: 16px;
 }
 
 @media screen and (max-width: 800px) {
@@ -168,6 +170,9 @@
     .UploadBtn button{
         width: 70%;
     }
+    .button {
+        font-size: 13px;
+    }
 }
 
 
@@ -178,4 +183,5 @@
     .UploadBtn button{
         width: 70%;
     }
+    
 }

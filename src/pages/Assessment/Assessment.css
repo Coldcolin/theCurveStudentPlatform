@@ -51,6 +51,10 @@ tr:nth-child(even) {
 }
 .assessment-item {
     min-width: 100px;
+    color: black;
+}
+.assessment-user-info a{
+    text-decoration: none;
 }
 .assessment-image {
     width: 30px;

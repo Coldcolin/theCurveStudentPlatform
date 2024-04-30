@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import "./Registration.css"
 import image from "../../images/Transparent_curve.png"
 import avatars from "../../images/for_upload.png"

@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import './Upload.css'
 import { IoCloudUploadOutline,IoImageSharp } from "react-icons/io5";
-import axios from "../api/axios.js";
+import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
 
@@ -12,6 +12,7 @@ const Upload = () => {
   const [longitude, setLongitude] = useState(null);
   const [imageDB, setImageDB] = useState("")
   const [avatar, setAvatar] = useState("");
+  const [checkInState, setCheckInState] = useState(false);
   const token = JSON.parse(localStorage.getItem("token"))
 
   const HandleUploadImage = (e)=>{
@@ -34,6 +35,7 @@ const Upload = () => {
 
   const HandleCheckIn =async()=>{
     try{
+      setCheckInState(true)
       const formData = new FormData();
       formData.append("latitude", latitude);
       formData.append("longitude", longitude);
@@ -50,22 +52,22 @@ const Upload = () => {
         icon: 'success',
         title: 'Successfully Signed up'
       })
+      setCheckInState(false)
       navigate("/")
     }catch(error){
+      setCheckInState(false)
       if(error.response){
         Toast.fire({
           icon:'error',
           title: error.response.data.message
         })
-        console.log(error.response.status);
-        console.log(error.response.headers);
+        
       } else if (error.request){
         console.log(error.request);
       }else {
         console.log("Error", error.message)
       }
     }
-    console.log("image:", imageDB, "image2:", avatar)
   }
   
   useEffect(() => {
@@ -117,7 +119,7 @@ const Upload = () => {
             <div className='UploadBtn'>
             <label className="button" htmlFor="upload">Browse Image</label>
               <input type="file" id="upload" accept="image/*" onChange={HandleUploadImage} style={{display: "none"}}  />
-              <button onClick={HandleCheckIn} disabled={avatar === ""? true: false}>Check In</button>
+              { checkInState === false?<button className="button" onClick={HandleCheckIn} disabled={avatar === ""? true: false}>Check In</button>: <button className="button" disabled={true}>Checking In...</button>}
             </div>
             </div>
           </div>

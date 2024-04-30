@@ -311,7 +311,7 @@ const Assessment = () => {
               stack === 1? frontEnd.map((props)=>(
               <tr className="assessment-user-info" key={props.id}>
                 <td><Link to={`/detail/${props.id}`}><img src={props.image} alt="imae" className="assessment-image"/></Link></td>
-                <td><div className="assessment-item">{props.name}</div></td>
+                <td><Link to={`/punctuality/${props.id}`}><div className="assessment-item">{props.name}</div></Link></td>
                 <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={(e) => {
                 const value = e.target.value;
                 if (parseInt(value, 10) > 20) {
@@ -353,7 +353,7 @@ const Assessment = () => {
             )): stack === 2? backEnd.map((props)=>(
               <tr className="assessment-user-info" key={props?.id}>
                 <td><Link to={`/detail/${props?.id}`}><img src={props?.image} alt="imae" className="assessment-image"/></Link></td>
-                <td><div className="assessment-item">{props.name}</div></td>
+                <td><Link to={`/punctuality/${props.id}`}><div className="assessment-item">{props.name}</div></Link></td>
                 <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={(e) => {
                 const value = e.target.value;
                 if (parseInt(value, 10) > 20) {
@@ -395,7 +395,7 @@ const Assessment = () => {
             )): stack === 3? productD.map((props)=>(
               <tr className="assessment-user-info" key={props.id}>
                 <td><Link to={`/detail/${props.id}`}><img src={props.image} alt="imae" className="assessment-image"/></Link></td>
-                <td><div className="assessment-item">{props.name}</div></td>
+                <td><Link to={`/punctuality/${props.id}`}><div className="assessment-item">{props.name}</div></Link></td>
                 <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={(e) => {
                 const value = e.target.value;
                 if (parseInt(value, 10) > 20) {

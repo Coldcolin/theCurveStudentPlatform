@@ -36,32 +36,24 @@ const Upload = () => {
   const HandleCheckIn =async()=>{
     try{
       setCheckInState(true)
-      // const formData = new FormData();
-      // formData.append("latitude", latitude);
-      // formData.append("longitude", longitude);
-      // formData.append("image", imageDB);
-      // const config = {
-      //   headers: {
-      //     "content-type": "multipart/formData",
-      //     "Authorization": `Bearer ${token}`
-      //   }
-      // }
-      // await axios.post(`https://thecurvepuntualityapi.onrender.com/api/v1/checkIn`,formData, config);
+      const formData = new FormData();
+      formData.append("latitude", latitude);
+      formData.append("longitude", longitude);
+      formData.append("image", imageDB);
+      const config = {
+        headers: {
+          "content-type": "multipart/formData",
+          "Authorization": `Bearer ${token}`
+        }
+      }
+      await axios.post(`https://thecurvepuntualityapi.onrender.com/api/v1/checkIn`,formData, config);
 
-      // Toast.fire({
-      //   icon: 'success',
-      //   title: 'Successfully Checked In'
-      // })
-      // setCheckInState(false)
-      // navigate("/")
-      setTimeout(()=>{
-        Toast.fire({
+      Toast.fire({
         icon: 'success',
         title: 'Successfully Checked In'
       })
       setCheckInState(false)
       navigate("/")
-      }, 3000)
 
     }catch(error){
       setCheckInState(false)

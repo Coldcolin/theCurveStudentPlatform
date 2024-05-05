@@ -3,11 +3,12 @@ import './uploadimage.css'
 import { MdOutlineHowToVote } from "react-icons/md";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const Punctuality = () => {
     const {id} = useParams()
     const navigate = useNavigate();
+    const [details, setDetails] = useState(null)
     const token = JSON.parse(localStorage.getItem("token"))
 
 
@@ -31,7 +32,7 @@ const Punctuality = () => {
                 }
             }
             const res = await axios.get(`https://thecurvepuntualityapi.onrender.com/api/v1/studentAttendance/${id}`, config);
-            console.log(res)
+            setDetails(res.data)
         }catch(error){
             if(error.response){
                 Toast.fire({
@@ -48,40 +49,38 @@ const Punctuality = () => {
     }
     
 
-    // const HandleCheckIn =async()=>{
-    //     try{
-    //     setCheckInState(true)
-    //     const formData = new FormData();
-    //     formData.append("latitude", latitude);
-    //     formData.append("longitude", longitude);
-    //     formData.append("image", imageDB);
-    //     const config = {
-    //         headers: {
-    //         "content-type": "multipart/formData",
-    //         "Authorization": `Bearer ${token}`
-    //         }
-    //     }
-    //     await axios.post(`https://thecurvepuntualityapi.onrender.com/api/v1/checkIn`,formData, config);
+    const acknowledge =async()=>{
+        try{
+        
+        const formData = new FormData();
+        
+        const config = {
+            headers: {
+            "content-type": "multipart/formData",
+            "Authorization": `Bearer ${token}`
+            }
+        }
+        await axios.post(`https://thecurvepuntualityapi.onrender.com/api/v1/deleteCheckInfullWeek/${id}`,formData, config);
 
-    //     Toast.fire({
-    //         icon: 'success',
-    //         title: 'Successfully Signed up'
-    //     })
-    //     navigate("/")
-    //     }catch(error){
-    //     if(error.response){
-    //         Toast.fire({
-    //         icon:'error',
-    //         title: error.response.data.message
-    //         })
+        Toast.fire({
+            icon: 'success',
+            title: 'Successfully acknowledged'
+        })
+        navigate(-1)
+        }catch(error){
+        if(error.response){
+            Toast.fire({
+            icon:'error',
+            title: error.response.data.message
+            })
             
-    //     } else if (error.request){
-    //         console.log(error.request);
-    //     }else {
-    //         console.log("Error", error.message)
-    //     }
-    // }
-// }
+        } else if (error.request){
+            console.log(error.request);
+        }else {
+            console.log("Error", error.message)
+        }
+    }
+}
     useEffect(()=>{
         getPunctualityInfo();
     }, [])
@@ -94,49 +93,27 @@ const Punctuality = () => {
                     <h3>Confirm Punctuality</h3>
                 </div>
                 <div className="confirmdetails">
-                    <div className="detailHold">
+                    {
+                        details !== null? details.data.map((e)=>(
+                            <div key={e._id} className="detailHold">
                         <div className="pic">
                             <div className="actualImg">
-                                <img src="https://media.istockphoto.com/id/1289220781/photo/portrait-of-happy-smiling-woman-at-desk.webp?b=1&s=170667a&w=0&k=20&c=62bR74AXyFUmE9AKfp-9S4rc07lx7xsEFhJ78LroDgw=" alt="" />
+                                <img src={e.image.url} alt="" />
                             </div>
                         </div>
                         <aside className='actualrating'>
-                            <h4>Collin Decore {id}</h4>
-                            <p>Monday</p>
-                            <p>Server Time in : <span>9:50 pm</span></p>
-                            <p>Recomended Rating : <span>100%</span></p>
+                            {/* <h4>Collin Decore {id}</h4> */}
+                            <p>{e.date}</p>
+                            <p>Server Time in : <span>{e.time}</span></p>
+                            <p>Recommended Rating : <span>{e.punctualityScore}</span></p>
                         </aside>
                     </div>
-                    <div className="detailHold">
-                        <div className="pic">
-                            <div className="actualImg">
-                                <img src="https://media.istockphoto.com/id/1289220781/photo/portrait-of-happy-smiling-woman-at-desk.webp?b=1&s=170667a&w=0&k=20&c=62bR74AXyFUmE9AKfp-9S4rc07lx7xsEFhJ78LroDgw=" alt="" />
-                            </div>
-                        </div>
-                        <aside className='actualrating'>
-                            <h4>Collin Decore</h4>
-                            <p>Monday</p>
-                            <p>Server Time in : <span>9:50 pm</span></p>
-                            <p>Recomended Rating : <span>100%</span></p>
-                        </aside>
-                    </div>
-                    <div className="detailHold">
-                        <div className="pic">
-                            <div className="actualImg">
-                                <img src="https://media.istockphoto.com/id/1289220781/photo/portrait-of-happy-smiling-woman-at-desk.webp?b=1&s=170667a&w=0&k=20&c=62bR74AXyFUmE9AKfp-9S4rc07lx7xsEFhJ78LroDgw=" alt="" />
-                            </div>
-                        </div>
-                        <aside className='actualrating'>
-                            <h4>Collin Decore</h4>
-                            <p>Monday</p>
-                            <p>Server Time in : <span>9:50 pm</span></p>
-                            <p>Recomended Rating : <span>100%</span></p>
-                        </aside>
-                    </div>
+                        )): <div>No Punctuality Info</div>
+                    }
                 </div>
                 <div className="average">
-                     <h4>Average Punctuality Score : 100%</h4>
-                     <button> <MdOutlineHowToVote /> Acknowledge</button>
+                     {details && <h4>Average Punctuality Score : {details.averagePunctualityScore}</h4>}
+                     <button onClick={acknowledge}> <MdOutlineHowToVote /> Acknowledge</button>
                 </div>
             </div>
         </div>

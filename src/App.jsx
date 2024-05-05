@@ -1,4 +1,4 @@
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {createHashRouter, RouterProvider} from "react-router-dom";
 import './App.css'
 import DashboardLayout from "./components/DashboardLayout/DashboardLayout";
 import Home from "./pages/Home/Home";
@@ -20,7 +20,7 @@ import Punctuality from "./pages/CheckIn/Punctuality";
 
 
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     // errorElement: <ErrorPage/>,

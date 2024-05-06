@@ -56,11 +56,10 @@ const Punctuality = () => {
         
         const config = {
             headers: {
-            "content-type": "multipart/formData",
-            "Authorization": `Bearer ${token}`
+            "authorization": `Bearer ${token}`
             }
         }
-        await axios.post(`https://thecurvepuntualityapi.onrender.com/api/v1/deleteCheckInfullWeek/${id}`,formData, config);
+        await axios.delete(`https://thecurvepuntualityapi.onrender.com/api/v1/deleteCheckInfullWeek/${id}`,formData, config);
 
         Toast.fire({
             icon: 'success',
@@ -91,6 +90,7 @@ const Punctuality = () => {
             <div className="confirm">
                 <div className="punctual">
                     <h3>Confirm Punctuality</h3>
+                    <button className="assessment-submit" style={{margin: 20, paddingBlock: 5}} onClick={()=> navigate(-1)}>Back</button>
                 </div>
                 <div className="confirmdetails">
                     {

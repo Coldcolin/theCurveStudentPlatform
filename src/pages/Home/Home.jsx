@@ -154,9 +154,9 @@ const getUsers =async()=>{
           <div className="image-holder">
               {
                 loadingRes === true ? <div className="sotw-sotw-be"><Loader/></div> : someError && (loadingRes === false) ? <div className="sotw-sotw-be"><p>No Student yet</p></div>: loadingRes === false? <div className="sotw-sotw-be">
-                <img className="sotw-image" src={SOTWFE.image} alt="img"/>
+                <img className="sotw-image" src={SOTWFE?.image} alt="img"/>
                 <div className= "sotw-image-info">
-                <p className="sotw-image-info-h3">{SOTWFE.name}</p>
+                <p className="sotw-image-info-h3">{SOTWFE?.name}</p>
                 <p className="sotw-image-info-p">Frontend Developer</p>
                 </div>
               </div>: null
@@ -164,9 +164,9 @@ const getUsers =async()=>{
           
               {
                 loadingRes === true ? <div className="sotw-sotw-fe"><Loader/></div>: someError && (loadingRes === false) ? <div className="sotw-sotw-fe"><p>No Student yet</p></div> :loadingRes === false? <div className="sotw-sotw-fe">
-                <img className="sotw-image" src={SOTWBE.image} alt="img"/>
+                <img className="sotw-image" src={SOTWBE?.image} alt="img"/>
                 <div className= "sotw-image-info">
-                <p className="sotw-image-info-h3">{SOTWBE.name}</p>
+                <p className="sotw-image-info-h3">{SOTWBE?.name}</p>
                 <p className="sotw-image-info-p">Backend Developer</p>
                 </div>
               </div>: null
@@ -174,9 +174,9 @@ const getUsers =async()=>{
               
               {
                 loadingRes === true ? <div className="sotw-sotw-pd"><Loader/></div>: someError && (loadingRes === false) ? <div className="sotw-sotw-pd"><p>No Student yet</p></div> :loadingRes === false? <div className="sotw-sotw-pd">
-                <img className="sotw-image" src={SOTWPD.image} alt="img"/>
+                <img className="sotw-image" src={SOTWPD?.image} alt="img"/>
                 <div className= "sotw-image-info">
-                <p className="sotw-image-info-h3">{SOTWPD.name}</p>
+                <p className="sotw-image-info-h3">{SOTWPD?.name}</p>
                 <p className="sotw-image-info-p">Product Designer</p>
                 </div>
               </div>: null

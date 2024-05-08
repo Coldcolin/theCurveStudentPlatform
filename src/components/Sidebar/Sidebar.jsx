@@ -42,6 +42,7 @@ const Sidebar = () => {
         <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="user"> <FiUser/> <span>User Profile</span></NavLink>
         <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="/upload"> <AiOutlineSchedule /> <span>Check-in</span></NavLink>
         {profile.role === "tutor"?<NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="assessment"><MdOutlineAssessment/> <span>Student Assessment</span></NavLink>: null}
+        {profile.role === "admin"?<NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="assessment"><MdOutlineAssessment/> <span>Student Assessment</span></NavLink>: null}
         {
         profile.id !== "" ? <div className="Log-out" onClick={() => {
                 dispatch(signOut());

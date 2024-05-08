@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from '../../api/axios'
+import LoadingScreen from '../../components/Loader/LoadingScreen'
 // import "./AllTutors.css"
 
 
@@ -46,7 +47,8 @@ const AllTutors = () => {
       <div className="all-user-info">
         {
           load? <div>
-            <h2>Loading...</h2>
+            {/* <h2>Loading...</h2> */}
+            <LoadingScreen/>
           </div>:
           <table className="assessment-table-holder">
           <tr className="assessment-table">

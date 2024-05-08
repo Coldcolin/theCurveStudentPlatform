@@ -4,6 +4,7 @@ import axios from "../../api/axios"
 // import {AuthContext} from '../../Contexts/AuthProvider';
 import Swal from "sweetalert2";
 import { useSelector } from 'react-redux';
+import LoadingScreen from '../../components/Loader/LoadingScreen';
 const allStuds = "/users/allusers"
 
 const Alumni = () => {
@@ -85,7 +86,8 @@ const Alumni = () => {
       <div className="all-user-info">
         {
           load? <div>
-            <h2>Loading...</h2>
+            {/* <h2>Loading...</h2> */}
+            <LoadingScreen/>
           </div>:
           <table className="assessment-table-holder">
           <thead>

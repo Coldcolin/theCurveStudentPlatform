@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { useSelector } from 'react-redux';
 import "../AllUsers/AllUsers.css"
 import "../Assessment/Assessment.css"
+import LoadingScreen from '../../components/Loader/LoadingScreen';
 
 
 const GET_USERS = gql`
@@ -153,21 +154,20 @@ const AllStudents = () => {
     }
   }
 
-  const studentSearch=()=>{
-    const searchedArray = allStudents.filter((i)=> {
-      const name = i.name.toLowerCase()
-      const value = user.toLowerCase()
-      return name.includes(value)
-    } )
-    setAllStudents(searchedArray)
-  }
-  useEffect(()=>{
-    studentSearch()
-  },[user])
+  // const studentSearch=()=>{
+  //   const searchedArray = allStudents.filter((i)=> {
+  //     const name = i.name.toLowerCase()
+  //     const value = user.toLowerCase()
+  //     return name.includes(value)
+  //   } )
+  //   setAllStudents(searchedArray)
+  // }
+  // useEffect(()=>{
+  //   studentSearch()
+  // },[user])
  
   useEffect(()=>{
     getUsers()
-    
   }, [data])
   // console.log(data?.users)
 
@@ -186,7 +186,7 @@ const AllStudents = () => {
   return (
     <div className="all-body">
       <div className="all-head">
-      {load? <div><h1>Loading Students...</h1></div>:<div className="all-head-holder">
+      {loading? <div><h1>Loading Students...</h1></div>:<div className="all-head-holder">
       {/* <input placeholder="Search Students" type="search" className="searchInput" value={user} onChange={(e)=> setUser(e.target.value)}/> <button  className="searchButton" onClick={()=> setAllStudents(backUpStudents)}>Reset</button> */}
               <div className='Stack-buttons-holder'>
                 <div className='Stack-buttons'>
@@ -201,8 +201,9 @@ const AllStudents = () => {
       </div>
       <div className="all-user-info">
         {
-          load? <div>
-            <h2>...</h2>
+          loading? <div>
+            {/* <h2>...</h2> */}
+            <LoadingScreen/>
           </div>:
           <table className="assessment-table-holder">
           
@@ -216,32 +217,32 @@ const AllStudents = () => {
           </thead>
             <tbody>
               {
-                stack === 1 ? frontStudents?.map((props)=>(
-              <tr className="assessment-user-info" key={props?.id}>
-                <td><Link to={`/detail/${props.id}`}><img src={props?.image} alt="imae" className="assessment-image"/></Link></td>
-                <td><div onClick={()=> navigate(`/detail/${props.id}`)} className="assessment-item">{props?.name}</div></td>
-                <td>{props?.stack}</td>
-                {props.overallRating? <td className={colorCode(props?.overallRating)}>{(Math.round(((props?.overallRating /20) * 100)* 10))/10}%</td> : <td>0%</td>}
-                {Id?.role === "admin"? <td><button className="all-delete" onClick={()=> deleteUser(props.id)}>Delete</button></td>: null}
-                {(Id?.role === "tutor" || Id?.role === "admin")? <td><button className="all-submit" onClick={()=> makeAlumni(props.id)}>Make Alumni</button></td>: null}
+                stack === 1 ? frontStudents?.map((student)=>(
+              <tr className="assessment-user-info" key={student?.id}>
+                <td><Link to={`/detail/${student.id}`}><img src={student?.image} alt="imae" className="assessment-image"/></Link></td>
+                <td><div onClick={()=> navigate(`/detail/${student.id}`)} className="assessment-item">{student?.name}</div></td>
+                <td>{student?.stack}</td>
+                {student.overallRating? <td className={colorCode(student?.overallRating)}>{(Math.round(((student?.overallRating /20) * 100)* 10))/10}%</td> : <td>0%</td>}
+                {Id?.role === "admin"? <td><button className="all-delete" onClick={()=> deleteUser(student.id)}>Delete</button></td>: null}
+                {(Id?.role === "tutor" || Id?.role === "admin")? <td><button className="all-submit" onClick={()=> makeAlumni(student.id)}>Make Alumni</button></td>: null}
               </tr>
-            )): stack === 2? backStudents?.map((props)=>(
-              <tr className="assessment-user-info" key={props?.id}>
-                <td><Link to={`/detail/${props.id}`}><img src={props?.image} alt="imae" className="assessment-image"/></Link></td>
-                <td><div onClick={()=> navigate(`/detail/${props.id}`)} className="assessment-item">{props?.name}</div></td>
-                <td>{props?.stack}</td>
-                {props.overallRating? <td className={colorCode(props?.overallRating)}>{(Math.round(((props?.overallRating /20) * 100)* 10))/10}%</td> : <td>0%</td>}
-                {Id?.role === "admin"? <td><button className="all-delete" onClick={()=> deleteUser(props.id)}>Delete</button></td>: null}
-                {(Id?.role === "tutor" || Id?.role === "admin")? <td><button className="all-submit" onClick={()=> makeAlumni(props.id)}>Make Alumni</button></td>: null}
+            )): stack === 2? backStudents?.map((student)=>(
+              <tr className="assessment-user-info" key={student?.id}>
+                <td><Link to={`/detail/${student.id}`}><img src={student?.image} alt="imae" className="assessment-image"/></Link></td>
+                <td><div onClick={()=> navigate(`/detail/${student.id}`)} className="assessment-item">{student?.name}</div></td>
+                <td>{student?.stack}</td>
+                {student?.overallRating? <td className={colorCode(student?.overallRating)}>{(Math.round(((student?.overallRating /20) * 100)* 10))/10}%</td> : <td>0%</td>}
+                {Id?.role === "admin"? <td><button className="all-delete" onClick={()=> deleteUser(student.id)}>Delete</button></td>: null}
+                {(Id?.role === "tutor" || Id?.role === "admin")? <td><button className="all-submit" onClick={()=> makeAlumni(student.id)}>Make Alumni</button></td>: null}
               </tr>
-            )): stack === 3? productStudents?.map((props)=>(
-              <tr className="assessment-user-info" key={props?.id}>
-                <td><Link to={`/detail/${props.id}`}><img src={props?.image} alt="imae" className="assessment-image"/></Link></td>
-                <td><div onClick={()=> navigate(`/detail/${props.id}`)} className="assessment-item">{props?.name}</div></td>
-                <td>{props?.stack}</td>
-                {props.overallRating? <td className={colorCode(props?.overallRating)}>{(Math.round(((props?.overallRating /20) * 100)* 10))/10}%</td> : <td>0%</td>}
-                {Id?.role === "admin"? <td><button className="all-delete" onClick={()=> deleteUser(props.id)}>Delete</button></td>: null}
-                {(Id?.role === "tutor" || Id?.role === "admin")? <td><button className="all-submit" onClick={()=> makeAlumni(props.id)}>Make Alumni</button></td>: null}
+            )): stack === 3? productStudents?.map((student)=>(
+              <tr className="assessment-user-info" key={student?.id}>
+                <td><Link to={`/detail/${student.id}`}><img src={student?.image} alt="imae" className="assessment-image"/></Link></td>
+                <td><div onClick={()=> navigate(`/detail/${student.id}`)} className="assessment-item">{student?.name}</div></td>
+                <td>{student?.stack}</td>
+                {student.overallRating? <td className={colorCode(student?.overallRating)}>{(Math.round(((student?.overallRating /20) * 100)* 10))/10}%</td> : <td>0%</td>}
+                {Id?.role === "admin"? <td><button className="all-delete" onClick={()=> deleteUser(student.id)}>Delete</button></td>: null}
+                {(Id?.role === "tutor" || Id?.role === "admin")? <td><button className="all-submit" onClick={()=> makeAlumni(student.id)}>Make Alumni</button></td>: null}
               </tr>
             )): null
             }

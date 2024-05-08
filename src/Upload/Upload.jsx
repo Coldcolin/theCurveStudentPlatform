@@ -4,10 +4,13 @@ import { IoCloudUploadOutline,IoImageSharp } from "react-icons/io5";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
+import { signOut } from "../Contexts/IdReducer.js";
+import {useDispatch} from "react-redux";
 
 
 const Upload = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [imageDB, setImageDB] = useState("")
@@ -57,6 +60,10 @@ const Upload = () => {
 
     }catch(error){
       setCheckInState(false)
+      if(error.response.status === 501){
+        dispatch(signOut());
+        navigate("/login")
+      }
       if(error.response){
         Toast.fire({
           icon:'error',

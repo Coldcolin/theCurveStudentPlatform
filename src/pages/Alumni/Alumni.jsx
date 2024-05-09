@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "../../api/axios"
 // import {AuthContext} from '../../Contexts/AuthProvider';
 import Swal from "sweetalert2";
 import { useSelector } from 'react-redux';
-import LoadingScreen from '../../components/Loader/LoadingScreen';
+import Loading from '../../components/Loader/Loading';
 const allStuds = "/users/allusers"
 
 const Alumni = () => {
@@ -87,7 +87,7 @@ const Alumni = () => {
         {
           load? <div>
             {/* <h2>Loading...</h2> */}
-            <LoadingScreen/>
+            <Loading/>
           </div>:
           <table className="assessment-table-holder">
           <thead>
@@ -101,14 +101,14 @@ const Alumni = () => {
           </thead>
             <tbody>
               {/* <form> */}
-            {users?.map((props)=>(
-              <tr className="assessment-user-info" key={props?._id}>
-                <td><Link to={`/detail/${props._id}`}><img src={props?.image} alt="imae" className="assessment-image"/></Link></td>
-                <td><div onClick={()=> navigate(`/detail/${props._id}`)} className="assessment-item">{props?.name}</div></td>
-                <td>{props?.stack}</td>
-                <td>{(Math.round(((props?.overallRating /20) * 100)* 10))/10}%</td>
+            {users?.map((user)=>(
+              <tr className="assessment-user-info" key={user?._id}>
+                <td><Link to={`/detail/${user._id}`}><img src={user?.image} alt="imae" className="assessment-image"/></Link></td>
+                <td><div onClick={()=> navigate(`/detail/${user._id}`)} className="assessment-item">{user?.name}</div></td>
+                <td>{user?.stack}</td>
+                <td>{(Math.round(((user?.overallRating /20) * 100)* 10))/10}%</td>
                 
-                {Id?.role === "admin" ? <td><button className="assessment-submit" onClick={()=> makeStudent(props._id)}>Make Student</button></td>: null}
+                {Id?.role === "admin" ? <td><button className="assessment-submit" onClick={()=> makeStudent(user._id)}>Make Student</button></td>: null}
               </tr>
             ))}
             </tbody>

@@ -9,6 +9,20 @@
     /* transform: scale(1); */
     animation: breathe 4s ease-in-out infinite;
 }
+.loaderContainers{
+    width: inherit;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loaderContainers img{
+    /* transform: scale(1); */
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+    animation: breathe 4s ease-in-out infinite;
+}
 @keyframes breathe {
     0% {
         transform: scale(0.5);

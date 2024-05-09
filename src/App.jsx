@@ -113,7 +113,7 @@ const router = createHashRouter([
     element:<ResetPassword/>,
   },
   {
-    path: 'reg04',
+    path: 'reg045678',
     // errorElement: <ErrorPage/>,
     element:<Registration/>,
   },

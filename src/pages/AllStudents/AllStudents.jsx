@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import { useSelector } from 'react-redux';
 import "../AllUsers/AllUsers.css"
 import "../Assessment/Assessment.css"
-import LoadingScreen from '../../components/Loader/LoadingScreen';
+import Loading from '../../components/Loader/Loading';
 
 
 const GET_USERS = gql`
@@ -202,8 +202,7 @@ const AllStudents = () => {
       <div className="all-user-info">
         {
           loading? <div>
-            {/* <h2>...</h2> */}
-            <LoadingScreen/>
+            <Loading/>
           </div>:
           <table className="assessment-table-holder">
           

@@ -4,12 +4,14 @@ import { MdOutlineHowToVote } from "react-icons/md";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useEffect, useState } from 'react';
+import Loading from '../../components/Loader/Loading';
 
 const Punctuality = () => {
     const {id} = useParams()
     const navigate = useNavigate();
     const [details, setDetails] = useState(null)
     const token = JSON.parse(localStorage.getItem("token"))
+    const [loading, setLoading] = useState(false)
 
 
     const Toast = Swal.mixin({
@@ -25,6 +27,7 @@ const Punctuality = () => {
 
     const getPunctualityInfo= async ()=>{
         try{
+            setLoading(true)
             const config = {
                 headers: {
                 "content-type": "multipart/formData",
@@ -32,8 +35,10 @@ const Punctuality = () => {
                 }
             }
             const res = await axios.get(`https://thecurvepuntualityapi.onrender.com/api/v1/studentAttendance/${id}`, config);
-            setDetails(res.data)
+            setDetails(res.data);
+            setLoading(false);
         }catch(error){
+            setLoading(false);
             if(error.response){
                 Toast.fire({
                 icon:'error',
@@ -87,7 +92,8 @@ const Punctuality = () => {
 
     return(
         <div className="uploadwrap">
-            <div className="confirm">
+            {
+                loading ? <Loading/>:<div className="confirm">
                 <div className="punctual">
                     <h3>Confirm Punctuality</h3>
                     <button className="assessment-submit" style={{margin: 20, paddingBlock: 5}} onClick={()=> navigate(-1)}>Back</button>
@@ -116,6 +122,7 @@ const Punctuality = () => {
                      <button onClick={acknowledge}> <MdOutlineHowToVote /> Acknowledge</button>
                 </div>
             </div>
+            }
         </div>
     )
 }

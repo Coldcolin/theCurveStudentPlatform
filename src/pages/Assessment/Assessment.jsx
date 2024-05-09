@@ -4,6 +4,7 @@ import axios from "../../api/axios"
 import Swal from "sweetalert2";
 import { Link } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
+import Loading from '../../components/Loader/Loading';
 
 const GET_USERS = gql`
   query getClients {
@@ -19,7 +20,7 @@ const GET_USERS = gql`
 
 const Assessment = () => {
   const { loading, error, data } = useQuery(GET_USERS);
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
   const [punctuality, setPunctuality] = useState(0);
   const [Assignments, setAssignments] = useState(0);
   const [personalDefense, setPersonalDefense] = useState(0);
@@ -28,13 +29,13 @@ const Assessment = () => {
   const [week, setWeek] = useState(0);
   // const [show, setShow] = useState(false);
   // const [loadings, setLoading] = useState(false);
-  const [backUpfrontEnd, setBackUpFrontEnd] = useState([]);
-  const [backUpbackEnd, setBackUpBackEnd] = useState([]);
+  // const [backUpfrontEnd, setBackUpFrontEnd] = useState([]);
+  // const [backUpbackEnd, setBackUpBackEnd] = useState([]);
   const [frontEnd, setFrontEnd] = useState([]);
   const [backEnd, setBackEnd] = useState([]);
   const [productD, setProductD] = useState([]);
-  const [front, setFront] = useState("")
-  const [back, setBack] = useState("")
+  // const [front, setFront] = useState("")
+  // const [back, setBack] = useState("")
   const [submitLoading, setSubmitLoading] = useState()
   const [stack, setStack] = useState(1)
   
@@ -218,23 +219,16 @@ const Assessment = () => {
 
   const getUsers =async()=>{
     try{
-      // setLoading(true)
-      // const res = await axios.get("https://sotw-app.onrender.com/users/allusers")
-      // const user = res.data.data;
-      const user = data?.users;
+      const user = await data?.users;
       const filteredUsers = user.filter((e)=> e.role === "student");
       
-      setUsers(filteredUsers)
       const back = filteredUsers.filter(i => i.stack === "Back End");
       const front = filteredUsers.filter(i => i.stack === "Front End");
       const product = filteredUsers.filter(i => i.stack === "Product Design");
 
       setFrontEnd(front);
-      setBackUpFrontEnd(front);
       setBackEnd(back);
       setProductD(product)
-      setBackUpBackEnd(back);
-      // setLoading(false)
     }catch(error){
       if (error.response) {
         console.log(error.response.data);
@@ -248,31 +242,11 @@ const Assessment = () => {
       console.log(error.config);
     }
   }
-  const frontEndSearch=()=>{
-    const searchedArray = frontEnd.filter((i)=> {
-      const name = i.name.toLowerCase()
-      const value = front.toLowerCase()
-      return name.includes(value)
-    } )
-    setFrontEnd(searchedArray)
-  }
-  const backEndSearch=()=>{
-    const searchedArray = backEnd.filter((i)=> {
-      const name = i.name.toLowerCase()
-      const value = back.toLowerCase()
-      return name.includes(value)
-    } )
-    setBackEnd(searchedArray)
-  }
-  useEffect(()=>{
-    frontEndSearch()
-  },[front])
-  useEffect(()=>{
-    backEndSearch()
-  },[back])
+
   useEffect(()=>{
     getUsers()
-  }, [])
+  }, [data])
+
   return (
     <div className="assessment-content">
     {loading? <div><h1>Loading Students Info...</h1></div>:
@@ -304,14 +278,13 @@ const Assessment = () => {
             </th> */}
           </tr>
           </thead>
-            {/* <form> */}
-            
-            <tbody>
             {
-              stack === 1? frontEnd.map((props)=>(
-              <tr className="assessment-user-info" key={props.id}>
-                <td><Link to={`/detail/${props.id}`}><img src={props.image} alt="imae" className="assessment-image"/></Link></td>
-                <td><Link to={`/punctuality/${props.id}`}><div className="assessment-item">{props.name}</div></Link></td>
+              loading? <div><Loading/></div>:<tbody>
+            {
+              stack === 1? frontEnd.map((student)=>(
+              <tr className="assessment-user-info" key={student.id}>
+                <td><Link to={`/detail/${student.id}`}><img src={student.image} alt="imae" className="assessment-image"/></Link></td>
+                <td><Link to={`/punctuality/${student.id}`}><div className="assessment-item">{student.name}</div></Link></td>
                 <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={(e) => {
                 const value = e.target.value;
                 if (parseInt(value, 10) > 20) {
@@ -348,12 +321,12 @@ const Assessment = () => {
                   setPersonalDefense(value);
                 }}} min="0" max="20"/></td>
                 <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td>
-                <td><button className="assessment-submit" type="submit" onClick={(e)=> {addAssessment(props.id, props.name), submit(props.id)}}>{ props.id === submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td>
+                <td><button className="assessment-submit" type="submit" onClick={()=> {addAssessment(student.id, student.name), submit(student.id)}}>{ student.id === submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td>
               </tr>
-            )): stack === 2? backEnd.map((props)=>(
-              <tr className="assessment-user-info" key={props?.id}>
-                <td><Link to={`/detail/${props?.id}`}><img src={props?.image} alt="imae" className="assessment-image"/></Link></td>
-                <td><Link to={`/punctuality/${props.id}`}><div className="assessment-item">{props.name}</div></Link></td>
+            )): stack === 2? backEnd.map((student)=>(
+              <tr className="assessment-user-info" key={student?.id}>
+                <td><Link to={`/detail/${student?.id}`}><img src={student?.image} alt="imae" className="assessment-image"/></Link></td>
+                <td><Link to={`/punctuality/${student.id}`}><div className="assessment-item">{student.name}</div></Link></td>
                 <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={(e) => {
                 const value = e.target.value;
                 if (parseInt(value, 10) > 20) {
@@ -390,12 +363,12 @@ const Assessment = () => {
                   setPersonalDefense(value);
                 }}} min="0" max="20"/></td>
                 <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td>
-                <td><button  className="assessment-submit" type="submit" onClick={(e)=> {addAssessment(props.id), submit(props.id)}}>{ props.id === submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td>
+                <td><button  className="assessment-submit" type="submit" onClick={()=> {addAssessment(student.id), submit(student.id)}}>{ student.id === submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td>
               </tr>
-            )): stack === 3? productD.map((props)=>(
-              <tr className="assessment-user-info" key={props.id}>
-                <td><Link to={`/detail/${props.id}`}><img src={props.image} alt="imae" className="assessment-image"/></Link></td>
-                <td><Link to={`/punctuality/${props.id}`}><div className="assessment-item">{props.name}</div></Link></td>
+            )): stack === 3? productD.map((student)=>(
+              <tr className="assessment-user-info" key={student.id}>
+                <td><Link to={`/detail/${student.id}`}><img src={student.image} alt="imae" className="assessment-image"/></Link></td>
+                <td><Link to={`/punctuality/${student.id}`}><div className="assessment-item">{student.name}</div></Link></td>
                 <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={(e) => {
                 const value = e.target.value;
                 if (parseInt(value, 10) > 20) {
@@ -432,11 +405,12 @@ const Assessment = () => {
                   setPersonalDefense(value);
                 }}} min="0" max="20"/></td>
                 <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td>
-                <td><button className="assessment-submit" type="submit" onClick={(e)=> {addAssessment(props.id), submit(props.id)}}>{ props.id === submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td>
+                <td><button className="assessment-submit" type="submit" onClick={()=> {addAssessment(student.id), submit(student.id)}}>{ student.id === submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td>
               </tr>
             )): null
             }
             </tbody>
+            }
         </table>      
         </div>
         <div>

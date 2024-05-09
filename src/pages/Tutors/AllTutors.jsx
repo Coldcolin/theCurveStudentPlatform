@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from '../../api/axios'
-import LoadingScreen from '../../components/Loader/LoadingScreen'
+import Loading from '../../components/Loader/Loading'
 // import "./AllTutors.css"
 
 
@@ -48,7 +48,7 @@ const AllTutors = () => {
         {
           load? <div>
             {/* <h2>Loading...</h2> */}
-            <LoadingScreen/>
+            <Loading/>
           </div>:
           <table className="assessment-table-holder">
           <tr className="assessment-table">
@@ -58,11 +58,11 @@ const AllTutors = () => {
             {/* <th className="assessment-table-title">EMAIL</th> */}
           </tr>
             {/* <form> */}
-            {users.map((props)=>(
-              <tr className="assessment-user-info" key={props._id}>
-                <td><Link to={`/detail/${props._id}`}><img src={props.image} alt="imae" className="assessment-image"/></Link></td>
-                <td><div onClick={()=> navigate(`/detail/${props._id}`)} className="assessment-item">{props.name}</div></td>
-                <td>{props.role}</td>
+            {users.map((user)=>(
+              <tr className="assessment-user-info" key={user._id}>
+                <td><Link to={`/detail/${user._id}`}><img src={user.image} alt="imae" className="assessment-image"/></Link></td>
+                <td><div onClick={()=> navigate(`/detail/${user._id}`)} className="assessment-item">{user.name}</div></td>
+                <td>{user.role}</td>
               </tr>
             ))}
             

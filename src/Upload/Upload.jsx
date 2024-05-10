@@ -5,12 +5,13 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
 import { signOut } from "../Contexts/IdReducer.js";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 
 const Upload = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const profile = useSelector((state) => state.Id.Id);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [imageDB, setImageDB] = useState("")
@@ -38,6 +39,7 @@ const Upload = () => {
 
   const HandleCheckIn =async()=>{
     try{
+      let url;
       setCheckInState(true)
       const formData = new FormData();
       formData.append("latitude", latitude);
@@ -49,7 +51,12 @@ const Upload = () => {
           "Authorization": `Bearer ${token}`
         }
       }
-      await axios.post(`https://thecurvepuntualityapi.onrender.com/api/v1/checkIn`,formData, config);
+      if(profile.stack === "Front End"){
+        url = "https://thecurvepuntualityapi.onrender.com/api/v1/checkIn"
+      }else{
+        url = "https://thecurvepuntualityapi-1.onrender.com/api/v1/checkIn"
+      }
+      await axios.post(url,formData, config);
 
       Toast.fire({
         icon: 'success',

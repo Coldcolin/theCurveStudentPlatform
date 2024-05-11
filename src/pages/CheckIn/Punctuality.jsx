@@ -5,10 +5,13 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useEffect, useState } from 'react';
 import Loading from '../../components/Loader/Loading';
+import { useDispatch } from 'react-redux';
+import { signOut } from "../../Contexts/IdReducer.js";
 
 const Punctuality = () => {
     const {id} = useParams()
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [details, setDetails] = useState(null)
     const token = JSON.parse(localStorage.getItem("token"))
     const [loading, setLoading] = useState(false)
@@ -46,6 +49,10 @@ const Punctuality = () => {
                 })
                 
             } else if (error.request){
+                if(error.response.status === 501){
+                    dispatch(signOut());
+                    navigate("/login")
+                  }
                 console.log(error.request);
             }else {
                 console.log("Error", error.message)
@@ -56,21 +63,30 @@ const Punctuality = () => {
 
     const acknowledge =async()=>{
         try{
-        
-        // const formData = new FormData();
-        
-        const config = {
-            headers: {
-            "authorization": `Bearer ${token}`
+            const config = {
+                headers: {
+                "authorization": `Bearer ${token}`
+                }
             }
-        }
-        await axios.delete(`https://thecurvepuntualityapi.onrender.com/api/v1/deleteCheckInfullWeek/${id}`,{}, config);
 
-        Toast.fire({
-            icon: 'success',
-            title: 'Successfully acknowledged'
-        })
-        navigate(-1)
+            const Toaster = await Swal.fire({
+                title: 'Acknowledge and Delete info?',
+                text: `This cannot be revoked`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#FFB703',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+              })
+              if(Toaster.isConfirmed){
+                await axios.delete(`https://thecurvepuntualityapi.onrender.com/api/v1/deleteCheckInfullWeek/${id}`,{}, config);
+                  
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Successfully acknowledged'
+                })
+                navigate(-1)
+              }
         }catch(error){
         if(error.response){
             Toast.fire({

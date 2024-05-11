@@ -306,7 +306,7 @@ const Assessment = () => {
                 } else {
                   setClassAssessment(value);
                 }}} min="0" max="20"/></td>
-                <td><input type="number" className="assessment-input" placeholder="Class Participation"  defaultValue={classParticipation} onChange={(e) => {
+                <td><input type="number" className="assessment-input" placeholder="Attendance"  defaultValue={classParticipation} onChange={(e) => {
                 const value = e.target.value;
                 if (parseInt(value, 10) > 20) {
                   setClassParticipation("20");
@@ -348,7 +348,7 @@ const Assessment = () => {
                 } else {
                   setClassAssessment(value);
                 }}} min="0" max="20"/></td>
-                <td><input type="number" className="assessment-input" placeholder="Class Participation"  defaultValue={classParticipation} onChange={(e) => {
+                <td><input type="number" className="assessment-input" placeholder="Attendance"  defaultValue={classParticipation} onChange={(e) => {
                 const value = e.target.value;
                 if (parseInt(value, 10) > 20) {
                   setClassParticipation("20");
@@ -390,7 +390,7 @@ const Assessment = () => {
                 } else {
                   setClassAssessment(value);
                 }}} min="0" max="20"/></td>
-                <td><input type="number" className="assessment-input" placeholder="Class Participation"  defaultValue={classParticipation} onChange={(e) => {
+                <td><input type="number" className="assessment-input" placeholder="Attendance"  defaultValue={classParticipation} onChange={(e) => {
                 const value = e.target.value;
                 if (parseInt(value, 10) > 20) {
                   setClassParticipation("20");

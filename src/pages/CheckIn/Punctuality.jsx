@@ -57,14 +57,14 @@ const Punctuality = () => {
     const acknowledge =async()=>{
         try{
         
-        const formData = new FormData();
+        // const formData = new FormData();
         
         const config = {
             headers: {
             "authorization": `Bearer ${token}`
             }
         }
-        await axios.delete(`https://thecurvepuntualityapi.onrender.com/api/v1/deleteCheckInfullWeek/${id}`,formData, config);
+        await axios.delete(`https://thecurvepuntualityapi.onrender.com/api/v1/deleteCheckInfullWeek/${id}`,{}, config);
 
         Toast.fire({
             icon: 'success',

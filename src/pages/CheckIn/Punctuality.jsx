@@ -12,9 +12,10 @@ const Punctuality = () => {
     const {id} = useParams()
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [details, setDetails] = useState(null)
+    const [details, setDetails] = useState([])
     const token = JSON.parse(localStorage.getItem("token"))
     const [loading, setLoading] = useState(false)
+    const [averagePunctualityScore, setAveragePunctualityScore] = useState(null)
 
 
     const Toast = Swal.mixin({
@@ -38,10 +39,15 @@ const Punctuality = () => {
                 }
             }
             const res = await axios.get(`https://thecurvepuntualityapi.onrender.com/api/v1/studentAttendance/${id}`, config);
-            setDetails(res.data);
+            setDetails(res.data.data);
+            setAveragePunctualityScore(res.data.averagePunctualityScore)
             setLoading(false);
         }catch(error){
             setLoading(false);
+            if(error.response.status === 501){
+                dispatch(signOut());
+                navigate("/login")
+              }
             if(error.response){
                 Toast.fire({
                 icon:'error',
@@ -49,10 +55,6 @@ const Punctuality = () => {
                 })
                 
             } else if (error.request){
-                if(error.response.status === 501){
-                    dispatch(signOut());
-                    navigate("/login")
-                  }
                 console.log(error.request);
             }else {
                 console.log("Error", error.message)
@@ -116,7 +118,7 @@ const Punctuality = () => {
                 </div>
                 <div className="confirmdetails">
                     {
-                        details !== null? details.data.map((e)=>(
+                        details?.length !== 0 ? details.map((e)=>(
                             <div key={e._id} className="detailHold">
                         <div className="pic">
                             <div className="actualImg">
@@ -124,7 +126,7 @@ const Punctuality = () => {
                             </div>
                         </div>
                         <aside className='actualrating'>
-                            {/* <h4>Collin Decore {id}</h4> */}
+                            
                             <p>{e.date}</p>
                             <p>Server Time in : <span>{e.time}</span></p>
                             <p>Recommended Rating : <span>{e.punctualityScore}</span></p>
@@ -134,7 +136,7 @@ const Punctuality = () => {
                     }
                 </div>
                 <div className="average">
-                     {details && <h4>Average Punctuality Score : {details.averagePunctualityScore}</h4>}
+                     {details && <h4>Average Punctuality Score : {averagePunctualityScore}</h4>}
                      <button onClick={acknowledge}> <MdOutlineHowToVote /> Acknowledge</button>
                 </div>
             </div>

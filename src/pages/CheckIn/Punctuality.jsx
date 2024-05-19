@@ -16,6 +16,7 @@ const Punctuality = () => {
     const token = JSON.parse(localStorage.getItem("token"))
     const [loading, setLoading] = useState(false)
     const [averagePunctualityScore, setAveragePunctualityScore] = useState(null)
+    const [ImageModal, setImageModal] = useState(null)
 
 
     const Toast = Swal.mixin({
@@ -120,7 +121,7 @@ const Punctuality = () => {
                     {
                         details?.length !== 0 ? details.map((e)=>(
                             <div key={e._id} className="detailHold">
-                        <div className="pic">
+                        <div className="pic" onClick={()=> setImageModal(e.image.url)}>
                             <div className="actualImg">
                                 <img src={e.image.url} alt="" />
                             </div>
@@ -141,6 +142,14 @@ const Punctuality = () => {
                 </div>
             </div>
             }
+             {ImageModal && (
+        <div className="modal-backdrop">
+            <div className="modal-content">
+                <span className="modal-close" onClick={() => setImageModal(null)}>&times;</span>
+                <img src={ImageModal} alt="Modal" />
+            </div>
+        </div>
+    )}
         </div>
     )
 }

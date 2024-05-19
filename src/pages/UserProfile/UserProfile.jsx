@@ -1,16 +1,38 @@
 import { useEffect, useState } from 'react';
 // import Image from "../../images/SOTW-SOTW.jpg"
 import "./UserProfile.css";
-import {useSelector} from "react-redux";
+import "../CheckIn/uploadimage.css"
+import {useDispatch, useSelector} from "react-redux";
+import Swal from "sweetalert2";
 // import { AuthContext } from "../../Contexts/AuthProvider";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+import { signOut } from "../../Contexts/IdReducer.js";
+import Loading from '../../components/Loader/Loading.jsx';
 
 const UserProfile = () => {
   const profile = useSelector((state) => state.Id.Id);
   const [ratings, setRatings] = useState();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [details, setDetails] = useState([]);
+  const token = JSON.parse(localStorage.getItem("token"));
+  const [loading, setLoading] = useState(false);
+  console.log(profile.role);
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    timer: 3000,
+    showConfirmButton: false,
+    didOpen: (toast) =>{
+    toast.addEventListener('mouseenter', Swal.stopTimer);
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
+
   const getRatings =async()=>{
     try{
-      const res = await axios.get(`https://sotw-app.onrender.com/rating/get/${profile._id}`)
+      const res = await axios.get(`https://sotw-app.onrender.com/rating/get/${profile.id}`)
       const rating = res.data.data;
       setRatings(rating);
     }catch(error){
@@ -26,8 +48,44 @@ const UserProfile = () => {
       console.log(error.config);
     }
   }
+
+  const getPunctualityInfo= async ()=>{
+    try{
+        setLoading(true);
+        // console.log(profile._id)
+        const config = {
+            headers: {
+            "content-type": "multipart/formData",
+            "Authorization": `Bearer ${token}`
+            }
+        }
+        const res = await axios.get(`https://thecurvepuntualityapi.onrender.com/api/v1/studentAttendance/${profile.id}`, config);
+        setDetails(res.data.data);
+        setLoading(false);
+    }catch(error){
+        setLoading(false);
+        if(error.response.status === 501){
+            dispatch(signOut());
+            navigate("/login")
+          }
+        if(error.response){
+            Toast.fire({
+            icon:'error',
+            title: error.response.data.message
+            })
+            
+        } else if (error.request){
+            console.log(error.request);
+        }else {
+            console.log("Error", error.message)
+        }
+    }
+}
   useEffect(()=>{
-    getRatings()
+    if(profile.role === "student"){
+      getRatings();
+      getPunctualityInfo();
+    }
   }, [])
   return (
     <main className="user-main">
@@ -88,6 +146,33 @@ const UserProfile = () => {
         </p>
       </div>
       }
+      { profile.role === "student"? <div className="uploadwrap">
+            {
+                loading ? <Loading/>:<div className="confirm">
+                <div className="punctual">
+                    <h3>Confirm Check-in</h3>
+                    <button className="assessment-submit" style={{margin: 20, paddingBlock: 5}} onClick={()=> navigate(-1)}>Back</button>
+                </div>
+                <div className="confirmdetails">
+                    {
+                        details?.length !== 0 ? details.map((e)=>(
+                            <div key={e._id} className="detailHold">
+                        <div className="pic">
+                            <div className="actualImg">
+                                <img src={e.image.url} alt="" />
+                            </div>
+                        </div>
+                        <aside className='actualrating'>
+                            <p>{e.date}</p>
+                            <p>Check-in Time : <span>{e.time}</span></p>
+                        </aside>
+                    </div>
+                        )): <div>No Check-in Info</div>
+                    }
+                </div>
+            </div>
+            }
+        </div>: null}
     </main>
   )
 }

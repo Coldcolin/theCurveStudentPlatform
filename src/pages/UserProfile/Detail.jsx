@@ -154,16 +154,16 @@ const Detail = () => {
           </thead>
           <tbody>
           {
-            ratings?.map((props)=>(
-              <tr key={props._id}>
-            <td>{props.week}</td>
-            <td className={colorCode(props.punctuality)}>{props.punctuality}</td>
-            <td className={colorCode(props.Assignments)}>{props.Assignments}</td>
-            <td className={colorCode(props.classParticipation)}>{props.classParticipation}</td>
-            <td className={colorCode(props.classAssessment)}>{props.classAssessment}</td>
-            <td className={colorCode(props.personalDefense)}>{props.personalDefense}</td>
-            <td className={colorCode(props?.total)}>{(Math.round(((props?.total /20) * 100)* 10))/10}%</td>
-            {(profile?.role === "tutor" || profile?.role === "admin")? <td><button className="assessment-submit" onClick={()=> {deleteRating(props.week), onDelete(props.week)}}>{props.week === deleting ? <p style={{color: "white", background: "none"}}>deleting...</p> : <p style={{color: "white", background: "none"}}>Delete</p>}</button></td>: null}
+            ratings?.map((score)=>(
+              <tr key={score._id}>
+            <td>{score.week}</td>
+            <td className={colorCode(score.punctuality)}>{score.punctuality}</td>
+            <td className={colorCode(score.Assignments)}>{score.Assignments}</td>
+            <td className={colorCode(score.classParticipation)}>{score.classParticipation}</td>
+            <td className={colorCode(score.classAssessment)}>{score.classAssessment}</td>
+            <td className={colorCode(score.personalDefense)}>{score.personalDefense}</td>
+            <td className={colorCode(score?.total)}>{(Math.round(((score?.total /20) * 100)* 10))/10}%</td>
+            {(profile?.role === "tutor" || profile?.role === "admin")? <td><button className="assessment-submit" onClick={()=> {deleteRating(score.week), onDelete(score.week)}}>{score.week === deleting ? <p style={{color: "white", background: "none"}}>deleting...</p> : <p style={{color: "white", background: "none"}}>Delete</p>}</button></td>: null}
           </tr>
             ))
           }
@@ -186,8 +186,7 @@ const Detail = () => {
         <span style={{fontWeight: "bold"}}>AV. TOTAL:</span> Average Total
         </p>
       </div>: null
-     }
-  
+    }
     </main>
   )
 }

@@ -5,6 +5,8 @@ import Swal from "sweetalert2";
 import { Link } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 import Loading from '../../components/Loader/Loading';
+import {changeAsses} from "../../Contexts/IdReducer.js"
+import { useDispatch, useSelector } from 'react-redux';
 
 const GET_USERS = gql`
   query getClients {
@@ -21,6 +23,8 @@ const GET_USERS = gql`
 const Assessment = () => {
   const { loading, error, data } = useQuery(GET_USERS);
   // const [users, setUsers] = useState([]);
+  const stack = useSelector((e)=> e.Id.assessState);
+  const dispatch = useDispatch()
   const [punctuality, setPunctuality] = useState(0);
   const [Assignments, setAssignments] = useState(0);
   const [personalDefense, setPersonalDefense] = useState(0);
@@ -37,7 +41,7 @@ const Assessment = () => {
   // const [front, setFront] = useState("")
   // const [back, setBack] = useState("")
   const [submitLoading, setSubmitLoading] = useState()
-  const [stack, setStack] = useState(1)
+  // const [stack, setStack] = useState(1)
   
   
 
@@ -252,9 +256,9 @@ const Assessment = () => {
     {loading? <div><h1>Loading Students Info...</h1></div>:
     <div className='Stack-buttons-holder'>
                 <div className='Stack-buttons'>
-                  <div className={stack === 1?'front-button active': 'front-button'} onClick={()=> setStack(1)}>Frontend</div>
-                  <div className={stack === 2?'back-button active': 'back-button'} onClick={()=> setStack(2)}>Backend</div>
-                  <div className={stack === 3?'product-button active': 'product-button'} onClick={()=> setStack(3)}>Product</div>
+                  <div className={stack === 1?'front-button active': 'front-button'} onClick={()=> dispatch(changeAsses(1))}>Frontend</div>
+                  <div className={stack === 2?'back-button active': 'back-button'} onClick={()=> dispatch(changeAsses(2))}>Backend</div>
+                  <div className={stack === 3?'product-button active': 'product-button'} onClick={()=> dispatch(changeAsses(3))}>Product</div>
                 </div>
               </div>
     }

@@ -4,10 +4,11 @@ import axios from "../../api/axios"
 // import {AuthContext} from '../../Contexts/AuthProvider';
 import { useQuery, gql } from '@apollo/client';
 import Swal from "sweetalert2";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import "../AllUsers/AllUsers.css"
 import "../Assessment/Assessment.css"
 import Loading from '../../components/Loader/Loading';
+import {changeAll} from "../../Contexts/IdReducer.js"
 
 
 const GET_USERS = gql`
@@ -26,6 +27,8 @@ const GET_USERS = gql`
 const AllStudents = () => {
   // const {saveUser} = useContext(AuthContext);
   const Id = useSelector((e)=> e.Id.Id);
+  const stack = useSelector((e)=> e.Id.allState);
+  const dispatch = useDispatch()
   const { loading, error, data } = useQuery(GET_USERS);
 
 
@@ -39,7 +42,7 @@ const AllStudents = () => {
   const [frontStudents, setFrontStudents] = useState([]);
   const [backStudents, setBackStudents] = useState([]);
   const [productStudents, setProductStudents] = useState([]);
-  const [stack, setStack] = useState(1)
+  // const [stack, setStack] = useState(1)
 
   const getUsers =async()=>{
     try{
@@ -190,9 +193,9 @@ const AllStudents = () => {
       {/* <input placeholder="Search Students" type="search" className="searchInput" value={user} onChange={(e)=> setUser(e.target.value)}/> <button  className="searchButton" onClick={()=> setAllStudents(backUpStudents)}>Reset</button> */}
               <div className='Stack-buttons-holder'>
                 <div className='Stack-buttons'>
-                  <div className={stack === 1?'front-button active': 'front-button'} onClick={()=> setStack(1)}>Frontend</div>
-                  <div className={stack === 2?'back-button active': 'back-button'} onClick={()=> setStack(2)}>Backend</div>
-                  <div className={stack === 3?'product-button active': 'product-button'} onClick={()=> setStack(3)}>Product</div>
+                  <div className={stack === 1?'front-button active': 'front-button'} onClick={()=> dispatch(changeAll(1))}>Frontend</div>
+                  <div className={stack === 2?'back-button active': 'back-button'} onClick={()=> dispatch(changeAll(2))}>Backend</div>
+                  <div className={stack === 3?'product-button active': 'product-button'} onClick={()=> dispatch(changeAll(3))}>Product</div>
                 </div>
               </div>
       </div>

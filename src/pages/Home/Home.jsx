@@ -149,7 +149,7 @@ const getUsers =async()=>{
   return (
     <div className="sotw-main">
       <main className="sotw-container">
-      <h2 className="h2">Students of the week</h2>
+      <h2 className="h2">Students of the Month</h2>
         <section className="sotw-top">
           <div className="image-holder">
               {

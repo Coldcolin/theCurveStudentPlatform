@@ -42,6 +42,9 @@ const Home = () => {
         setSOTWFE(res.data.data.student);
         setSOTWPD(resp.data.data.student);
         setLoadingRes(false)
+        console.log(rest)
+        console.log(res)
+        console.log(resp)
       }catch(error){
         setSomeError(true)
         setLoadingRes(false)
@@ -70,6 +73,9 @@ const Home = () => {
         setAllSOTWBE(allBest.data.data);
         setAllSOTWPD(allPest.data.data);
         setLoadingBF(false)
+        console.log(allBest)
+        console.log(allFest)
+        console.log(allPest)
 
       }catch(error){
         if (error.response) {
@@ -95,6 +101,7 @@ const getUsers =async()=>{
     setAllUsers(resAll.data.data);
     
     setLoading(false)
+    console.log(resAll)
     
 }catch(error){
   setLoading(false)

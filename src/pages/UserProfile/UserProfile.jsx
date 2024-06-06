@@ -9,6 +9,8 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { signOut } from "../../Contexts/IdReducer.js";
 import Loading from '../../components/Loader/Loading.jsx';
+import { BsCameraFill } from "react-icons/bs";
+
 
 const UserProfile = () => {
   const profile = useSelector((state) => state.Id.Id);
@@ -87,18 +89,74 @@ const UserProfile = () => {
       getPunctualityInfo();
     }
   }, [])
+
+
+  const [profileName, setProfileName] = useState(profile.name)
+  const [profileImage, setProfileImage] = useState(profile.image)
+  const [disableSaveBtn, setDisableSaveBtn] = useState(true)
+
+  const EditName = (e)=>{
+    const newValue = e.target.value;
+    setProfileName(newValue);
+    if( newValue === ''){
+      setDisableSaveBtn(true);
+    }else{
+      setDisableSaveBtn(false);
+    }
+  }
+
+  const editImage = (e)=>{
+    setProfileImage(URL.createObjectURL(e.target.files[0]))
+    setDisableSaveBtn(false);
+ }
+
+
+ const saveChanges = (e)=>{
+    e.preventDefault();
+    const data = new FormData();
+      data.append("image", profileImage);
+      data.append("name", profileName);
+
+ }
+  
+
+
+
   return (
     <main className="user-main">
     <div className="text">User Profile</div>
       <div className="user-holder">
       <article className="user-info">
         <div className='user-info-div'>
-          <img className='user-image' src={profile.image} alt="" />
+          <div className='user_image_div'>
+            <img className='user-image' src={profileImage} alt="" />
+            <input 
+              type='file' 
+              id='image' 
+              hidden
+              onChange={ editImage }
+             />
+            <label className='user_camera' htmlFor='image'><BsCameraFill style={{width: '70%', height: '70%' }} /></label>
+          </div>
           <div className="user-detail">
-            <p className="user-name">{profile.name}</p>
+            <div className='user_name_div'>
+              <p className="user-name">Name</p>
+              <input 
+                className='user_name_input' 
+                type='text' 
+                value={profileName}
+                onChange={ EditName }
+              />
+            </div>
             <p className='user-talk'>{profile.email}</p>
             {/* <p className='user-talk'>Phone: {profile.phone}</p> */}
             <p className='user-talk'>Role: {profile.role}</p>
+            <button 
+              className='update_profile' 
+              disabled={disableSaveBtn} 
+              style={ disableSaveBtn ? { backgroundColor: "rgb(157, 157, 177)"} : { backgroundColor: "black" } }
+              onClick={ saveChanges }
+            >Save Changes</button>
           </div>
         </div>
       </article>

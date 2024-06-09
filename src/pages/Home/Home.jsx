@@ -42,9 +42,6 @@ const Home = () => {
         setSOTWFE(res.data.data.student);
         setSOTWPD(resp.data.data.student);
         setLoadingRes(false)
-        console.log(rest)
-        console.log(res)
-        console.log(resp)
       }catch(error){
         setSomeError(true)
         setLoadingRes(false)
@@ -73,9 +70,6 @@ const Home = () => {
         setAllSOTWBE(allBest.data.data);
         setAllSOTWPD(allPest.data.data);
         setLoadingBF(false)
-        console.log(allBest)
-        console.log(allFest)
-        console.log(allPest)
 
       }catch(error){
         if (error.response) {
@@ -101,7 +95,6 @@ const getUsers =async()=>{
     setAllUsers(resAll.data.data);
     
     setLoading(false)
-    console.log(resAll)
     
 }catch(error){
   setLoading(false)
@@ -156,7 +149,7 @@ const getUsers =async()=>{
   return (
     <div className="sotw-main">
       <main className="sotw-container">
-      <h2 className="h2">Students of the Month</h2>
+      <h2 className="h2">Students of the Week</h2>
         <section className="sotw-top">
           <div className="image-holder">
               {
@@ -241,26 +234,26 @@ const getUsers =async()=>{
               </thead>
               <tbody>
               {
-                hist === 1? allSOTWFE?.map((props)=>(
-                  <tr key={props?._id}>
-                    <td>{props?.week}</td>
-                    <td>{props?.student?.name}</td>
-                    <td className={colorCode(props?.student?.overallRating)}>{(Math.round(((props?.student?.overallRating /20) * 100)* 10))/10}%</td>
-                    <td className={colorCode(props?.student?.weeklyRating)}>{(Math.round(((props?.student?.weeklyRating /20) * 100)* 10))/10}%</td>
+                hist === 1? allSOTWFE?.map((stud)=>(
+                  <tr key={stud?._id}>
+                    <td>{stud?.week}</td>
+                    <td>{stud?.student?.name}</td>
+                    <td className={colorCode(stud?.student?.overallRating)}>{(Math.round(((stud?.student?.overallRating /20) * 100)* 10))/10}%</td>
+                    <td className={colorCode(stud?.student?.weeklyRating)}>{(Math.round(((stud?.student?.weeklyRating /20) * 100)* 10))/10}%</td>
                   </tr>
-                )): hist === 2? allSOTWBE?.map((props)=>(
-                  <tr key={props?._id}>
-                    <td>{props?.week}</td>
-                    <td>{props?.student?.name}</td>
-                    <td className={colorCode(props?.student?.overallRating)}>{(Math.round(((props?.student?.overallRating /20) * 100)* 10))/10}%</td>
-                    <td className={colorCode(props?.student?.weeklyRating)}>{(Math.round(((props?.student?.weeklyRating /20) * 100)* 10))/10}%</td>
+                )): hist === 2? allSOTWBE?.map((stud)=>(
+                  <tr key={stud?._id}>
+                    <td>{stud?.week}</td>
+                    <td>{stud?.student?.name}</td>
+                    <td className={colorCode(stud?.student?.overallRating)}>{(Math.round(((stud?.student?.overallRating /20) * 100)* 10))/10}%</td>
+                    <td className={colorCode(stud?.student?.weeklyRating)}>{(Math.round(((stud?.student?.weeklyRating /20) * 100)* 10))/10}%</td>
                   </tr>
-                )): hist === 3? allSOTWPD?.map((props)=>(
-                  <tr key={props?._id}>
-                    <td>{props?.week}</td>
-                    <td>{props?.student?.name}</td>
-                    <td className={colorCode(props?.student?.overallRating)}>{(Math.round(((props?.student?.overallRating /20) * 100)* 10))/10}%</td>
-                    <td className={colorCode(props?.student?.weeklyRating)}>{(Math.round(((props?.student?.weeklyRating /20) * 100)* 10))/10}%</td>
+                )): hist === 3? allSOTWPD?.map((stud)=>(
+                  <tr key={stud?._id}>
+                    <td>{stud?.week}</td>
+                    <td>{stud?.student?.name}</td>
+                    <td className={colorCode(stud?.student?.overallRating)}>{(Math.round(((stud?.student?.overallRating /20) * 100)* 10))/10}%</td>
+                    <td className={colorCode(stud?.student?.weeklyRating)}>{(Math.round(((stud?.student?.weeklyRating /20) * 100)* 10))/10}%</td>
                   </tr>
                 )): null
               }

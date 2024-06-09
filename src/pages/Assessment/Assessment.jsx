@@ -83,6 +83,12 @@ const Assessment = () => {
           title: 'Assessment Added'
         })
       }
+      setAssignments(0);
+      setPersonalDefense(0);
+      setClassAssessment(0);
+      setPunctuality(0);
+      setClassAssessment(0);
+      setWeek(0)
     }catch(error){
       if(error.response){
         Toast.fire({
@@ -367,7 +373,7 @@ const Assessment = () => {
                   setPersonalDefense(value);
                 }}} min="0" max="20"/></td>
                 <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td>
-                <td><button  className="assessment-submit" type="submit" onClick={()=> {addAssessment(student.id), submit(student.id)}}>{ student.id === submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td>
+                <td><button  className="assessment-submit" type="submit" onClick={()=> {addAssessment(student.id, student.name), submit(student.id)}}>{ student.id === submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td>
               </tr>
             )): stack === 3? productD.map((student)=>(
               <tr className="assessment-user-info" key={student.id}>
@@ -409,7 +415,7 @@ const Assessment = () => {
                   setPersonalDefense(value);
                 }}} min="0" max="20"/></td>
                 <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td>
-                <td><button className="assessment-submit" type="submit" onClick={()=> {addAssessment(student.id), submit(student.id)}}>{ student.id === submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td>
+                <td><button className="assessment-submit" type="submit" onClick={()=> {addAssessment(student.id, student.name), submit(student.id)}}>{ student.id === submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td>
               </tr>
             )): null
             }

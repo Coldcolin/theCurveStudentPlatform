@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 // import { AuthContext } from "../../Contexts/AuthProvider";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import { signOut } from "../../Contexts/IdReducer.js";
+import { addId, signOut, updateId } from "../../Contexts/IdReducer.js";
 import Loading from '../../components/Loader/Loading.jsx';
 import { BsCameraFill } from "react-icons/bs";
 
@@ -20,7 +20,8 @@ const UserProfile = () => {
   const [details, setDetails] = useState([]);
   const token = JSON.parse(localStorage.getItem("token"));
   const [loading, setLoading] = useState(false);
-  console.log(profile.role);
+  const [checkEdit, setCheckEdit] = useState(false);
+  // console.log(profile.role);
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -93,7 +94,8 @@ const UserProfile = () => {
 
   const [profileName, setProfileName] = useState(profile.name)
   const [profileImage, setProfileImage] = useState(profile.image)
-  const [disableSaveBtn, setDisableSaveBtn] = useState(true)
+  const [disableSaveBtn, setDisableSaveBtn] = useState(true);
+  const [imageDB, setImageDB] = useState("")
 
   const EditName = (e)=>{
     const newValue = e.target.value;
@@ -106,17 +108,56 @@ const UserProfile = () => {
   }
 
   const editImage = (e)=>{
-    setProfileImage(URL.createObjectURL(e.target.files[0]))
+    setProfileImage(URL.createObjectURL(e.target.files[0]));
+    setImageDB(e.target.files[0]);
     setDisableSaveBtn(false);
  }
 
 
- const saveChanges = (e)=>{
-    e.preventDefault();
-    const data = new FormData();
-      data.append("image", profileImage);
+
+ const saveChanges = async ()=>{
+  try{
+    setDisableSaveBtn(true)
+    const config = {
+      headers: {
+        "content-type": "multipart/formData"
+      }
+    }
+      const data = new FormData();
+      data.append("image", imageDB);
       data.append("name", profileName);
 
+      setLoading(true);
+        // console.log(profile._id)
+        const res = await axios.patch(`https://sotw-app.onrender.com/users/update/${profile.id}`, data, config)
+        setCheckEdit(!checkEdit)
+      setLoading(false);
+      setCheckEdit(!checkEdit);
+      dispatch(updateId({name: res.data.data.name, image: res.data.data.image}))
+      Toast.fire({
+        icon:'success',
+        title: "Update Successful"
+        })
+      navigate("/user")
+
+      // setProfileImage(res?.data?.image);
+      // setProfileName(res?.data?.name);
+      setDisableSaveBtn(false)
+      setCheckEdit(false)
+  }catch(error){
+    setLoading(false);
+        if(error.response){
+            Toast.fire({
+            icon:'error',
+            title: error.response
+            })
+            
+        } else if (error.request){
+            console.log(error.request);
+        }else {
+            console.log("Error", error.message)
+        }
+  }
  }
   
 
@@ -136,27 +177,32 @@ const UserProfile = () => {
               hidden
               onChange={ editImage }
              />
-            <label className='user_camera' htmlFor='image'><BsCameraFill style={{width: '70%', height: '70%' }} /></label>
+           {checkEdit && <label className='user_camera' htmlFor='image'><BsCameraFill style={{width: '70%', height: '70%' }} /></label>}
           </div>
           <div className="user-detail">
             <div className='user_name_div'>
-              <p className="user-name">Name</p>
-              <input 
+              {/* <p className="user-name">Name</p> */}
+              {checkEdit?<input 
                 className='user_name_input' 
                 type='text' 
                 value={profileName}
                 onChange={ EditName }
-              />
+              />: <p className="user-talk">{profileName}</p>}
             </div>
             <p className='user-talk'>{profile.email}</p>
             {/* <p className='user-talk'>Phone: {profile.phone}</p> */}
             <p className='user-talk'>Role: {profile.role}</p>
-            <button 
+            {checkEdit? <button 
               className='update_profile' 
               disabled={disableSaveBtn} 
               style={ disableSaveBtn ? { backgroundColor: "rgb(157, 157, 177)"} : { backgroundColor: "black" } }
               onClick={ saveChanges }
-            >Save Changes</button>
+            >Save Changes</button>:<button 
+              className='update_profile' 
+              // disabled={disableSaveBtn} 
+              style={{ backgroundColor: "black" } }
+              onClick={()=> setCheckEdit(!checkEdit)}
+            >Edit</button>}
           </div>
         </div>
       </article>
@@ -174,15 +220,15 @@ const UserProfile = () => {
             <th>AV. TOTAL 100%</th>
           </tr>
           {
-            ratings?.map((props)=>(
-              <tr key={props._id}>
-                <td>{props.week}</td>
-                <td>{props.punctuality}</td>
-                <td>{props.Assignments}</td>
-                <td>{props.classParticipation}</td>
-                <td>{props.classAssessment}</td>
-                <td>{props.personalDefense}</td>
-                <td>{props.total}</td>
+            ratings?.map((rating)=>(
+              <tr key={rating._id}>
+                <td>{rating.week}</td>
+                <td>{rating.punctuality}</td>
+                <td>{rating.Assignments}</td>
+                <td>{rating.classParticipation}</td>
+                <td>{rating.classAssessment}</td>
+                <td>{rating.personalDefense}</td>
+                <td>{rating.total}</td>
             </tr>
             ))
           }

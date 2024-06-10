@@ -34,6 +34,12 @@
     /* background-color: yellow; */
     position: relative;
 }
+.user-image-div{
+    width: 370px;
+    height: 350px;
+    /* background-color: yellow; */
+    position: relative;
+}
 .user-image {
     width: 100%;
     height: 100%;
@@ -41,6 +47,7 @@
     border-radius: 100%;
     object-fit: cover;
 }
+
 .user_camera{
     width: 55px;
     height: 50px;
@@ -151,6 +158,9 @@
 
 @media screen and (max-width: 736px) {
     .user-info-div{
+        max-width: 100vw;
+    }
+    .user-info-div-details{
         max-width: 100vw;
     }
     .user_image_div{

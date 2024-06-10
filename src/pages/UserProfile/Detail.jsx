@@ -124,7 +124,9 @@ const Detail = () => {
       {
         user? <article className="user-info">
         <div className='user-info-div'>
+          <div className='user-image-div'>
           <img className='user-image' src={user.image} alt="" />
+          </div>
           <div className="user-detail">
             <p className="user-name"> {user.name}</p>
             <p className='user-talk'> {user.email}</p>

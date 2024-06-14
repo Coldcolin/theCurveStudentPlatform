@@ -159,6 +159,13 @@ const UserProfile = () => {
         }
   }
  }
+
+
+  const cancelChanges = ()=>{
+    setProfileName(profile.name)
+    setProfileImage(profile.image)
+    setDisableSaveBtn(true)
+  }
   
 
 
@@ -192,12 +199,25 @@ const UserProfile = () => {
             <p className='user-talk'>{profile.email}</p>
             {/* <p className='user-talk'>Phone: {profile.phone}</p> */}
             <p className='user-talk'>Role: {profile.role}</p>
-            {checkEdit? <button 
-              className='update_profile' 
-              disabled={disableSaveBtn} 
-              style={ disableSaveBtn ? { backgroundColor: "rgb(157, 157, 177)"} : { backgroundColor: "black" } }
-              onClick={ saveChanges }
-            >Save Changes</button>:<button 
+            {checkEdit? <div className='the_edit_btns'>
+              <button 
+                className='update_profile' 
+                disabled={disableSaveBtn} 
+                style={ disableSaveBtn ? { backgroundColor: "rgb(157, 157, 177)"} : { backgroundColor: "black" } }
+                onClick={ saveChanges }
+              > Save Changes
+              </button>
+              <button 
+                className='update_profile' 
+                disabled={disableSaveBtn} 
+                style={ disableSaveBtn ? { backgroundColor: "rgb(157, 157, 177)"} : { backgroundColor: "black" } }
+                onClick={ cancelChanges }
+              > Cancel
+              </button>
+
+            </div>
+            
+            :<button 
               className='update_profile' 
               // disabled={disableSaveBtn} 
               style={{ backgroundColor: "black" } }

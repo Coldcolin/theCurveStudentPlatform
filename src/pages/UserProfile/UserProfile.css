@@ -74,6 +74,15 @@
     height: 200px;
 }
 
+.the_edit_btns{
+    width: 100%;
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
 .user_name_div{
     flex: 1;
     /* background-color: yellow; */
@@ -181,6 +190,9 @@
     .user_image_div{
         /* background-color: yellow; */
         width: calc(100vw - 50px);
+    }
+    .the_edit_btns{
+        justify-content: center;
     }
 }
 

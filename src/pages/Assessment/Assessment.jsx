@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import "./Assessment.css";
 import axios from "../../api/axios"
 import Swal from "sweetalert2";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 import Loading from '../../components/Loader/Loading';
 import {changeAsses} from "../../Contexts/IdReducer.js"
@@ -22,8 +22,9 @@ const GET_USERS = gql`
 
 const Assessment = () => {
   const { loading, error, data } = useQuery(GET_USERS);
-  // const [users, setUsers] = useState([]);
+  const navigate = useNavigate()
   const stack = useSelector((e)=> e.Id.assessState);
+  const who = useSelector((e)=> e.Id.Id.role);
   const dispatch = useDispatch()
   const [punctuality, setPunctuality] = useState(0);
   const [Assignments, setAssignments] = useState(0);
@@ -254,8 +255,14 @@ const Assessment = () => {
   }
 
   useEffect(()=>{
-    getUsers()
+    getUsers();
   }, [data])
+  useEffect(()=>{
+    console.log(who)
+    if(who === "student" || who === "alumni"){
+      navigate("/")
+    }
+  }, [])
 
   return (
     <div className="assessment-content">

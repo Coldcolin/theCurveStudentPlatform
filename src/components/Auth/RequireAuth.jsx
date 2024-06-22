@@ -6,7 +6,6 @@ const RequireAuth = () =>{
     const location = useLocation();
     const Id = useSelector((e)=> e.Id)
     
-
     return (
         Id?.Id?.id !== ""? <Outlet />: <Navigate to="/login" state={{ from : location }} replace />
     )

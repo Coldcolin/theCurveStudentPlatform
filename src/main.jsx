@@ -25,13 +25,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
   <Provider store={store}>
   <AuthProvider>
-  <PersistGate loading={null} persistor={persistor}>
+  <PersistGate loading={<LoadingScreen/>} persistor={persistor}>
   <ApolloProvider client={client}>
-      
       <Suspense fallback={<LoadingScreen/>}>
       <App />
       </Suspense>
-      {/* <LoadingScreen/> */}
   </ApolloProvider>
   </PersistGate>
   </AuthProvider>

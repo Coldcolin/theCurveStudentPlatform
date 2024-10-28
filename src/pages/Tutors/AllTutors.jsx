@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from '../../api/axios'
+import axiosInstance from '../../api/axios'
 import Loading from '../../components/Loader/Loading'
 // import "./AllTutors.css"
 
@@ -15,7 +15,7 @@ const AllTutors = () => {
   const getUsers =async()=>{
     try{
       setLoad(true)
-      const res = await axios.get(ALL_USERS)
+      const res = await axiosInstance.get(ALL_USERS)
       // console.log(res.data.data)
       const users = res.data.data;
       const filteredUsers = users.filter((e)=> e.role === "tutor" || e.role === "admin");

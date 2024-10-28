@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import "./Assessment.css";
-import axios from "../../api/axios"
+import axiosInstance from "../../api/axios"
 import Swal from "sweetalert2";
 import { Link, useNavigate } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
@@ -78,7 +78,7 @@ const Assessment = () => {
         confirmButtonText: 'Yes, add it!'
       })
       if(Toaster.isConfirmed){
-        await axios.post(`/rating/add/${id}`,{Assignments: Assignments, personalDefense: personalDefense, classParticipation: classParticipation, punctuality: punctuality, classAssessment: classAssessment, week: week});
+        await axiosInstance.post(`/rating/add/${id}`,{Assignments: Assignments, personalDefense: personalDefense, classParticipation: classParticipation, punctuality: punctuality, classAssessment: classAssessment, week: week});
           Toast.fire({
           icon: 'success',
           title: 'Assessment Added'
@@ -122,7 +122,7 @@ const Assessment = () => {
           confirmButtonText: 'Yes!'
         })
         if(Toaster.isConfirmed){
-          await axios.post(`/algo/sotwfront/`,{week: week});
+          await axiosInstance.post(`/algo/sotwfront/`,{week: week});
           Toast.fire({
             icon: 'success',
             title: 'Student Added'
@@ -161,7 +161,7 @@ const Assessment = () => {
         confirmButtonText: 'Yes!'
       })
       if(Toaster.isConfirmed){
-        await axios.post(`/algo/sotwback/`,{week: week});
+        await axiosInstance.post(`/algo/sotwback/`,{week: week});
         Toast.fire({
           icon: 'success',
           title: 'Student Added'
@@ -201,7 +201,7 @@ const Assessment = () => {
         confirmButtonText: 'Yes!'
       })
       if(Toaster.isConfirmed){
-        await axios.post(`/algo/sotwproduct/`,{week: week});
+        await axiosInstance.post(`/algo/sotwproduct/`,{week: week});
         Toast.fire({
           icon: 'success',
           title: 'Student Added'

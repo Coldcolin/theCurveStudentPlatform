@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from "sweetalert2";
 import "./Forgot.css"
-import axios from '../../api/axios';
+import axiosInstance from '../../api/axios';
 const FORGOT_URL = "/users/forgot"
 
 const ForgotPassword = () => {
@@ -28,7 +28,7 @@ const ForgotPassword = () => {
         setLoading(true)
         try{
           const {email}= data;
-          await axios.post(FORGOT_URL, {email: email});
+          await axiosInstance.post(FORGOT_URL, {email: email});
           
           Toast.fire({
             icon: 'success',

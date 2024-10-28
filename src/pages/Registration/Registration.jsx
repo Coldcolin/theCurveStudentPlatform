@@ -3,7 +3,7 @@ import "./Registration.css"
 import image from "../../images/Transparent_curve.png"
 import avatars from "../../images/for_upload.png"
 import sideImage from "../../images/young-woman-with-afro-haircut-wearing-pink-sweater-holding-textbooks 1.png"
-import axios from "../../api/axios.js"
+import axiosInstance from "../../api/axios.js"
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -62,12 +62,13 @@ const Registration = () => {
       formData.append("role", role);
       formData.append("cohort", cohort);
       formData.append("image", imageDB);
+
       const config = {
         headers: {
-          "content-type": "multipart/formData"
+          "content-type": "multipart/formData",
         }
       }
-      await axios.post(REGISTER_URL,formData, config);
+      await axiosInstance.post(REGISTER_URL,formData, config);
       reset();
       Toast.fire({
         icon: 'success',

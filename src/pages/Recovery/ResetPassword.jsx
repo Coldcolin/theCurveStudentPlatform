@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from "sweetalert2";
 import "./Forgot.css"
-import axios from '../../api/axios';
+import axiosInstance from '../../api/axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const ResetPassword = () => {
@@ -32,7 +32,7 @@ const ResetPassword = () => {
         setLoading(true)
         try{
           const {token, password}= data;
-          const res = await axios.patch(`/users/reset/${id}`, {token: token, password: password});
+          const res = await axiosInstance.patch(`/users/reset/${id}`, {token: token, password: password});
           
           Toast.fire({
             icon: 'success',

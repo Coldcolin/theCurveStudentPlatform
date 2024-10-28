@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import './uploadimage.css'
 import { MdOutlineHowToVote } from "react-icons/md";
-import axios from "axios";
+import {axiosInstancePunc} from "../../api/axios.js";
 import Swal from "sweetalert2";
 import { useEffect, useState } from 'react';
 import Loading from '../../components/Loader/Loading';
@@ -39,7 +39,7 @@ const Punctuality = () => {
                 "Authorization": `Bearer ${token}`
                 }
             }
-            const res = await axios.get(`https://thecurvepuntualityapi.onrender.com/api/v1/studentAttendance/${id}`, config);
+            const res = await axiosInstancePunc.get(`/studentAttendance/${id}`, config);
             setDetails(res.data.data);
             setAveragePunctualityScore(res.data.averagePunctualityScore)
             setLoading(false);
@@ -82,7 +82,7 @@ const Punctuality = () => {
                 confirmButtonText: 'Yes, delete it!'
               })
               if(Toaster.isConfirmed){
-                await axios.delete(`https://thecurvepuntualityapi.onrender.com/api/v1/deleteCheckInfullWeek/${id}`,{}, config);
+                await axiosInstance.delete(`https://thecurvepuntualityapi.onrender.com/api/v1/deleteCheckInfullWeek/${id}`,{}, config);
                   
                 Toast.fire({
                     icon: 'success',

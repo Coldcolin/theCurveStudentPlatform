@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import './Upload.css'
 import { IoCloudUploadOutline,IoImageSharp } from "react-icons/io5";
-import axios from "axios";
+import {axiosInstancePunc} from "../api/axios.js";
 import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
 import { signOut } from "../Contexts/IdReducer.js";
@@ -56,7 +56,7 @@ const Upload = () => {
       }else{
         url = "https://thecurvepuntualityapi-1.onrender.com/api/v1/checkIn"
       }
-      await axios.post(url,formData, config);
+      await axiosInstancePunc.post(`/checkIn`,formData, config);
 
       Toast.fire({
         icon: 'success',
@@ -101,9 +101,9 @@ const Upload = () => {
     fetchLocation();
   }, []);
 
-  useEffect(()=>{
-    console.log("longitude:", longitude, "latitude", latitude)
-  }, [longitude, latitude])
+  // useEffect(()=>{
+  //   console.log("longitude:", longitude, "latitude", latitude)
+  // }, [longitude, latitude])
 
   return (
     <div className='Uploadbody'>

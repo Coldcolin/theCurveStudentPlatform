@@ -3,7 +3,7 @@ import image from "../../images/Transparent_curve.png"
 import sideImage from "../../images/young-woman-with-afro-haircut-wearing-pink-sweater-holding-textbooks 1.png"
 import { LiaEyeSolid } from "react-icons/lia";
 import { FaRegEyeSlash } from "react-icons/fa6";
-import axios from "../../api/axios.js"
+import axiosInstance from "../../api/axios.js"
 import "./Login.css"
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import * as yup from "yup";
@@ -44,7 +44,7 @@ const Login = () => {
     setLoading(true)
     try{
       const {email, password}= data;
-      const res = await axios.post(LOGIN_URL, { email, password});
+      const res = await axiosInstance.post(LOGIN_URL, { email, password});
 
       // console.log(email, password)
       dispatch(addId({id: res.data.data._id, name: res.data.data.name, stack: res.data.data.stack, role: res.data.data.role, image: res.data.data.image}));
@@ -58,13 +58,14 @@ const Login = () => {
       navigate(from, {replace: true})
     }catch(error){
       setLoading(false)
+      // console.log(error.response)
       if(error.response){
         Toast.fire({
           icon:'error',
-          title: "Login Failed"
+          title: `${error.response.data.error}`
         })
-        console.log(error.response.status);
-        console.log(error.response.headers);
+        // console.log(error.response.status);
+        // console.log(error.response.headers);
       } else if (error.request){
         console.log(error.request);
       }else {

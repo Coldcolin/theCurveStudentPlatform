@@ -7,7 +7,7 @@ import {FaUserGraduate} from "react-icons/fa"
 import giffy from "../../images/loader.gif";
 import {NavLink} from "react-router-dom";
 import Loader from "./Loader.jsx"
-import axios from "../../api/axios";
+import axiosInstance from "../../api/axios";
 const SOTWFE_URL = "/SOW/student"
 const ALLSOTWFE_URL = "/SOW/all"
 const SOTWBE_URL = "/BSOW/student"
@@ -34,9 +34,9 @@ const Home = () => {
     const getRes = async()=>{
       try{
         setLoadingRes(true)
-        const rest = await axios.get(SOTWBE_URL);
-        const res = await axios.get(SOTWFE_URL)
-        const resp = await axios.get(SOTWPD_URL)
+        const rest = await axiosInstance.get(SOTWBE_URL);
+        const res = await axiosInstance.get(SOTWFE_URL)
+        const resp = await axiosInstance.get(SOTWPD_URL)
 
         setSOTWBE(rest.data.data.student);
         setSOTWFE(res.data.data.student);
@@ -62,9 +62,9 @@ const Home = () => {
     const getBF = async()=>{
       try{
         setLoadingBF(true)
-        const allBest = await axios.get(ALLSOTWBE_URL);
-        const allFest = await axios.get(ALLSOTWFE_URL);
-        const allPest = await axios.get(ALLSOTWPD_URL);
+        const allBest = await axiosInstance.get(ALLSOTWBE_URL);
+        const allFest = await axiosInstance.get(ALLSOTWFE_URL);
+        const allPest = await axiosInstance.get(ALLSOTWPD_URL);
 
         setAllSOTWFE(allFest.data.data);
         setAllSOTWBE(allBest.data.data);
@@ -90,7 +90,7 @@ const getUsers =async()=>{
     try{
       setLoading(true)
     
-    const resAll = await axios.get(ALL_USERS);
+    const resAll = await axiosInstance.get(ALL_USERS);
 
     setAllUsers(resAll.data.data);
     

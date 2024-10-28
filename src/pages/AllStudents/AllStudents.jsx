@@ -1,6 +1,6 @@
 import { useEffect, useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from "../../api/axios"
+import axiosInstance from "../../api/axios"
 // import {AuthContext} from '../../Contexts/AuthProvider';
 import { useQuery, gql } from '@apollo/client';
 import Swal from "sweetalert2";
@@ -98,7 +98,7 @@ const AllStudents = () => {
       })
       
       if(Toast.isConfirmed){
-        await axios.delete(`/users/remove/${id}`)
+        await axiosInstance.delete(`/users/remove/${id}`)
         Swal.fire(
                 'Deleted!',
                 'Student has been removed.',
@@ -134,7 +134,7 @@ const AllStudents = () => {
       })
       
       if(Toast.isConfirmed){
-        await axios.patch(`/users/alumni/${id}`)
+        await axiosInstance.patch(`/users/alumni/${id}`)
         Swal.fire(
                 'Done!',
                 'Student is now an Alumni.',

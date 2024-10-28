@@ -14,10 +14,10 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
  
 // import rootReducer from './reducers'
 
-if (import.meta.env.VITE_NODE_ENV === 'production') {
-  console.log("production")
-  // window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ = undefined;
-}
+// if (import.meta.env.VITE_NODE_ENV === 'production') {
+//   console.log("production")
+//   // window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ = undefined;
+// }
 
 const persistConfig = {
   key: 'root',

@@ -5,7 +5,7 @@ import "../CheckIn/uploadimage.css"
 import {useDispatch, useSelector} from "react-redux";
 import Swal from "sweetalert2";
 // import { AuthContext } from "../../Contexts/AuthProvider";
-import axios from "axios";
+import axiosInstance from "axios";
 import { useNavigate } from 'react-router-dom';
 import { addId, signOut, updateId } from "../../Contexts/IdReducer.js";
 import Loading from '../../components/Loader/Loading.jsx';
@@ -35,7 +35,7 @@ const UserProfile = () => {
 
   const getRatings =async()=>{
     try{
-      const res = await axios.get(`https://sotw-app.onrender.com/rating/get/${profile.id}`)
+      const res = await axiosInstance.get(`https://sotw-app.onrender.com/rating/get/${profile.id}`)
       const rating = res.data.data;
       setRatings(rating);
     }catch(error){
@@ -62,7 +62,7 @@ const UserProfile = () => {
             "Authorization": `Bearer ${token}`
             }
         }
-        const res = await axios.get(`https://thecurvepuntualityapi.onrender.com/api/v1/studentAttendance/${profile.id}`, config);
+        const res = await axiosInstance.get(`https://thecurvepuntualityapi.onrender.com/api/v1/studentAttendance/${profile.id}`, config);
         setDetails(res.data.data);
         setLoading(false);
     }catch(error){
@@ -129,7 +129,7 @@ const UserProfile = () => {
 
       setLoading(true);
         // console.log(profile._id)
-        const res = await axios.patch(`https://sotw-app.onrender.com/users/update/${profile.id}`, data, config)
+        const res = await axiosInstance.patch(`https://sotw-app.onrender.com/users/update/${profile.id}`, data, config)
         setCheckEdit(!checkEdit)
       setLoading(false);
       setCheckEdit(!checkEdit);

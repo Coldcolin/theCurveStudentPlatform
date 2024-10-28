@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from "../../api/axios"
+import axiosInstance from "../../api/axios"
 // import {AuthContext} from '../../Contexts/AuthProvider';
 import Swal from "sweetalert2";
 import { useSelector } from 'react-redux';
@@ -18,7 +18,7 @@ const Alumni = () => {
   const getUsers =async()=>{
     try{
       setLoad(true)
-      const res = await axios.get(allStuds)
+      const res = await axiosInstance.get(allStuds)
       const user = res.data.data;
       const filteredUsers = await user.filter((e)=> e.role === "alumni");
       setUsers(filteredUsers)
@@ -51,7 +51,7 @@ const Alumni = () => {
       })
       
       if(Toast.isConfirmed){
-        await axios.patch(`/users/student/${id}`)
+        await axiosInstance.patch(`/users/student/${id}`)
         Swal.fire(
                 'Done!',
                 'Alumni is now a Student.',

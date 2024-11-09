@@ -27,7 +27,6 @@
 .holdfeedbackheader{
     height: 25%;
     width: 100%;
-    /* background: yellow; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;

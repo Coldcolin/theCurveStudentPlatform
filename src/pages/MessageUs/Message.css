@@ -1,0 +1,139 @@
+.message{
+    height: max-content;
+    width: 90%;
+    min-height: 90vh;
+    padding: 50px;
+    @media screen and (max-width:768px) {
+        display: flex;
+       padding-top: 40px;
+       padding-right: 0;
+       padding-left: 30px;
+       justify-content: center;
+    }
+}
+.feedback{
+    height: 72vh;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    @media screen and (max-width:768px) {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: 81vh;
+    }
+}
+.holdfeedbackheader{
+    height: 25%;
+    width: 100%;
+    /* background: yellow; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    @media screen and (max-width: 768px) {
+        height: max-content;
+    }
+
+
+    & h2{
+        font-size: 28px;
+        color: #605E63;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+    & p{
+        font-size: 16px;
+        color: #605E63;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        @media screen and (max-width:768px) {
+            display: none;
+        }
+    }
+
+    
+}
+.display-mobile{
+    display: none;
+    gap: 10px;
+    height: 22vh;
+    justify-content: flex-end;
+    padding-bottom: 20px;
+    /* background: red; */
+
+    & h3{
+        color: #007AFF;
+        font-size: 22px;
+        font-weight: 400;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    & h6{
+        color: #605E63;
+        font-size: 16px;
+        font-weight: 200;
+        margin-bottom: 5px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    @media screen and (max-width:768px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+.holdfeedbackform{
+    height: 70%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    & input{
+        height: 17%;
+        width: 100%;
+        border: 1px solid #4A445929;
+        padding-left: 10px;
+        font-size: 14px;
+        outline: none;
+    }
+    & textarea{
+        height: 55%;
+        width: 100%;
+        border: 1px solid #4A445929;
+        padding-left: 10px;
+        font-size: 14px;
+        padding-top: 3px;
+        outline: none;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    & textarea::placeholder {
+        color: black;
+      }
+}
+.holdfeedbackbutton{
+    height: 22%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-bottom: 10px;
+    /* background: red; */
+
+    & button{
+        height: 67%;
+        width: 30%;
+        background: #FFB703;
+        border-radius: 20px;
+        border: none;
+        color: #023047;
+        font-size: 14px;
+        font-weight: 600;
+        @media screen and (max-width:768px) {
+            width: 40%;
+        }
+    }
+    & button:hover{
+        cursor: pointer;
+    }
+}
+@media screen and (max-width:768px) {
+    
+}

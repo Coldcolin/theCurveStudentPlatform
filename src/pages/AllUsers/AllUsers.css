@@ -1,5 +1,15 @@
+.holdAllBody{
+    padding: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-bottom: 50px;
+    /* border-radius: 20px; */
+}
 .all-body{
     min-height: 100vh;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
 }
 .all-head{
     /* background-color: white; */

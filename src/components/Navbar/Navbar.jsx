@@ -29,8 +29,10 @@ const Navbar = () => {
               profile ? (<div className="nav-user-info">
               {profile.image === ""? (<img className="profile-image" src={image} alt="img" />):(<img className="profile-image" src={profile.image} alt="img" />)}
               <div className="who">
-                {/* <p>{profile.name}</p> */}
-                {/* <span>{profile.stack}</span> */}
+                
+                
+                <p>{profile.name}</p>
+                <span>{profile.stack}</span>
               </div>
             </div>): (<div className="user-info">
               <img className="profile-image" src={image} alt="img" />

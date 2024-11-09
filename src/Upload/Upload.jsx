@@ -6,7 +6,9 @@ import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
 import { signOut } from "../Contexts/IdReducer.js";
 import {useDispatch, useSelector} from "react-redux";
-
+import { MdDateRange } from "react-icons/md";
+import { BsCloudUpload } from "react-icons/bs";
+import { FaCheck } from "react-icons/fa6";
 
 const Upload = () => {
   const navigate = useNavigate();
@@ -17,6 +19,7 @@ const Upload = () => {
   const [imageDB, setImageDB] = useState("")
   const [avatar, setAvatar] = useState("");
   const [checkInState, setCheckInState] = useState(false);
+  const [successfulCheckIn, setSuccessfulCheckIn] = useState(false)
   const token = JSON.parse(localStorage.getItem("token"))
 
   const HandleUploadImage = (e)=>{
@@ -62,11 +65,13 @@ const Upload = () => {
         icon: 'success',
         title: 'Successfully Checked In'
       })
+      setSuccessfulCheckIn(true)
       setCheckInState(false)
       navigate("/")
 
     }catch(error){
       setCheckInState(false)
+      setSuccessfulCheckIn(false)
       if(error.response.status === 501){
         dispatch(signOut());
         navigate("/login")
@@ -104,13 +109,124 @@ const Upload = () => {
   // useEffect(()=>{
   //   console.log("longitude:", longitude, "latitude", latitude)
   // }, [longitude, latitude])
+  const attendance =
+  [
+    {
+      checkinDate: "16th, october 2024",
+      checkIntime: "14:00",
+      punctualityCode: "early",
+      word:"Early"
+    },
+    {
+      checkinDate: "16th, october 2024",
+      checkIntime: "14:00",
+      punctualityCode: "early",
+      word:"Early"
+    },
+    {
+      checkinDate: "16th, october 2024",
+      checkIntime: "14:00",
+      punctualityCode: "late",
+      word:"Late"
+    },
+    {
+      checkinDate: "16th, october 2024",
+      checkIntime: "14:00",
+      punctualityCode: "late",
+      word:"Late"
+    },
+    {
+      checkinDate: "16th, october 2024",
+      checkIntime: "14:00",
+      punctualityCode: "absent",
+      word:"Absent"
+    }
+  ]
 
   return (
     <div className='Uploadbody'>
       <div className="UploadHeader">
-        <h3>Upload Image</h3>
+        <h3>Check In</h3>
       </div>
-      <div className='UploadHold'>
+      <div className="HoldCheckIn-attendanceHistory">
+        <div className="holdUploadBox">
+          <div className="uploadBox">
+            <div className="hold-upload-date">
+            <MdDateRange size={21} />
+            <h3 style={{fontSize:"16px", fontWeight:"100"}}>
+            October 18th, 2024
+            </h3>
+            </div>
+            <div className="main-upload">
+              {
+                avatar === "" ?
+                <div className="main-upload-items">
+                <div className="cloud">
+                <BsCloudUpload size={55} color='#FF9101' className='iconcloud'/>
+                <p>Supported media below JPG or PNG</p>
+                </div>
+                <div className="drag-browse">
+                  <p>Drag or drop here <br/> Or</p>
+                  <label htmlFor="browse" id='browse-label'>Browse Images</label>
+                  <input type="file" id='browse' accept='image/*' hidden onChange={HandleUploadImage}/>
+                </div>
+
+              </div>
+              :
+                <div className="beforeCheckIn">
+                  <div className="Hold-checkingIn-ImageContainer">
+                    <div className="holdCheckInImage">
+                    <img src={avatar} alt="avatar"/>
+                    </div>
+                  </div>
+                <>
+                {
+                  successfulCheckIn ?
+                  <button className="Check-in-button" style={{background:"green", gap:"10px" ,display:"flex", flexDirection:"row", justifyContent:"center", alignItems:"center", color:"white"}}>Checked In <FaCheck size={20} color='White'/> </button>:
+                  <>
+                  { checkInState === false?<button className="Check-in-button" onClick={HandleCheckIn} disabled={avatar === ""? true: false}>Check In</button>: <button className="Check-in-button" disabled={true}>Checking In...</button>}
+                  </>
+                }
+                </>
+                
+              </div>
+              
+              }
+            </div>
+          </div>
+        </div>
+        <div className="holdAttendanceHistory">
+          <div className="attendance-history">
+            <h3 style={{fontSize:"25px", fontWeight:"100"}}>
+            Attendance History
+            </h3>
+            <div className="attendance-history-main">
+              {
+                attendance.map((e)=>(
+                  <div className="punctuality-card">
+                    <div className="punctuality-card-header">
+                    <div className="hold-punctuality-card-date">
+                      <MdDateRange size={21} />
+                      <h3 style={{fontSize:"16px",color:"#34393C", fontWeight:"100"}}>
+                      October 18th, 2024
+                      </h3>
+                    </div>
+                    <div className="codePunctuality" id={e.punctualityCode}>
+                      {e.word}
+                    </div>
+                    </div>
+                    <div className="punctuality-card-body">
+                      <p style={{color:"#34393C"}}>Check-in Time</p>
+                      <h3 style={{color:"#34393C"}}>9:02 am</h3>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <div className='UploadHold'>
         <section className='UploadContainer'>
           <div className='UploadIcon'>
           {avatar === ""? <IoCloudUploadOutline className='Uploadic' />: <img src={avatar} alt="avatar"/>}
@@ -139,7 +255,7 @@ const Upload = () => {
             </div>
           </div>
         </section>
-      </div>
+      </div> */}
     </div>
   )
 }

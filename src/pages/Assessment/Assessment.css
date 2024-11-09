@@ -12,14 +12,22 @@
 
 }
 .assessment-table-holder{
+    margin: 10px;
     min-width: 98%;
     padding: 0 10px;
+    
+}
+.assesmentTableBody{
 }
 .assessment-table{
     /* font-weight: 600; */
+    height: 40px;
 }
 tr:nth-child(even) {
-    background-color: rgba(220, 221, 221, 0.8);
+    /* background-color: rgba(220, 221, 221, 0.8); */
+    background: white;
+    border-collapse: collapse;
+    text-align: left;
 }
 .assessment-table-title {
     /* min-width: 100px; */
@@ -55,6 +63,7 @@ tr:nth-child(even) {
 }
 .assessment-user-info a{
     text-decoration: none;
+    
 }
 .assessment-image {
     width: 30px;
@@ -125,7 +134,41 @@ tr:nth-child(even) {
 
 .Stack-buttons-holder{
     bottom: 0px;
-    left: 55px
+    left: 55px;   
+}
+.searchHolder{
+    height: 100%;
+    width: 290px;
+    background: white;
+    margin-left: 30px;
+    border-radius: 10px;
+    border: 1px solid gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.holdSearchIcon{
+    height: 100%;
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.SearchInput{
+    height: 100%;
+    width: 74%;
+    border: none;
+    font-size: 14px;
+    outline: none;
+}
+.holdSortIcon{
+    height: 30px;
+    width: 30px;
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(178, 179, 179);
 }
 .Stack-buttons-holder p{
     color: #787876;

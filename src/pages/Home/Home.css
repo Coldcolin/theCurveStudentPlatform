@@ -6,6 +6,7 @@
 .sotw-main{
     min-height: calc(100vh - 60px);
     background-color: #F6F6F6;
+    max-width: 95%;
 }
 
 .sotw-container {
@@ -21,9 +22,10 @@
     width: 100%;
     min-height: 50vh;
     
+   
 }
 .image-holder{
-    width: 75%;
+    width: 90%;
     display: flex;
     justify-content: center;
     gap: 5%;
@@ -32,6 +34,8 @@
     position: relative;
     container-type: inline-size;
     container-name: imageHolder;
+
+
 }
 
 .tabs-holder{
@@ -52,7 +56,7 @@
     align-items: center;
     border-radius: 8px;
     margin: 5px 15px;
-    width: 220px;
+    width: 180px;
     height: 100px;
     cursor: pointer;
     transform: scale(1);
@@ -89,10 +93,10 @@
 
 .h2 {
     font-weight: 400;
-    font-size: 36px;
+    font-size: 20px;
     line-height: 54px;
     color: #023047;
-    margin:10px 60px;
+    margin:0px 20px;
 }
 
 .sotw-boxes{
@@ -113,7 +117,7 @@
     align-items: center;
     width: 56px;
     height: 56px;
-    background-color:#FB8500;
+    /* background-color:#FB8500; */
     color: white;
     border-radius: 100%;
 }
@@ -124,7 +128,7 @@
     align-items: center;
     width: 56px;
     height: 56px;
-    background-color: #FFB703;
+    /* background-color: #FFB703; */
     color: white;
     border-radius: 100%;
 }
@@ -135,7 +139,7 @@
     align-items: center;
     width: 56px;
     height: 56px;
-    background: #023047;
+    /* background: #023047; col */
     color: white;
     border-radius: 100%;
 }
@@ -168,7 +172,7 @@
 
 .sotw-sotw-pd{
     height: 320px;
-    width: 28%;
+    width: 30%;
     /* min-width: 300px; */
     display: flex;
     justify-content: center;
@@ -185,7 +189,7 @@
 }
 .sotw-sotw-fe{
     height: 320px;
-    width: 28%;
+    width: 30%;
     /* min-width: 300px; */
     display: flex;
     flex-direction: column;
@@ -202,7 +206,7 @@
 }
 .sotw-sotw-be{
     height: 320px;
-    width: 28%;
+    width: 30%;
     /* min-width: 300px; */
     display: flex;
     justify-content: center;
@@ -419,6 +423,31 @@ td{
     text-align: center;
     padding: 8px;
     border-bottom: 1px solid rgba(247, 249, 252, 0.8);
+}
+.hold-main-container{
+    
+}
+.hold-welcome{
+    /* height: max-content;
+    width: max-content; */
+    /* background: red; */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+
+    & h2{
+        font-size: 30px;
+    }
+    & p{
+        font-weight: 500;
+        /* font-family: ; */
+    }
+    & hr{
+        border: none;
+        height: 1px;
+        background:#023047
+    }
 }
 
 @media screen and (max-width: 600px){

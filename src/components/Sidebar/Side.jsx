@@ -45,8 +45,9 @@ const Side = ({toggle}) => {
       </div>
       <div className="navs1">
         <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="/"><TbLayoutDashboard/> <span>Dashboard</span></NavLink>
-        <NavLink className={({ isActive }) => (isActive ? "nav-active1" : "navigation1")}to="user"> <FiUser/> <span>User Profile</span></NavLink>
+        <NavLink className={({ isActive }) => (isActive ? "nav-active1" : "navigation1")}to="user"> <FiUser/> <span>Profile</span></NavLink>
         <NavLink className={({ isActive }) => (isActive ? "nav-active1" : "navigation1")}to="/upload"> <AiOutlineSchedule /> <span>Check-in</span></NavLink>
+        <NavLink className={({ isActive }) => (isActive ? "nav-active1" : "navigation1")}to="/message-us"> <AiOutlineSchedule /> <span>Message Us</span></NavLink>
         {profile.role === "tutor"?<NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="assessment"><MdOutlineAssessment/> <span>Student Assessment</span></NavLink>: null}
         {profile.role === "admin"?<NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="assessment"><MdOutlineAssessment/> <span>Student Assessment</span></NavLink>: null}
         {/* <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="voting" ><MdOutlineHowToVote/> <span>Vote</span></NavLink> */}

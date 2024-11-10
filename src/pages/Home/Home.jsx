@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import "./Home.css";
-import {FaGraduationCap} from "react-icons/fa";
+import {FaUserGraduate} from "react-icons/fa";
 import {FaChalkboardTeacher} from "react-icons/fa"
 import {HiOutlineUserGroup} from "react-icons/hi"
-import {FaUserGraduate} from "react-icons/fa"
+import { GiGraduateCap } from "react-icons/gi";
 import giffy from "../../images/loader.gif";
 import {NavLink} from "react-router-dom";
 import Loader from "./Loader.jsx"
@@ -148,123 +148,131 @@ const getUsers =async()=>{
     
   return (
     <div className="sotw-main">
-      <main className="sotw-container">
-      <h2 className="h2">Students of the Week</h2>
-        <section className="sotw-top">
-          <div className="image-holder">
-              {
-                loadingRes === true ? <div className="sotw-sotw-be"><Loader/></div> : someError && (loadingRes === false) ? <div className="sotw-sotw-be"><p>No Student yet</p></div>: loadingRes === false? <div className="sotw-sotw-be">
-                <img className="sotw-image" src={SOTWFE?.image} alt="img"/>
-                <div className= "sotw-image-info">
-                <p className="sotw-image-info-h3">{SOTWFE?.name}</p>
-                <p className="sotw-image-info-p">Frontend Developer</p>
-                </div>
-              </div>: null
-              }
-          
-              {
-                loadingRes === true ? <div className="sotw-sotw-fe"><Loader/></div>: someError && (loadingRes === false) ? <div className="sotw-sotw-fe"><p>No Student yet</p></div> :loadingRes === false? <div className="sotw-sotw-fe">
-                <img className="sotw-image" src={SOTWBE?.image} alt="img"/>
-                <div className= "sotw-image-info">
-                <p className="sotw-image-info-h3">{SOTWBE?.name}</p>
-                <p className="sotw-image-info-p">Backend Developer</p>
-                </div>
-              </div>: null
-              }
-              
-              {
-                loadingRes === true ? <div className="sotw-sotw-pd"><Loader/></div>: someError && (loadingRes === false) ? <div className="sotw-sotw-pd"><p>No Student yet</p></div> :loadingRes === false? <div className="sotw-sotw-pd">
-                <img className="sotw-image" src={SOTWPD?.image} alt="img"/>
-                <div className= "sotw-image-info">
-                <p className="sotw-image-info-h3">{SOTWPD?.name}</p>
-                <p className="sotw-image-info-p">Product Designer</p>
-                </div>
-              </div>: null
-              }
-              <div className='history-buttons-holder'>
-                <p>History</p>
-                <div className='history-buttons'>
-                  <div className={hist === 1?'front-button active': 'front-button'} onClick={()=> setHist(1)}>Frontend</div>
-                  <div className={hist === 2?'back-button active': 'back-button'} onClick={()=> setHist(2)}>Backend</div>
-                  <div className={hist === 3?'product-button active': 'product-button'} onClick={()=> setHist(3)}>Product</div>
-                </div>
-              </div>
-              </div>
-              <div className="tabs-holder">
-                <NavLink to="students" className="sotw-navs">
-                {loading ? <div className="sotw-boxes"><img src={giffy} alt="giffy"/></div>:<div className="sotw-boxes">
-                  <div className="sotw-circle-2"><FaGraduationCap/></div>
-                  <div className="sotw-info">
-                    <div>{memoizedVal.length}</div>
-                    <span>Students</span>
-                  </div>
-                </div>}
-              </NavLink>
-              <NavLink to="tutors" className="sotw-navs">
-                {loading ? <div className="sotw-boxes"><img src={giffy} alt="giffy"/></div>:<div className="sotw-boxes">
-                  <div className="sotw-circle-3"><FaChalkboardTeacher/></div>
-                  <div className="sotw-info">
-                    <div>{allTutor.length}</div>
-                    <span>Staff</span>
-                  </div>
-                </div>}
-              </NavLink>
-              <NavLink to="alumni" className="sotw-navs">
-                {loading ? <div className="sotw-boxes"><img src={giffy} alt="giffy"/></div>:<div className="sotw-boxes">
-                  <div className="sotw-circle-1"><FaUserGraduate/></div>
-                  <div className="sotw-info">
-                    <div>{allAlumni.length}</div>
-                    <span>Alumni</span>
-                  </div>
-                </div>}
-              </NavLink>
-              </div>
-        </section>
-        <section className="sotw-middle">
-          <div className="image-holders">
-          <div className="sotw-history">
-            <table className="sotw-table">
-              <thead className="sotw-thead">
-              <tr>
-                <th>WEEK</th>
-                <th>NAME</th>
-                <th>AVERAGE RATING</th>
-                <th>CURRENT RATING</th>
-              </tr>
-              </thead>
-              <tbody>
-              {
-                hist === 1? allSOTWFE?.map((stud)=>(
-                  <tr key={stud?._id}>
-                    <td>{stud?.week}</td>
-                    <td>{stud?.student?.name}</td>
-                    <td className={colorCode(stud?.student?.overallRating)}>{(Math.round(((stud?.student?.overallRating /20) * 100)* 10))/10}%</td>
-                    <td className={colorCode(stud?.student?.weeklyRating)}>{(Math.round(((stud?.student?.weeklyRating /20) * 100)* 10))/10}%</td>
-                  </tr>
-                )): hist === 2? allSOTWBE?.map((stud)=>(
-                  <tr key={stud?._id}>
-                    <td>{stud?.week}</td>
-                    <td>{stud?.student?.name}</td>
-                    <td className={colorCode(stud?.student?.overallRating)}>{(Math.round(((stud?.student?.overallRating /20) * 100)* 10))/10}%</td>
-                    <td className={colorCode(stud?.student?.weeklyRating)}>{(Math.round(((stud?.student?.weeklyRating /20) * 100)* 10))/10}%</td>
-                  </tr>
-                )): hist === 3? allSOTWPD?.map((stud)=>(
-                  <tr key={stud?._id}>
-                    <td>{stud?.week}</td>
-                    <td>{stud?.student?.name}</td>
-                    <td className={colorCode(stud?.student?.overallRating)}>{(Math.round(((stud?.student?.overallRating /20) * 100)* 10))/10}%</td>
-                    <td className={colorCode(stud?.student?.weeklyRating)}>{(Math.round(((stud?.student?.weeklyRating /20) * 100)* 10))/10}%</td>
-                  </tr>
-                )): null
-              }
-              </tbody>
-            </table>
-          </div>
-          </div>
-        </section>
-        
-      </main>
+    <div className="hold-main-container">
+    <div className="hold-welcome">
+    <h2 style={{color:"#023047"}}>Hi Helen</h2>
+    <p style={{color:"#023047"}}>Its week 5 at The Curve Africa</p>
+    <hr/>
     </div>
+    <main className="sotw-container">
+    <h2 className="h2">Students of the Week</h2>
+      <section className="sotw-top">
+        <div className="image-holder">
+            {
+              loadingRes === true ? <div className="sotw-sotw-be"><Loader/></div> : someError && (loadingRes === false) ? <div className="sotw-sotw-be"><p>No Student yet</p></div>: loadingRes === false? <div className="sotw-sotw-be">
+              <img className="sotw-image" src={SOTWFE?.image} alt="img"/>
+              <div className= "sotw-image-info">
+              <p className="sotw-image-info-h3">{SOTWFE?.name}</p>
+              <p className="sotw-image-info-p">Frontend Trainee</p>
+              </div>
+            </div>: null
+            }
+        
+            {
+              loadingRes === true ? <div className="sotw-sotw-fe"><Loader/></div>: someError && (loadingRes === false) ? <div className="sotw-sotw-fe"><p>No Student yet</p></div> :loadingRes === false? <div className="sotw-sotw-fe">
+              <img className="sotw-image" src={SOTWBE?.image} alt="img"/>
+              <div className= "sotw-image-info">
+              <p className="sotw-image-info-h3">{SOTWBE?.name}</p>
+              <p className="sotw-image-info-p">Backend Trainee</p>
+              </div>
+            </div>: null
+            }
+            
+            {
+              loadingRes === true ? <div className="sotw-sotw-pd"><Loader/></div>: someError && (loadingRes === false) ? <div className="sotw-sotw-pd"><p>No Student yet</p></div> :loadingRes === false? <div className="sotw-sotw-pd">
+              <img className="sotw-image" src={SOTWPD?.image} alt="img"/>
+              <div className= "sotw-image-info">
+              <p className="sotw-image-info-h3">{SOTWPD?.name}</p>
+              <p className="sotw-image-info-p">Product Designer</p>
+              </div>
+            </div>: null
+            }
+            <div className='history-buttons-holder'>
+              <p>History</p>
+              <div className='history-buttons'>
+                <div className={hist === 1?'front-button active': 'front-button'} onClick={()=> setHist(1)}>Frontend</div>
+                <div className={hist === 2?'back-button active': 'back-button'} onClick={()=> setHist(2)}>Backend</div>
+                <div className={hist === 3?'product-button active': 'product-button'} onClick={()=> setHist(3)}>Product</div>
+              </div>
+            </div>
+            </div>
+            <div className="tabs-holder">
+              <NavLink to="students" className="sotw-navs">
+              {loading ? <div className="sotw-boxes"><img src={giffy} alt="giffy"/></div>:<div className="sotw-boxes">
+                <div className="sotw-circle-2"><GiGraduateCap color='#FF9101' size={60}/></div>
+                <div className="sotw-info">
+                  <div>{memoizedVal.length}</div>
+                  <span>Students</span>
+                </div>
+              </div>}
+            </NavLink>
+            <NavLink to="tutors" className="sotw-navs">
+
+              {loading ? <div className="sotw-boxes"><img src={giffy} alt="giffy"/></div>:<div className="sotw-boxes">
+                <div className="sotw-circle-3"><FaChalkboardTeacher color='#219EBC' size={60}/></div>
+                <div className="sotw-info">
+                  <div>{allTutor.length}</div>
+                  <span>Staff</span>
+                </div>
+              </div>}
+            </NavLink>
+            <NavLink to="alumni" className="sotw-navs">
+              {loading ? <div className="sotw-boxes"><img src={giffy} alt="giffy"/></div>:<div className="sotw-boxes">
+                <div className="sotw-circle-1"><FaUserGraduate color='#179446' size={52}/></div>
+                <div className="sotw-info">
+                  <div>{allAlumni.length}</div>
+                  <span>Alumni</span>
+                </div>
+              </div>}
+            </NavLink>
+            </div>
+      </section>
+      <section className="sotw-middle">
+        <div className="image-holders">
+        <div className="sotw-history">
+          <table className="sotw-table">
+            <thead className="sotw-thead">
+            <tr>
+              <th>WEEK</th>
+              <th>NAME</th>
+              <th>AVERAGE RATING</th>
+              <th>CURRENT RATING</th>
+            </tr>
+            </thead>
+            <tbody>
+            {
+              hist === 1? allSOTWFE?.map((stud)=>(
+                <tr key={stud?._id}>
+                  <td>{stud?.week}</td>
+                  <td>{stud?.student?.name}</td>
+                  <td className={colorCode(stud?.student?.overallRating)}>{(Math.round(((stud?.student?.overallRating /20) * 100)* 10))/10}%</td>
+                  <td className={colorCode(stud?.student?.weeklyRating)}>{(Math.round(((stud?.student?.weeklyRating /20) * 100)* 10))/10}%</td>
+                </tr>
+              )): hist === 2? allSOTWBE?.map((stud)=>(
+                <tr key={stud?._id}>
+                  <td>{stud?.week}</td>
+                  <td>{stud?.student?.name}</td>
+                  <td className={colorCode(stud?.student?.overallRating)}>{(Math.round(((stud?.student?.overallRating /20) * 100)* 10))/10}%</td>
+                  <td className={colorCode(stud?.student?.weeklyRating)}>{(Math.round(((stud?.student?.weeklyRating /20) * 100)* 10))/10}%</td>
+                </tr>
+              )): hist === 3? allSOTWPD?.map((stud)=>(
+                <tr key={stud?._id}>
+                  <td>{stud?.week}</td>
+                  <td>{stud?.student?.name}</td>
+                  <td className={colorCode(stud?.student?.overallRating)}>{(Math.round(((stud?.student?.overallRating /20) * 100)* 10))/10}%</td>
+                  <td className={colorCode(stud?.student?.weeklyRating)}>{(Math.round(((stud?.student?.weeklyRating /20) * 100)* 10))/10}%</td>
+                </tr>
+              )): null
+            }
+            </tbody>
+          </table>
+        </div>
+        </div>
+      </section>
+      
+    </main>
+    </div>
+  </div>
   )
 }
 

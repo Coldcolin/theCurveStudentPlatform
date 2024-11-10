@@ -1,6 +1,9 @@
 .Uploadbody{
     width: 100%;
-    height: 40rem;
+    /* height: 40rem; */
+    padding: 30px;
+    /* background: red; */
+    min-height: 100vh;
 }
 .UploadHeader{
     width: 100%;
@@ -16,8 +19,8 @@
     font-weight: 400;
 }
 .UploadHold{
-    width: 100%;
-    height: 85%;
+    width: 70%;
+    height: 55%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -189,7 +192,205 @@
     font-size: 2rem;
 }
 
+.HoldCheckIn-attendanceHistory{
+    min-height: 80%;
+    /* background: red; */
+    width: 93%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+.holdUploadBox{
+    height: 47vh;
+    width: 100%;
+    /* background: rebeccapurple; */
+    padding-left: 60px;
+}
+.uploadBox{
+    height: 100%;
+    width: 45%;
+    background: white;
+    border-radius: 10px;
+    margin-top: 10px;
+    /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
+}
+.hold-upload-date{
+    height: 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 18px;
+    gap: 5px;
+}
 
+.main-upload{
+    height: 82%;
+    width: 100%;
+
+}
+.main-upload-items{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.cloud{
+    height: 47%;
+    width: 60%;
+    justify-content: flex-end;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+
+    & p{
+        font-size: 12px;
+        color: #787876;
+    }
+}
+.drag-browse{
+    height: 50%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+
+    & p{
+        font-size: 16px;
+        color: #787876;
+        text-align: center;
+    }
+}
+.iconcloud{
+    font-weight: 600;
+}
+#browse-label{
+    height: max-content;
+    width: max-content;
+    padding: 12px 20px;
+    font-size: 15px;
+    font-weight: 500;
+    background: rgba(255, 204, 2, 1);
+    border-radius: 5px;
+    /* box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px; */
+    cursor: pointer;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.271);
+
+
+
+}
+.holdAttendanceHistory{
+    min-height: 45vh;
+    width: 100%;
+    padding-left: 20px;
+}
+.attendance-history-main{
+    margin-top: 18px;
+    min-height: 30vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+.punctuality-card{
+    height: 160px;
+    width: 30%;
+    /* min-width: 32%; */
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+    
+}
+.punctuality-card-header{
+    height: 20%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.punctuality-card-body{
+    height: 40%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.hold-punctuality-card-date{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+#early{
+    background: #25C16840;
+    color: #00893D;
+}
+#late{
+    background-color: #FF91011C;
+    color: #FF9101;
+}
+#absent{
+    background-color: #3333331C;
+    color: #333333;
+}
+.codePunctuality{
+    height: max-content;
+    width: max-content;
+    padding: 8px 9px;
+    padding-bottom: 5px;
+    border-radius: 15px;
+}
+.beforeCheckIn{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.Hold-checkingIn-ImageContainer{
+    height: 77%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.holdCheckInImage{
+    height: 100%;
+    width: 50%;
+    /* background: pink; */
+    border-radius: 10px;
+
+    & img{
+        height: 100%;
+        width: 100%;
+        border-radius: 10px;
+    }
+}
+.Check-in-button{
+    height: max-content;
+    width: max-content;
+    padding: 12px 18px;
+    font-size: 16px;
+    font-weight: 500;
+    background: #FFCC02;
+    display: flex;
+    border-radius: 5px;
+    border: none;
+    /* box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px; */
+    cursor: pointer;
+    box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.271);
+}
 @media screen and (max-width: 800px) {
     .UploadContainer{
         width: 70%;
@@ -203,6 +404,7 @@
     .modal-content{
         height: 50vh;
     }
+    
 }
 
 @media screen and (max-width: 490px) {
@@ -220,6 +422,45 @@
     }
     .modal-content{
         height: 50vh;
+    }
+    .holdUploadBox{
+        padding: 10px;
+    }
+    .uploadBox{
+        width: 100%;
+        padding-top: 5px;
+    }
+    .holdCheckInImage{
+        width: 75%;
+    }
+    .cloud{
+        & p{
+            font-size: 11px;
+        }
+    }
+    .punctuality-card{
+        width: 100%;
+    }
+}
+@media screen and (max-width: 768px ) {
+    .holdUploadBox{
+        padding: 10px;
+    }
+    .uploadBox{
+        width: 100%;
+        padding-top: 5px;
+    }
+    .holdCheckInImage{
+        width: 75%;
+    }
+    .cloud{
+        width: 80%;
+        & p{
+            font-size: 11px;
+        }
+    }
+    .punctuality-card{
+        width: 100%;
     }
 }
 

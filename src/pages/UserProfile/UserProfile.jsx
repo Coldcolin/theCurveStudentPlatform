@@ -9,7 +9,11 @@ import axiosInstance from "axios";
 import { useNavigate } from 'react-router-dom';
 import { addId, signOut, updateId } from "../../Contexts/IdReducer.js";
 import Loading from '../../components/Loader/Loading.jsx';
-import { BsCameraFill } from "react-icons/bs";
+import { BsCameraFill, BsGraphDownArrow } from "react-icons/bs";
+import { LuPencil } from "react-icons/lu";
+import { FiFilter } from "react-icons/fi";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { MdGrade, MdOutlineArticle } from 'react-icons/md';
 
 
 const UserProfile = () => {
@@ -32,7 +36,7 @@ const UserProfile = () => {
     toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
 })
-
+console.log(profile)
   const getRatings =async()=>{
     try{
       const res = await axiosInstance.get(`https://sotw-app.onrender.com/rating/get/${profile.id}`)
@@ -169,86 +173,112 @@ const UserProfile = () => {
   
 
 
-
   return (
     <main className="user-main">
-    <div className="text">User Profile</div>
+    <div className="text">Profile</div>
       <div className="user-holder">
-      <article className="user-info">
-        <div className='user-info-div'>
-          <div className='user_image_div'>
-            <img className='user-image' src={profileImage} alt="" />
-            <input 
-              type='file' 
-              id='image' 
-              hidden
-              onChange={ editImage }
-             />
-           {checkEdit && <label className='user_camera' htmlFor='image'><BsCameraFill style={{width: '70%', height: '70%' }} /></label>}
-          </div>
-          <div className="user-detail">
-            <div className='user_name_div'>
-              {/* <p className="user-name">Name</p> */}
-              {checkEdit?<input 
-                className='user_name_input' 
-                type='text' 
-                value={profileName}
-                onChange={ EditName }
-              />: <p className="user-talk">{profileName}</p>}
-            </div>
-            <p className='user-talk'>{profile.email}</p>
-            {/* <p className='user-talk'>Phone: {profile.phone}</p> */}
-            <p className='user-talk'>Role: {profile.role}</p>
-            {checkEdit? <div className='the_edit_btns'>
-              <button 
-                className='update_profile' 
-                disabled={disableSaveBtn} 
-                style={ disableSaveBtn ? { backgroundColor: "rgb(157, 157, 177)"} : { backgroundColor: "black" } }
-                onClick={ saveChanges }
-              > Save Changes
-              </button>
-              <button 
-                className='update_profile' 
-                disabled={disableSaveBtn} 
-                style={ disableSaveBtn ? { backgroundColor: "rgb(157, 157, 177)"} : { backgroundColor: "black" } }
-                onClick={ cancelChanges }
-              > Cancel
-              </button>
-
-            </div>
-            
-            :<button 
-              className='update_profile' 
-              // disabled={disableSaveBtn} 
-              style={{ backgroundColor: "black" } }
-              onClick={()=> setCheckEdit(!checkEdit)}
-            >Edit</button>}
+      <article className='user-profile-holder'>
+    <div className="profileCard">
+      <div className="hold-profile-details">
+        <div className="pic-and-pen">
+          <div className="profile-image-holder">
+          <img className='user-image' src={profileImage} alt="profile image" />
           </div>
         </div>
+        <div className="name-and-number">
+          <h2>{profileName}</h2>
+          {/* <p>{profile.email}</p> */}
+          <p>Mobile number: +2346056667564</p>
+        </div>
+        <div className="role-and-stack">
+          <>
+            {
+              profile.role !== "student" ? null : <div className="trainee">{profile.role}</div>
+            }
+          </>
+          <div className="trainee">{profile.stack}</div>
+        </div>
+      </div>
+    <div className="pencil">
+      <div className="hold-pencil">
+      <LuPencil />
+      </div>
+    </div>
+    </div>
+    <>
+    {
+      profile.role !== "student" ? null :
+      // <div className="viewAttendanceAndAddGrade">
+      //   <button className='attend'>View Attendance</button>
+      //   <button className='grade'>Add grade</button>
+      // </div>
+      <div className="GradeShow">
+        <div className="gradeshow-card">
+          <div className="gradeShowCardIcon">
+            <BsGraphDownArrow color='#00893D' size={50}/>
+          </div>
+          <div className="gradeCardDeets">
+            <h2 style={{color:"#00893D", fontSize:"36px"}}>10</h2>
+            <p style={{color:"#8B8B8B", fontSize:"12px"}}>Overall Average</p>
+          </div>
+        </div>
+        <div className="gradeshow-card">
+          <div className="gradeShowCardIcon">
+            <MdOutlineArticle color='#FB8500' size={50}/>
+          </div>
+          <div className="gradeCardDeets">
+            <h2 style={{color:"#FB8500", fontSize:"36px"}}>52</h2>
+            <p style={{color:"#8B8B8B", fontSize:"12px"}}>Current Grade</p>
+          </div>
+        </div>
+        <div className="gradeshow-card">
+          <div className="gradeShowCardIcon">
+            <MdGrade color='#AF52DE' size={50}/>
+          </div>
+          <div className="gradeCardDeets">
+            <h2 style={{color:"#AF52DE", fontSize:"36px"}}>6th</h2>
+            <p style={{color:"#8B8B8B", fontSize:"12px"}}>Rating</p>
+          </div>
+        </div>
+        
+      </div>
+
+    }
+    </>
       </article>
       {
-        profile.role !== "student"? null:<article className='user-assessment'>
-        <p>Your Assessment History</p>
+        profile.role !== "student"? null:
+        <article className='user-assessment'>
+        <div className="hold-grade-header">
+        <h2> Grading History</h2>
+
+        <div className="holdFilter">
+          <span>Filter </span>
+          <FiFilter/>
+        </div>
+        </div>
         <table style={{width: "100%"}}>
           <tr className="user-table-head">
-            <th>WK </th>
-            <th>PTY</th>
-            <th>ASS</th>
-            <th>ATT</th>
-            <th>CLASS A</th>
-            <th>P D</th>
-            <th>AV. TOTAL 100%</th>
+            <th>Week </th>
+            <th>PUNCTUALITY</th>
+            <th>ASSIGNMENT</th>
+            <th>ATTENDANCE</th>
+            <th>CLASS ASS</th>
+            <th>PERSONAL DEFENSE</th>
+            <th>TOTAL</th>
+            <th>Action</th>
           </tr>
           {
             ratings?.map((rating)=>(
               <tr key={rating._id}>
-                <td>{rating.week}</td>
-                <td>{rating.punctuality}</td>
-                <td>{rating.Assignments}</td>
-                <td>{rating.classParticipation}</td>
-                <td>{rating.classAssessment}</td>
-                <td>{rating.personalDefense}</td>
-                <td>{rating.total}</td>
+                <td style={{textAlign:"left"}}>{rating.week}</td>
+                <td style={{textAlign:"left"}}>{rating.punctuality}</td>
+                <td style={{textAlign:"left"}}>{rating.Assignments}</td>
+                <td style={{textAlign:"left"}}>{rating.classParticipation}</td>
+                <td style={{textAlign:"left"}}>{rating.classAssessment}</td>
+                <td style={{textAlign:"left"}}>{rating.personalDefense}</td>
+                <td style={{textAlign:"left"}}>{rating.total}</td>
+                <td style={{textAlign:"left"}}><BsThreeDotsVertical cursor="pointer"/></td>
             </tr>
             ))
           }

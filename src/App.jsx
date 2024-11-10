@@ -15,6 +15,7 @@ import ForgotPassword from "./pages/Recovery/ForgotPassword"
 import ResetPassword from "./pages/Recovery/ResetPassword"
 import Upload from "./Upload/Upload";
 import Punctuality from "./pages/CheckIn/Punctuality";
+import Message from "./pages/MessageUs/Message";
 
 
 
@@ -62,6 +63,17 @@ const router = createHashRouter([
           {
             index: true,
             element: <UserProfile />
+          },
+        
+        ]
+      },
+      {
+        path: "message-us",
+        element: <RequireAuth />,
+        children:[
+          {
+            index: true,
+            element: <Message />
           },
         
         ]

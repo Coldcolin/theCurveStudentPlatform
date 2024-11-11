@@ -21,8 +21,6 @@
     display: flex;
     width: 100%;
     min-height: 50vh;
-    
-   
 }
 .image-holder{
     width: 90%;
@@ -446,7 +444,7 @@ td{
     & hr{
         border: none;
         height: 1px;
-        background:#023047
+        background:#3C3C434A
     }
 }
 

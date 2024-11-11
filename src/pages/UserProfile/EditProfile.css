@@ -1,0 +1,162 @@
+.EditProfile{
+    height: 100vh;
+    width: 100%;
+    background: #93929254;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.headerEdit{
+    height: max-content;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding-right: 40px;
+}
+.editProfileModal{
+    height: 80%;
+    width: 60%;
+    background: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.inner-edit-container{
+    height: 85%;
+    width: 90%;
+    flex-direction: column;
+    /* background: red; */
+    display: flex;
+    
+    & h3{
+        font-size: 30px;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-weight: 500;
+    }
+}
+.holdEditImage{
+    height: 37%;
+    width: 100%;
+    /* background: rebeccapurple; */
+    display: flex;
+    justify-content: center;
+}
+.cameradiv{
+    height: 100%;
+    width: 10%;
+    /* background: palegreen; */
+    margin-left: -30px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding-bottom: 21px;
+}
+.camera{
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    background: #FF9101;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.editImageHolder{
+    height: 150px;
+    width: 150px;
+    /* background: pink; */
+    border-radius: 50%;
+
+    & img{
+        height: 100%;
+        width: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+}
+.EditDetails{
+    height: 50%;
+}
+.holdEditInputs{
+    height: 65%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.holdnameandemail{
+    height: 48%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 10px;
+}
+.holdnumberandstack{
+    height: 48%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+ 
+}
+
+.Input1{
+    height: 90%;
+    width: 48%;
+    border-radius: 10px;
+    border: 1px solid #4A445929;
+    outline: none;
+    font-family: sans-serif;
+    padding-left: 5px;
+}
+.Input1::placeholder{
+    font-size: 16px;
+    color: black;
+    
+}
+.Input2{
+    height: 90%;
+    width: 48%;
+    border-radius: 9px;
+    border: 2px solid #4A445929;
+    outline: none;
+    font-family: sans-serif;
+    padding-left: 5px;
+    font-size: 16px;
+}
+.Input2::placeholder{
+    color: #8080808C;
+    
+}
+.submitButtons{
+    height: 36%;
+    width: 100%;
+    /* background: red; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 10px;
+
+    & button{
+        height: 65%;
+        width: 25%;
+        border-radius: 30px;
+        border: none;
+        background: #FFB703;
+        color: #3F4C5C;
+        font-size: 16px;
+        cursor: pointer;
+
+    }
+    & .transparent{
+        background: transparent;
+        border: 1px solid black;
+    }
+}
+

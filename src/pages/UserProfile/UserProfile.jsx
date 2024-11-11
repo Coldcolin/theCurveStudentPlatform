@@ -171,6 +171,17 @@ console.log(profile)
     setDisableSaveBtn(true)
   }
   
+  const colorCode = (value) => {
+    if (value <= 10) {
+      return 'low';
+    } else if (value <= 14) {
+      return 'medium';
+    } else if (value <= 17){
+      return 'good';
+    } else {
+      return "high"
+    }
+  };
 
 
   return (
@@ -271,13 +282,13 @@ console.log(profile)
           {
             ratings?.map((rating)=>(
               <tr key={rating._id}>
-                <td style={{textAlign:"left"}}>{rating.week}</td>
-                <td style={{textAlign:"left"}}>{rating.punctuality}</td>
-                <td style={{textAlign:"left"}}>{rating.Assignments}</td>
-                <td style={{textAlign:"left"}}>{rating.classParticipation}</td>
-                <td style={{textAlign:"left"}}>{rating.classAssessment}</td>
-                <td style={{textAlign:"left"}}>{rating.personalDefense}</td>
-                <td style={{textAlign:"left"}}>{rating.total}</td>
+                <td >{rating.week}</td>
+                <td className={colorCode(rating.punctuality)} style={{textAlign:"left"}}>{rating.punctuality}</td>
+                <td className={colorCode(rating.Assignments)} style={{textAlign:"left"}}>{rating.Assignments}</td>
+                <td className={colorCode(rating.classParticipation)} style={{textAlign:"left"}}>{rating.classParticipation}</td>
+                <td className={colorCode(rating.classAssessment)} style={{textAlign:"left"}}>{rating.classAssessment}</td>
+                <td className={colorCode(rating.personalDefense)} style={{textAlign:"left"}}>{rating.personalDefense}</td>
+                <td className={colorCode(rating.total)} style={{textAlign:"left"}}>{rating.total}</td>
                 <td style={{textAlign:"left"}}><BsThreeDotsVertical cursor="pointer"/></td>
             </tr>
             ))

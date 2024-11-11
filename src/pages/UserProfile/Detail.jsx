@@ -5,6 +5,9 @@ import axiosInstance from "axios";
 import {AuthContext} from '../../Contexts/AuthProvider';
 import Swal from "sweetalert2";
 import { useSelector } from 'react-redux';
+import { LuPencil } from 'react-icons/lu';
+import { BsThreeDotsVertical } from 'react-icons/bs';
+import { FiFilter } from 'react-icons/fi';
 
 const Detail = () => {
   const {saveUser} = useContext(AuthContext);
@@ -118,40 +121,73 @@ const Detail = () => {
 
   return (
     <main className="user-main">
-    <div className="text">User Info</div>
-    <button className="assessment-submit" style={{margin: 20, paddingBlock: 5}} onClick={()=> navigate(-1)}>Back</button>
+    <div className="text">Profile</div>
+    {/* <button className="assessment-submit" style={{margin: 20, paddingBlock: 5}} onClick={()=> navigate(-1)}>Back</button> */}
       <div className="user-holder">
       {
-        user? <article className="user-info">
-        <div className='user-info-div'>
-          <div className='user-image-div'>
-          <img className='user-image' src={user.image} alt="" />
-          </div>
-          <div className="user-detail">
-            <p className="user-name"> {user.name}</p>
-            <p className='user-talk'> {user.email}</p>
-            {
-              user.role === "student"? <p className='user-talk'>{user.stack}</p>: <p className='user-talk'>{user.role}</p>
-            }
+        user? <article className='user-profile-holder'>
+    <div className="profileCard">
+      <div className="hold-profile-details">
+        <div className="pic-and-pen">
+          <div className="profile-image-holder">
+          <img className='user-image' src={user.image} alt="profile image" />
           </div>
         </div>
+        <div className="name-and-number">
+          <h2>{user.name}</h2>
+          <p>{user.email}</p>
+          <p>Mobile number: +2346056667564</p>
+        </div>
+        <div className="role-and-stack">
+          <>
+            {
+              user.role !== "student" ? null : <div className="trainee">{user.role}</div>
+            }
+          </>
+          <div className="trainee">{user.stack}</div>
+        </div>
+      </div>
+    <div className="pencil">
+      <div className="hold-pencil">
+      <LuPencil />
+      </div>
+    </div>
+    </div>
+    <>
+    {
+      profile.role !== "student" ? null :
+      <div className="viewAttendanceAndAddGrade">
+        <button className='attend'>View Attendance</button>
+        <button className='grade'>Add grade</button>
+      </div>
+      
+
+    }
+    </>
       </article>: null
       }
       
       {
         user && user?.stack === "Tutor"? null: ratings? <article className='user-assessment'>
-        <p>Your Assessment History</p>
+        <div className="hold-grade-header">
+        <h2> Grading History</h2>
+
+        <div className="holdFilter">
+          <span>Filter </span>
+          <FiFilter/>
+        </div>
+        </div>
         <table style={{width: "100%"}}>
           <thead>
           <tr className="user-table-head">
-            <th>WK </th>
-            <th>PTY</th>
-            <th>ASS</th>
-            <th>ATT</th>
-            <th>CLASS A</th>
-            <th>P D</th>
-            <th>AV. TOTAL 100%</th>
-            <th></th>
+          <th>Week </th>
+            <th>PUNCTUALITY</th>
+            <th>ASSIGNMENT</th>
+            <th>ATTENDANCE</th>
+            <th>CLASS ASS</th>
+            <th>PERSONAL DEFENSE</th>
+            <th>TOTAL</th>
+            <th>Action</th>
           </tr>
           </thead>
           <tbody>
@@ -165,6 +201,8 @@ const Detail = () => {
             <td className={colorCode(score.classAssessment)}>{score.classAssessment}</td>
             <td className={colorCode(score.personalDefense)}>{score.personalDefense}</td>
             <td className={colorCode(score?.total)}>{(Math.round(((score?.total /20) * 100)* 10))/10}%</td>
+            <td style={{textAlign:"left"}}><BsThreeDotsVertical cursor="pointer"/></td>
+
             {(profile?.role === "tutor" || profile?.role === "admin")? <td><button className="assessment-submit" onClick={()=> {deleteRating(score.week), onDelete(score.week)}}>{score.week === deleting ? <p style={{color: "white", background: "none"}}>deleting...</p> : <p style={{color: "white", background: "none"}}>Delete</p>}</button></td>: null}
           </tr>
             ))

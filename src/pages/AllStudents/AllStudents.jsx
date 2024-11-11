@@ -249,7 +249,7 @@ console.log( "backend", backStudents.filter((e)=>  e.name.toLowerCase().includes
                 <td>{student?.stack}</td>
                 {student.overallRating? <td className={colorCode(student?.overallRating)}>{(Math.round(((student?.overallRating /20) * 100)* 10))/10}%</td> : <td>0%</td>}
                 {Id?.role === "admin"? <td><button className="all-delete" onClick={()=> deleteUser(student.id)}>Delete</button></td>: null}
-                {/* {(Id?.role === "tutor" || Id?.role === "admin")? <td><button className="all-submit" onClick={()=> makeAlumni(student.id)}>Make Alumni</button></td>: null} */}
+                {(Id?.role === "tutor" || Id?.role === "admin")? <td><button className="all-submit" onClick={()=> makeAlumni(student.id)}>Make Alumni</button></td>: null}
               </tr>
             )): stack === 2? backStudents?.map((student)=>(
               <tr className="assessment-user-info" key={student?.id}>
@@ -259,7 +259,7 @@ console.log( "backend", backStudents.filter((e)=>  e.name.toLowerCase().includes
                 <td>{student?.stack}</td>
                 {student?.overallRating? <td className={colorCode(student?.overallRating)}>{(Math.round(((student?.overallRating /20) * 100)* 10))/10}%</td> : <td>0%</td>}
                 {Id?.role === "admin"? <td><button className="all-delete" onClick={()=> deleteUser(student.id)}>Delete</button></td>: null}
-                {/* {(Id?.role === "tutor" || Id?.role === "admin")? <td><button className="all-submit" onClick={()=> makeAlumni(student.id)}>Make Alumni</button></td>: null} */}
+                {(Id?.role === "tutor" || Id?.role === "admin")? <td><button className="all-submit" onClick={()=> makeAlumni(student.id)}>Make Alumni</button></td>: null}
               </tr>
             )): stack === 3? productStudents?.map((student)=>(
               <tr className="assessment-user-info" key={student?.id}>
@@ -269,7 +269,7 @@ console.log( "backend", backStudents.filter((e)=>  e.name.toLowerCase().includes
                 <td>{student?.stack}</td>
                 {student.overallRating? <td className={colorCode(student?.overallRating)}>{(Math.round(((student?.overallRating /20) * 100)* 10))/10}%</td> : <td>0%</td>}
                 {Id?.role === "admin"? <td><button className="all-delete" onClick={()=> deleteUser(student.id)}>Delete</button></td>: null}
-                {/* {(Id?.role === "tutor" || Id?.role === "admin")? <td><button className="all-submit" onClick={()=> makeAlumni(student.id)}>Make Alumni</button></td>: null} */}
+                {(Id?.role === "tutor" || Id?.role === "admin")? <td><button className="all-submit" onClick={()=> makeAlumni(student.id)}>Make Alumni</button></td>: null}
               </tr>
             )): null
             }

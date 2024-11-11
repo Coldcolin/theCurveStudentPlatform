@@ -10,7 +10,7 @@ import { AiOutlineSchedule } from "react-icons/ai";
 import {useSelector, useDispatch} from "react-redux";
 import { signOut } from "../../Contexts/IdReducer";
 import Swal from 'sweetalert2';
-
+import { IoMdHelpCircleOutline } from "react-icons/io";
 
 
 
@@ -41,7 +41,7 @@ const Sidebar = () => {
         <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="/"><TbLayoutDashboard/> <span>Dashboard</span></NavLink>
         <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="user"> <FiUser/> <span>User Profile</span></NavLink>
         <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="/upload"> <AiOutlineSchedule /> <span>Check-in</span></NavLink>
-        <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="/message-us"> <AiOutlineSchedule /> <span>Message Us</span></NavLink>
+        <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="/message-us"> <IoMdHelpCircleOutline /> <span>Message Us</span></NavLink>
         {profile.role === "tutor"?<NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="assessment"><MdOutlineAssessment/> <span>Student Assessment</span></NavLink>: null}
         {profile.role === "admin"?<NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="assessment"><MdOutlineAssessment/> <span>Student Assessment</span></NavLink>: null}
         {

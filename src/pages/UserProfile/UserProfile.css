@@ -314,8 +314,9 @@
     font-size: 16px;
     border-radius: 30px;
     border: none;
-    background: skyblue;
+    background: #007AFF26;
     cursor: pointer;
+    color: #023047;
 }
 .grade{
     height: max-content;
@@ -324,8 +325,9 @@
     font-size: 16px;
     border-radius: 30px;
     border: none;
-    background: rgb(255, 221, 0);
+    background: #FFB703;
     cursor: pointer;
+    color: #3F4C5C;
 }
 .GradeShow{
     height: 95%;

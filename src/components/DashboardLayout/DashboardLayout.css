@@ -1,8 +1,15 @@
 .body {
     display: flex;
     width: 100%;
+    position: relative;
 }
-
+.displayEditProfile{
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+}
 .sidebar{
     display: flex;
     width: 20%;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 // import Image from "../../images/SOTW-SOTW.jpg"
 import "./UserProfile.css";
 import "../CheckIn/uploadimage.css"
@@ -14,6 +14,9 @@ import { LuPencil } from "react-icons/lu";
 import { FiFilter } from "react-icons/fi";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { MdGrade, MdOutlineArticle } from 'react-icons/md';
+import { FaRankingStar } from "react-icons/fa6";
+import { RiTodoLine } from "react-icons/ri";
+import { AuthContext } from '../../Contexts/AuthProvider.jsx';
 
 
 const UserProfile = () => {
@@ -25,6 +28,7 @@ const UserProfile = () => {
   const token = JSON.parse(localStorage.getItem("token"));
   const [loading, setLoading] = useState(false);
   const [checkEdit, setCheckEdit] = useState(false);
+  const { displayEdit } = useContext(AuthContext)
   // console.log(profile.role);
   const Toast = Swal.mixin({
     toast: true,
@@ -36,7 +40,6 @@ const UserProfile = () => {
     toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
 })
-console.log(profile)
   const getRatings =async()=>{
     try{
       const res = await axiosInstance.get(`https://sotw-app.onrender.com/rating/get/${profile.id}`)
@@ -183,6 +186,9 @@ console.log(profile)
     }
   };
 
+  // const editMyProfile=()=>{
+  //   setEditProfile(true)
+  // }
 
   return (
     <main className="user-main">
@@ -211,7 +217,7 @@ console.log(profile)
         </div>
       </div>
     <div className="pencil">
-      <div className="hold-pencil">
+      <div className="hold-pencil" onClick={displayEdit}>
       <LuPencil />
       </div>
     </div>
@@ -235,7 +241,7 @@ console.log(profile)
         </div>
         <div className="gradeshow-card">
           <div className="gradeShowCardIcon">
-            <MdOutlineArticle color='#FB8500' size={50}/>
+            <RiTodoLine color='#FB8500' size={50}/>
           </div>
           <div className="gradeCardDeets">
             <h2 style={{color:"#FB8500", fontSize:"36px"}}>52</h2>
@@ -244,7 +250,7 @@ console.log(profile)
         </div>
         <div className="gradeshow-card">
           <div className="gradeShowCardIcon">
-            <MdGrade color='#AF52DE' size={50}/>
+            <FaRankingStar color='#AF52DE' size={50}/>
           </div>
           <div className="gradeCardDeets">
             <h2 style={{color:"#AF52DE", fontSize:"36px"}}>6th</h2>

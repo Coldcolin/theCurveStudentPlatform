@@ -5,12 +5,21 @@ import "./DashboardLayout.css"
 import Sidebar from "../Sidebar/Sidebar";
 import Navbar from "../Navbar/Navbar";
 import Side from "../Sidebar/Side";
+import EditProfile from "../../pages/UserProfile/EditProfile";
 
 
 const DashboardLayout = () => {
-    const { showSide, toggleSide} = useContext(AuthContext)
+    const { showSide, toggleSide } = useContext(AuthContext)
   return (
     <div className="body">
+        {
+            editProfile  ?
+        <div className="displayEditProfile">
+        <EditProfile  />
+        </div>
+        :
+        null
+        }
         <div className="sidebar">
             <Sidebar/>
         </div>

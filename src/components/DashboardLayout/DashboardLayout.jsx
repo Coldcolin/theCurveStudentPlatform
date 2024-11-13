@@ -9,13 +9,14 @@ import EditProfile from "../../pages/UserProfile/EditProfile";
 
 
 const DashboardLayout = () => {
-    const { showSide, toggleSide } = useContext(AuthContext)
+    const { showSide, toggleSide, editProfile, displayEdit} = useContext(AuthContext)
+
   return (
     <div className="body">
         {
             editProfile  ?
-        <div className="displayEditProfile">
-        <EditProfile  />
+        <div className={ `displayEditProfile ${editProfile ? "show" : ""}`}>
+        <EditProfile editnow = {displayEdit} />
         </div>
         :
         null

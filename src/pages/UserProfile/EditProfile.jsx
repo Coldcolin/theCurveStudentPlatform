@@ -4,7 +4,7 @@ import { BsCamera } from "react-icons/bs";
 import { useSelector } from 'react-redux';
 import { AuthContext } from '../../Contexts/AuthProvider';
 
-const EditProfile = ({toggle}) => {
+const EditProfile = ({editnow}) => {
   const profile = useSelector((state) => state.Id.Id);
   const {setEditProfile} = useContext(AuthContext)
 
@@ -43,7 +43,7 @@ const EditProfile = ({toggle}) => {
           </div>
         </div>
           <div className="submitButtons">
-            <button className='transparent' onClick={toggle}>Cancel</button><button>Save Changes</button>
+            <button className='transparent' onClick={editnow}>Cancel</button><button>Save Changes</button>
           </div>
         </form>
         </div>

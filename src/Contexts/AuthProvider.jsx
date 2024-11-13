@@ -22,7 +22,7 @@ export const AuthProvider = ({ children })=>{
         setSaveUser(JSON.parse(localStorage.getItem("SOTWUser")))
     }, [onSignOut])
     return(
-        <AuthContext.Provider value={{ showSide, toggleSide, editProfile, displayEdit}}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ showSide, toggleSide, editProfile, displayEdit, setEditProfile}}>{children}</AuthContext.Provider>
     )
 }
 

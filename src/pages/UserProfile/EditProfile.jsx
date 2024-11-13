@@ -1,13 +1,21 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import "./EditProfile.css"
 import { BsCamera } from "react-icons/bs";
 import { useSelector } from 'react-redux';
 import { AuthContext } from '../../Contexts/AuthProvider';
+import { FaRegCircleCheck } from "react-icons/fa6";
 
 const EditProfile = ({editnow}) => {
   const profile = useSelector((state) => state.Id.Id);
   const {setEditProfile} = useContext(AuthContext)
+  const [saved, setSaved] = useState(false)
 
+  const confirmSave =()=>{
+    setSaved(true)
+    setTimeout(() => {
+      setEditProfile(false)
+    }, 2000);
+  }
 
 
   const Info={
@@ -18,7 +26,14 @@ const EditProfile = ({editnow}) => {
   }
   return (
     <div className='EditProfile'>
-      <div className="editProfileModal">
+      {
+        saved ?
+        <div className="confirmedModal">
+        <FaRegCircleCheck color='#1EBF74' size={140}/>
+        <p>Your profile has been updated</p>
+      </div>
+      :
+       <div className="editProfileModal">
         <div className="inner-edit-container">
           <div className="headerEdit">
             <h3>Update Profile</h3>
@@ -43,11 +58,14 @@ const EditProfile = ({editnow}) => {
           </div>
         </div>
           <div className="submitButtons">
-            <button className='transparent' onClick={editnow}>Cancel</button><button>Save Changes</button>
+            <button className='transparent' onClick={editnow}>Cancel</button><button onClick={confirmSave}>Save Changes</button>
           </div>
         </form>
         </div>
-      </div>
+      </div> 
+      }
+      
+      
     </div>
   )
 }

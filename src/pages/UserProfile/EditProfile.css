@@ -23,6 +23,23 @@
     justify-content: center;
     align-items: center;
 }
+.confirmedModal{
+    height: 80%;
+    width: 60%;
+    background: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+
+    & p{
+        font-size: 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 600;
+    }
+}
 .inner-edit-container{
     height: 85%;
     width: 90%;

@@ -17,6 +17,7 @@ import { MdGrade, MdOutlineArticle } from 'react-icons/md';
 import { FaRankingStar } from "react-icons/fa6";
 import { RiTodoLine } from "react-icons/ri";
 import { AuthContext } from '../../Contexts/AuthProvider.jsx';
+import { axiosInstancePunc } from '../../api/axios.js';
 
 
 const UserProfile = () => {
@@ -42,7 +43,7 @@ const UserProfile = () => {
 })
   const getRatings =async()=>{
     try{
-      const res = await axiosInstance.get(`https://sotw-app.onrender.com/rating/get/${profile.id}`)
+      const res = await axiosInstance.get(`/rating/get/${profile.id}`)
       const rating = res.data.data;
       setRatings(rating);
     }catch(error){
@@ -69,7 +70,7 @@ const UserProfile = () => {
             "Authorization": `Bearer ${token}`
             }
         }
-        const res = await axiosInstance.get(`https://thecurvepuntualityapi.onrender.com/api/v1/studentAttendance/${profile.id}`, config);
+        const res = await axiosInstancePunc.get(`/studentAttendance/${profile.id}`, config);
         setDetails(res.data.data);
         setLoading(false);
     }catch(error){
@@ -205,7 +206,7 @@ const UserProfile = () => {
         <div className="name-and-number">
           <h2>{profileName}</h2>
           {/* <p>{profile.email}</p> */}
-          <p>Mobile number: +2346056667564</p>
+          <p>Mobile number: {profile.phone}</p>
         </div>
         <div className="role-and-stack">
           <>
@@ -235,7 +236,7 @@ const UserProfile = () => {
             <BsGraphDownArrow color='#00893D' size={50}/>
           </div>
           <div className="gradeCardDeets">
-            <h2 style={{color:"#00893D", fontSize:"36px"}}>10</h2>
+            <h2 style={{color:"#00893D", fontSize:"36px"}}>0</h2>
             <p style={{color:"#8B8B8B", fontSize:"12px"}}>Overall Average</p>
           </div>
         </div>
@@ -244,7 +245,7 @@ const UserProfile = () => {
             <RiTodoLine color='#FB8500' size={50}/>
           </div>
           <div className="gradeCardDeets">
-            <h2 style={{color:"#FB8500", fontSize:"36px"}}>52</h2>
+            <h2 style={{color:"#FB8500", fontSize:"36px"}}>0</h2>
             <p style={{color:"#8B8B8B", fontSize:"12px"}}>Current Grade</p>
           </div>
         </div>
@@ -253,7 +254,7 @@ const UserProfile = () => {
             <FaRankingStar color='#AF52DE' size={50}/>
           </div>
           <div className="gradeCardDeets">
-            <h2 style={{color:"#AF52DE", fontSize:"36px"}}>6th</h2>
+            <h2 style={{color:"#AF52DE", fontSize:"36px"}}>0</h2>
             <p style={{color:"#8B8B8B", fontSize:"12px"}}>Rating</p>
           </div>
         </div>
@@ -317,9 +318,10 @@ const UserProfile = () => {
         </p>
       </div>
       }
-      { profile.role === "student"? <div className="uploadwrap">
+      {/* { profile.role === "student"? <div className="uploadwrap">
             {
-                loading ? <Loading/>:<div className="confirm">
+                loading ? <Loading/>:
+                <div className="confirm">
                 <div className="punctual">
                     <h3>Confirm Check-in</h3>
                     <button className="assessment-submit" style={{margin: 20, paddingBlock: 5}} onClick={()=> navigate(-1)}>Back</button>
@@ -343,7 +345,7 @@ const UserProfile = () => {
                 </div>
             </div>
             }
-        </div>: null}
+        </div>: null} */}
     </main>
   )
 }

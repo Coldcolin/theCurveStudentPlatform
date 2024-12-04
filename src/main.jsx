@@ -17,6 +17,16 @@ const client = new ApolloClient({
   // uri: 'http://localhost:8000/graphql',
   uri: import.meta.env.VITE_API_GRAPHQL_URL,
   cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      // Polls every 30 seconds
+      pollInterval: 30000,
+      // Fetches new data when the component is re-mounted
+      fetchPolicy: 'cache-and-network',
+      // Doesn't use cache for subsequent requests
+      nextFetchPolicy: 'network-only'
+    }
+  }
 });
 
 let persistor = persistStore(store);

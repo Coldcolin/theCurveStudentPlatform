@@ -3,7 +3,7 @@ import image from "../../images/Transparent_curve.png"
 import sideImage from "../../images/young-woman-with-afro-haircut-wearing-pink-sweater-holding-textbooks 1.png"
 import { LiaEyeSolid } from "react-icons/lia";
 import { FaRegEyeSlash } from "react-icons/fa6";
-import axiosInstance from "../../api/axios.js"
+import axiosInstance, { axiosInstanceSign } from "../../api/axios.js"
 import "./Login.css"
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import * as yup from "yup";
@@ -44,11 +44,11 @@ const Login = () => {
     setLoading(true)
     try{
       const {email, password}= data;
-      const res = await axiosInstance.post(LOGIN_URL, { email, password});
+      const res = await axiosInstanceSign.post(LOGIN_URL, { email, password});
 
       // console.log(email, password)
-      dispatch(addId({id: res.data.data._id, name: res.data.data.name, stack: res.data.data.stack, role: res.data.data.role, image: res.data.data.image}));
-      localStorage.setItem("token", JSON.stringify( res.data.data.token))
+      dispatch(addId({id: res.data.data._id, name: res.data.data.name, stack: res.data.data.stack, role: res.data.data.role, image: res.data.data.image, phone: res.data.data.phone, email: res.data.data.email,}));
+      localStorage.setItem("token", JSON.stringify(res.data.data.token))
       // console.log(res.data.data.name, res.data.data.stack);
       reset();
       Toast.fire({

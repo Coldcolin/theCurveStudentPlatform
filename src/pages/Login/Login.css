@@ -63,28 +63,35 @@
 }
 
 .login-input {
-    width: 70%;
+    width: 80%;
+    height: 50px;
     padding: 10px 0px;
-    background-color: #F3F4F6;
-    border-radius: 5px;
-    border: none;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    /* border: none; */
     padding-left: 10px;
     margin: 10px 0px;
 }
 .login-password-holder{
-    width: 70%;
-    background-color: #F3F4F6;
-    margin-bottom: 10px;
-    border-radius: 5px;
+    width: 80%;
+    width: 80%;
+    height: 50px;
+    padding: 10px 0px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding-left: 10px;
+    margin: 10px 0px;
     display: flex;
     align-items: center;
 }
+.login-password-holder:focus-within {
+    border: 2px solid black;
+}
 .login-password-input {
     width: 97%;
-    /* padding: 10px 0px; */
-    background-color: #F3F4F6;
-    border-radius: 5px;
+    padding: 10px 0px;
     border: none;
+    border-radius: 5px;
     padding-left: 10px;
     margin: 10px 0px;
     outline: none;
@@ -95,7 +102,8 @@
 }
 
 .login-signup-button{
-    width: 70%;
+    margin-top: 50px;
+    width: 80%;
     height: 50px;
     border: none;
     border-radius: 10px;

@@ -2,18 +2,22 @@
     display: flex;
     width: 100%;
     max-height: 100vh;
+    height: 100vh;
+    overflow-y: hidden;
     /* background-color: yellow; */
 }
 .reg-left{
     display: flex;
+    height: 100vh;
+    max-height: 100vh;;
     flex:1;
     background-color: #023047;
 }
 .reg-left-image{
     width: 100%;
     height: 100%;
-    max-height: 100vh;
-    min-height: 100vh;
+    /* max-height: 100vh;
+    min-height: 100vh; */
     background: white;
     margin: auto;
     position: relative;
@@ -53,7 +57,7 @@
 .reg-right-form{
     margin-top: 10px;
     width: 80%;
-    height: 600px;
+    height: 90%;
     /* background: yellow; */
     display: flex;
     flex-direction: column;
@@ -63,8 +67,8 @@
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.08), 0px 15px 35px -5px rgba(17, 24, 38, 0.15), 0px 0px 0px 1px rgba(152, 161, 178, 0.1);
 }
 .reg-right-avatar{
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border: 0.6px solid #023047;
     border-radius: 100%;
     object-fit: cover;
@@ -74,18 +78,22 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
+    margin-bottom: 50px;
 }
 .reg-input {
-    width: 70%;
+    width: 80%;
+    height: 50px;
     padding: 10px 0px;
-    background-color: #F3F4F6;
-    border-radius: 5px;
-    border: none;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    /* border: none; */
     padding-left: 10px;
-    margin: 10px 0px;
+    margin: 5px 0px;
 }
 .reg-signup-button{
-    width: 60%;
+    margin-top: 50px;
+    width: 80%;
     height: 50px;
     border: none;
     border-radius: 10px;
@@ -98,7 +106,8 @@
     cursor: pointer;
 }
 .reg-signup-button-disabled{
-    width: 60%;
+    margin-top: 50px;
+    width: 80%;
     height: 50px;
     border: none;
     border-radius: 10px;
@@ -111,26 +120,29 @@
     cursor: pointer;
 }
 .reg-upload-button{
-    width: 100%;
-    margin: 10px 0;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     padding-inline: 3px;
     border: none;
-    border-radius: 8px;
+    border-radius: 100%;
     background-color: #FFB703;
-    color: #023047;
-    font-weight: 600;
-    line-height: 20px;
-    letter-spacing: 0.05em;
+    color: white;
+    font-size: 30px;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    right: -10px;
+    bottom: -5px;
 }
 
 @media screen and (max-width: 600px){
     .reg-left{
         display: none;
+    }
+    .reg-right-form{
+        padding-block: 20px;
     }
     /* .reg-image-div{
         width: 150px;
@@ -141,18 +153,18 @@
         height: 550px;
     } */
     .reg-signup-button {
-        width: 60%;
+        width: 80%;
         height: 40px;
         font-size: 16px;
         border-radius: 5px;
     }
-    .reg-upload-button{
+    /* .reg-upload-button{
         width: 100%;
         height: 30px;
         font-size: 14px;
         border-radius: 5px;
         letter-spacing: 0.01rem;
-    }
+    } */
     /* .reg-left-image {
         width: 60%;
     } */
@@ -162,6 +174,9 @@
     .reg-left{
         display: none;
     }
+    .reg-right-form{
+        padding-block: 20px;
+    }
     /* .reg-image-div{
         width: 150px;
         height: 60px;
@@ -171,18 +186,18 @@
         height: 550px;
     } */
     .reg-signup-button {
-        width: 60%;
+        width: 80%;
         height: 40px;
         font-size: 16px;
         border-radius: 5px;
     }
-    .reg-upload-button{
+    /* .reg-upload-button{
         width: 100%;
         height: 30px;
         font-size: 14px;
         border-radius: 5px;
         letter-spacing: 0.01rem;
-    }
+    } */
     /* .reg-left-image {
         width: 60%;
     } */

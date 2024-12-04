@@ -3,7 +3,7 @@ import "./Registration.css"
 import image from "../../images/Transparent_curve.png"
 import avatars from "../../images/for_upload.png"
 import sideImage from "../../images/young-woman-with-afro-haircut-wearing-pink-sweater-holding-textbooks 1.png"
-import axiosInstance from "../../api/axios.js"
+import {axiosInstanceSign} from "../../api/axios.js"
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -11,6 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Swal from "sweetalert2";
 import { LiaEyeSolid } from "react-icons/lia";
 import { FaRegEyeSlash } from "react-icons/fa6";
+import { MdOutlineCameraAlt } from "react-icons/md";
 
 const REGISTER_URL = "/users/create"
 
@@ -19,7 +20,7 @@ const Registration = () => {
   const [view, setView] = useState(false)
   const [imageDB, setImageDB] = useState("")
   const [avatar, setAvatar] = useState(avatars);
-  // const [allow, setAllow] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const schemaModel = yup.object().shape({
     name: yup.string().required("Please add your name"),
@@ -27,6 +28,7 @@ const Registration = () => {
     role: yup.string().required("Please add your role"),
     cohort: yup.number().required("Please add your cohort"),
     email: yup.string().email().required("Please input your email"),
+    phone: yup.string().required("Please input your phone number"),
     password: yup.string().required("Please input your password"),
 
   });
@@ -53,10 +55,20 @@ const Registration = () => {
 
   const signUp = handleSubmit( async (data) =>{
     try{
-      const {email, password, stack, name, role, cohort}= data;
+      setLoading(true)
+      if(!imageDB){
+        Toast.fire({
+          icon: 'error',
+          title: 'Please Add Image'
+        })
+      }
+      const {email, password, stack, name, role, cohort, phone}= data;
+      const firstName = name.split(' ')[0];
+      localStorage.setItem('firstName', firstName);
       const formData = new FormData();
       formData.append("name", name);
       formData.append("email", email);
+      formData.append("phone", phone);
       formData.append("password", password);
       formData.append("stack", stack);
       formData.append("role", role);
@@ -68,21 +80,25 @@ const Registration = () => {
           "content-type": "multipart/formData",
         }
       }
-      await axiosInstance.post(REGISTER_URL,formData, config);
+      await axiosInstanceSign.post(REGISTER_URL,formData, config);
       reset();
       Toast.fire({
         icon: 'success',
         title: 'Successfully Signed up'
       })
-      navigate("/login")
+
+      navigate("/success")
+      setLoading(false)
     }catch(error){
+      setLoading(false)
       if(error.response){
         Toast.fire({
           icon:'error',
-          title: error.response.data.message
+          title: error.response.data
         })
-        console.log(error.response.status);
-        console.log(error.response.headers);
+        // console.log(error.response.status);
+        // console.log(error.response.headers);
+        // console.log(error.response);
       } else if (error.request){
         console.log(error.request);
       }else {
@@ -105,12 +121,14 @@ const Registration = () => {
         <form className="reg-right-form" type="multipart/form-data" onSubmit={signUp}>
           <div className="reg-avatar-div">
             <img src={avatar} alt="avatar" className="reg-right-avatar" />
-            <label className="reg-upload-button" htmlFor="upload">Upload Image</label>
+            <label className="reg-upload-button" htmlFor="upload"><MdOutlineCameraAlt /></label>
             <input id="upload" type="file" accept="image/*" style={{display: "none"}} onChange={File}/>
           </div>
-          <input className="reg-input" placeholder="Full Name" {...register("name")}/>
+          <input className="reg-input" placeholder="First Name and Last Name" {...register("name")}/>
           <label style={{color: "red", fontSize: "11px"}}>{errors.name && <p>Please enter the Name.</p>}</label>
-          <input className="reg-input" value={"4"} placeholder="cohort" {...register("cohort")} />
+          <input className="reg-input" placeholder="Phone Number" {...register("phone")}/>
+          <label style={{color: "red", fontSize: "11px"}}>{errors.phone && <p>Please enter the phone number.</p>}</label>
+          <input className="reg-input" value={"5"} placeholder="cohort" {...register("cohort")} />
           <label style={{color: "red", fontSize: "11px"}}>{errors.cohort && <p>Please enter the Cohort.</p>}</label>
           <input className="reg-input" placeholder="email" {...register("email")}/>
           <label style={{color: "red", fontSize: "11px"}}>{errors.email && <p>Please enter the email.</p>}</label>
@@ -136,7 +154,7 @@ const Registration = () => {
           <label style={{color: "red", fontSize: "11px"}}>{errors.password  && <p>Please enter the Password.</p>}</label>
           </div>
           
-          <button className={imageDB? "reg-signup-button":"reg-signup-button-disabled"} type="submit" disabled={ imageDB? false: true}>Sign Up</button>
+          <button className={(imageDB && (loading === false)) === true? "reg-signup-button":"reg-signup-button-disabled"} type="submit" disabled={ (imageDB && (loading === false)) === true? false: true}>{(imageDB && (loading === false)) === true? "Sign Up": loading === true? "Signing up...": "Sign up"}</button>
         </form>
         </div>
       </div>

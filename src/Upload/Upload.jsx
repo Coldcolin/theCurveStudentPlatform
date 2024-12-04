@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import { MdDateRange } from "react-icons/md";
 import { BsCloudUpload } from "react-icons/bs";
 import { FaCheck } from "react-icons/fa6";
+import Loading from '../components/Loader/Loading.jsx';
 
 const Upload = () => {
   const navigate = useNavigate();
@@ -20,7 +21,10 @@ const Upload = () => {
   const [avatar, setAvatar] = useState("");
   const [checkInState, setCheckInState] = useState(false);
   const [successfulCheckIn, setSuccessfulCheckIn] = useState(false)
-  const token = JSON.parse(localStorage.getItem("token"))
+  const token = JSON.parse(localStorage.getItem("token"));
+
+  const [details, setDetails] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const HandleUploadImage = (e)=>{
     const file = e.target.files[0];
@@ -54,11 +58,11 @@ const Upload = () => {
           "Authorization": `Bearer ${token}`
         }
       }
-      if(profile.stack === "Front End"){
-        url = "https://thecurvepuntualityapi.onrender.com/api/v1/checkIn"
-      }else{
-        url = "https://thecurvepuntualityapi-1.onrender.com/api/v1/checkIn"
-      }
+      // if(profile.stack === "Front End"){
+      //   url = "https://the-curve-puntuality-api.vercel.app/api/v1/checkIn"
+      // }else{
+      //   url = "https://the-curve-puntuality-api.vercel.app/api/v1/checkIn"
+      // }
       await axiosInstancePunc.post(`/checkIn`,formData, config);
 
       Toast.fire({
@@ -89,6 +93,39 @@ const Upload = () => {
       }
     }
   }
+
+  const getPunctualityInfo= async ()=>{
+    try{
+        setLoading(true);
+        // console.log(profile._id)
+        const config = {
+            headers: {
+            "content-type": "multipart/formData",
+            "Authorization": `Bearer ${token}`
+            }
+        }
+        const res = await axiosInstancePunc.get(`/studentAttendance/${profile.id}`, config);
+        setDetails(res.data.data);
+        setLoading(false);
+    }catch(error){
+        setLoading(false);
+        if(error.response.status === 501){
+            dispatch(signOut());
+            navigate("/login")
+          }
+        if(error.response){
+            Toast.fire({
+            icon:'error',
+            title: error.response.data.message
+            })
+            
+        } else if (error.request){
+            console.log(error.request);
+        }else {
+            console.log("Error", error.message)
+        }
+    }
+}
   
   useEffect(() => {
     const fetchLocation = () => {
@@ -104,6 +141,7 @@ const Upload = () => {
     };
 
     fetchLocation();
+    getPunctualityInfo()
   }, []);
 
   // useEffect(()=>{
@@ -202,26 +240,62 @@ const Upload = () => {
             </h3>
             <div className="attendance-history-main">
               {
-                attendance.map((e)=>(
-                  <div className="punctuality-card">
+                details.map((e, i)=>(
+                  <div key={i} className="punctuality-card">
                     <div className="punctuality-card-header">
                     <div className="hold-punctuality-card-date">
                       <MdDateRange size={21} />
                       <h3 style={{fontSize:"16px",color:"#34393C", fontWeight:"100"}}>
-                      October 18th, 2024
+                      {e.date}
                       </h3>
                     </div>
-                    <div className="codePunctuality" id={e.punctualityCode}>
-                      {e.word}
-                    </div>
+                    <div 
+          className="codePunctuality" 
+          id={e.time < "09:45" ? "late" : "early"}
+        >
+          {e.time < "09:45" ? "Late" : "Early"}
+        </div>
                     </div>
                     <div className="punctuality-card-body">
                       <p style={{color:"#34393C"}}>Check-in Time</p>
-                      <h3 style={{color:"#34393C"}}>9:02 am</h3>
+                      <h3 style={{color:"#34393C"}}>{e.time}</h3>
                     </div>
                   </div>
                 ))
               }
+              
+
+
+              {/* { profile.role === "student"? <div className="uploadwrap">
+            {
+                loading ? <Loading/>:
+                <div className="confirm">
+                <div className="punctual">
+                    <h3>Confirm Check-in</h3>
+                    <button className="assessment-submit" style={{margin: 20, paddingBlock: 5}} onClick={()=> navigate(-1)}>Back</button>
+                </div>
+                <div className="confirmdetails">
+                    {
+                        details?.length !== 0 ? details.map((e)=>(
+                            <div key={e._id} className="detailHold">
+                        <div className="pic">
+                            <div className="actualImg">
+                                <img src={e.image.url} alt="" />
+                            </div>
+                        </div>
+                        <aside className='actualrating'>
+                            <p>{e.date}</p>
+                            <p>Check-in Time : <span>{e.time}</span></p>
+                        </aside>
+                    </div>
+                        ))
+                        : <div>No Check-in Info</div>
+                    }
+                </div>
+            </div>
+            }
+        </div>: null} */}
+
             </div>
           </div>
         </div>

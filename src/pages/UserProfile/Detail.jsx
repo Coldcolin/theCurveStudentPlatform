@@ -1,13 +1,16 @@
 import React, { useEffect, useState, useContext } from 'react';
 import "./UserProfile.css";
 import {useParams, useNavigate} from "react-router-dom"
-import axiosInstance from "axios";
+import axiosInstance from "../../api/axios.js";
 import {AuthContext} from '../../Contexts/AuthProvider';
 import Swal from "sweetalert2";
 import { useSelector } from 'react-redux';
 import { LuPencil } from 'react-icons/lu';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { FiFilter } from 'react-icons/fi';
+const ONE_USER = "/users/oneUser/"
+const GET_RATING = "/rating/get/"
+const DELETE_RATING = "/rating/delete/"
 
 const Detail = () => {
   const {saveUser} = useContext(AuthContext);
@@ -20,7 +23,7 @@ const Detail = () => {
 
     const getUser =async()=>{
         try{
-          const res = await axiosInstance.get(`https://sotw-app.onrender.com/users/oneUser/${id}`)
+          const res = await axiosInstance.get(`${ONE_USER}${id}`)
           setUser(res.data.data);
           // console.log(res.data.data)
         }catch(error){
@@ -39,7 +42,7 @@ const Detail = () => {
 
       const getRatings =async()=>{
         try{
-          const res = await axiosInstance.get(`https://sotw-app.onrender.com/rating/get/${id}`)
+          const res = await axiosInstance.get(`${GET_RATING}${id}`)
           const rating = res.data.data;
           const sortedRatings = rating.sort((a, b)=> a.week - b.week)
           setRatings(sortedRatings);
@@ -75,7 +78,7 @@ const Detail = () => {
             confirmButtonText: 'Yes, delete it!'
           })
           if(Toast.isConfirmed){
-            await axiosInstance.delete(`https://sotw-app.onrender.com/rating/delete/${studentId}/${week}`)
+            await axiosInstance.delete(`${DELETE_RATING}${studentId}/${week}`)
             Swal.fire(
                     'Deleted!',
                     'Rating has been removed.',

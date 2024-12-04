@@ -7,6 +7,9 @@ import { useQuery, gql } from '@apollo/client';
 import Loading from '../../components/Loader/Loading';
 import {changeAsses} from "../../Contexts/IdReducer.js"
 import { useDispatch, useSelector } from 'react-redux';
+import { IoIosSearch } from 'react-icons/io';
+import { TbSlash } from 'react-icons/tb';
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 const GET_USERS = gql`
   query getClients {
@@ -16,9 +19,12 @@ const GET_USERS = gql`
       role
       stack
       image
+      weeklyRating
     }
   }
 `;
+
+const ALLSOTWPD_URL = "/PSOW/all"
 
 const Assessment = () => {
   const { loading, error, data } = useQuery(GET_USERS);
@@ -26,11 +32,11 @@ const Assessment = () => {
   const stack = useSelector((e)=> e.Id.assessState);
   const who = useSelector((e)=> e.Id.Id.role);
   const dispatch = useDispatch()
-  const [punctuality, setPunctuality] = useState(0);
-  const [Assignments, setAssignments] = useState(0);
-  const [personalDefense, setPersonalDefense] = useState(0);
-  const [classParticipation, setClassParticipation] = useState(0);
-  const [classAssessment, setClassAssessment] = useState(0);
+  // const [punctuality, setPunctuality] = useState(0);
+  // const [Assignments, setAssignments] = useState(0);
+  // const [personalDefense, setPersonalDefense] = useState(0);
+  // const [classParticipation, setClassParticipation] = useState(0);
+  // const [classAssessment, setClassAssessment] = useState(0);
   const [week, setWeek] = useState(0);
   // const [show, setShow] = useState(false);
   // const [loadings, setLoading] = useState(false);
@@ -41,9 +47,43 @@ const Assessment = () => {
   const [productD, setProductD] = useState([]);
   // const [front, setFront] = useState("")
   // const [back, setBack] = useState("")
-  const [submitLoading, setSubmitLoading] = useState()
+  const [submitLoading, setSubmitLoading] = useState(false)
   // const [stack, setStack] = useState(1)
-  
+  const [currentWeek, setCurrentWeek] = useState(0)
+
+  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [isGradingOpen, setIsGradingOpen] = useState(false);
+  const [gradeInputs, setGradeInputs] = useState({
+    punctuality: 0,
+    attendance: 0,
+    Assignments: 0,
+    classAssessments: 0,
+    personalDefence: 0
+  });
+
+  // Add this new handler
+  const handleGradeClick = (student) => {
+    setSelectedStudent(student);
+    setIsGradingOpen(true);
+  };
+
+  const handleGradeSubmit = async () => {
+    try {
+      
+      await addAssessment(selectedStudent.id, selectedStudent.name);
+      setIsGradingOpen(false);
+      setSelectedStudent(null);
+      setGradeInputs({
+        punctuality: 0,
+        attendance: 0,
+        Assignments: 0,
+        classAssessments: 0,
+        personalDefence: 0
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
   
 
 
@@ -58,19 +98,21 @@ const Assessment = () => {
     }
   })
 
-  const submit = (id)=>{
-
-    setSubmitLoading(id)
-
-  }
-
  
   const addAssessment = async (id, name) =>{
+
+    const {
+      punctuality,
+      attendance,
+      Assignments,
+      classAssessments,
+      personalDefence
+    } = gradeInputs
     
     try{
       const Toaster = await Swal.fire({
         title: 'Add Assessment?',
-        text: `${JSON.stringify({Assignments: Assignments , personalDefense: personalDefense , classParticipation: classParticipation , punctuality: punctuality , classAssessment: classAssessment})} for week: ${week} for ${name}`,
+        text: `${JSON.stringify({Assignments: Assignments , personalDefense: personalDefence , classParticipation: attendance , punctuality: punctuality , classAssessment: classAssessments})} for week: ${currentWeek} for ${name}`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#FFB703',
@@ -78,18 +120,13 @@ const Assessment = () => {
         confirmButtonText: 'Yes, add it!'
       })
       if(Toaster.isConfirmed){
-        await axiosInstance.post(`/rating/add/${id}`,{Assignments: Assignments, personalDefense: personalDefense, classParticipation: classParticipation, punctuality: punctuality, classAssessment: classAssessment, week: week});
+        await axiosInstance.post(`/rating/add/${id}`,{Assignments: Assignments, personalDefense: personalDefence, classParticipation: attendance, punctuality: punctuality, classAssessment: classAssessments, week:currentWeek});
           Toast.fire({
           icon: 'success',
           title: 'Assessment Added'
         })
       }
-      setAssignments(0);
-      setPersonalDefense(0);
-      setClassAssessment(0);
-      setPunctuality(0);
-      setClassAssessment(0);
-      setWeek(0)
+      
     }catch(error){
       if(error.response){
         Toast.fire({
@@ -232,10 +269,15 @@ const Assessment = () => {
     try{
       const user = await data?.users;
       const filteredUsers = user.filter((e)=> e.role === "student");
-      
+      // console.log(user)
       const back = filteredUsers.filter(i => i.stack === "Back End");
       const front = filteredUsers.filter(i => i.stack === "Front End");
       const product = filteredUsers.filter(i => i.stack === "Product Design");
+
+      const allFest = await axiosInstance.get(ALLSOTWPD_URL);
+
+      const highestWeek = Math.max(...allFest.data.data.map(item => item.week));
+      setCurrentWeek(highestWeek + 1)
 
       setFrontEnd(front);
       setBackEnd(back);
@@ -250,7 +292,7 @@ const Assessment = () => {
       } else {
         console.log('Error', error.message);
       }
-      console.log(error.config);
+      console.log(error);
     }
   }
 
@@ -258,7 +300,7 @@ const Assessment = () => {
     getUsers();
   }, [data])
   useEffect(()=>{
-    console.log(who)
+    // console.log(who)
     if(who === "student" || who === "alumni"){
       navigate("/")
     }
@@ -266,13 +308,27 @@ const Assessment = () => {
 
   return (
     <div className="assessment-content">
-    {loading? <div><h1>Loading Students Info...</h1></div>:
+      <h1 className='assessment-heading'>Student assessment </h1>
+        <div className='assessment-container'>
+          
+        {loading? <div><h1>Loading Students Info...</h1></div>:
     <div className='Stack-buttons-holder'>
                 <div className='Stack-buttons'>
                   <div className={stack === 1?'front-button active': 'front-button'} onClick={()=> dispatch(changeAsses(1))}>Frontend</div>
                   <div className={stack === 2?'back-button active': 'back-button'} onClick={()=> dispatch(changeAsses(2))}>Backend</div>
                   <div className={stack === 3?'product-button active': 'product-button'} onClick={()=> dispatch(changeAsses(3))}>Product</div>
                 </div>
+
+
+                <div className="searchHolder">
+                <div className="holdSearchIcon">
+                <IoIosSearch size={20} />
+                </div>
+                <input className='SearchInput' type="text" placeholder='Search' onChange={(e)=> console.log("search")} />
+                <div className="holdSortIcon">
+                <TbSlash />
+                </div>
+              </div>
               </div>
     }
       <div className="assessment-top">
@@ -283,13 +339,14 @@ const Assessment = () => {
           <thead>
           <tr className="assessment-table">
             <th className="assessment-table-title">IMAGE</th>
-            <th className="assessment-table-title">FULL NAME</th>
-            <th className="assessment-table-title">PUNCTUALITY</th>
+            <th className="assessment-table-title">FULL NAME (F/L)</th>
+            {/* <th className="assessment-table-title">PUNCTUALITY</th>
             <th className="assessment-table-title">ASSIGNMENTS</th>
             <th className="assessment-table-title">CLASS ASSESSMENT</th>
             <th className="assessment-table-title">ATTENDANCE</th>
-            <th className="assessment-table-title">PERSONAL DEFENSE</th>
+            <th className="assessment-table-title">PERSONAL DEFENSE</th> */}
             <th className="assessment-table-title"> WEEK</th>
+            <th className="assessment-table-title"> AV %</th>
             <th className="assessment-table-title"></th>
             {/* <th className="assessment-table-title">
             </th> */}
@@ -302,7 +359,7 @@ const Assessment = () => {
               <tr className="assessment-user-info" key={student.id}>
                 <td><Link to={`/detail/${student.id}`}><img src={student.image} alt="imae" className="assessment-image"/></Link></td>
                 <td><Link to={`/punctuality/${student.id}`}><div className="assessment-item">{student.name}</div></Link></td>
-                <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={(e) => {
+                {/* <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={(e) => {
                 const value = e.target.value;
                 if (parseInt(value, 10) > 20) {
                   setPunctuality("20");
@@ -336,15 +393,22 @@ const Assessment = () => {
                   setPersonalDefense("20");
                 } else {
                   setPersonalDefense(value);
-                }}} min="0" max="20"/></td>
-                <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td>
-                <td><button className="assessment-submit" type="submit" onClick={()=> {addAssessment(student.id, student.name), submit(student.id)}}>{ student.id === submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td>
+                }}} min="0" max="20"/></td> */}
+                {/* <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td> */}
+                <td 
+      style={{display: "flex", justifyContent: "center", gap:10, cursor: 'pointer'}} 
+      onClick={() => handleGradeClick(student)}
+    >
+      <p>{currentWeek}</p> 
+      <span style={{fontSize: 18, color: "green"}}><IoMdCheckmarkCircleOutline /></span>
+    </td>
+                <td><p>{student.weeklyRating}</p></td>
               </tr>
             )): stack === 2? backEnd.map((student)=>(
               <tr className="assessment-user-info" key={student?.id}>
                 <td><Link to={`/detail/${student?.id}`}><img src={student?.image} alt="imae" className="assessment-image"/></Link></td>
                 <td><Link to={`/punctuality/${student.id}`}><div className="assessment-item">{student.name}</div></Link></td>
-                <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={(e) => {
+                {/* <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={(e) => {
                 const value = e.target.value;
                 if (parseInt(value, 10) > 20) {
                   setPunctuality("20");
@@ -378,15 +442,23 @@ const Assessment = () => {
                   setPersonalDefense("20");
                 } else {
                   setPersonalDefense(value);
-                }}} min="0" max="20"/></td>
-                <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td>
-                <td><button  className="assessment-submit" type="submit" onClick={()=> {addAssessment(student.id, student.name), submit(student.id)}}>{ student.id === submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td>
+                }}} min="0" max="20"/></td> */}
+                {/* <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td> */}
+                <td 
+      style={{display: "flex", justifyContent: "center", gap:10, cursor: 'pointer'}} 
+      onClick={() => handleGradeClick(student)}
+    >
+      <p>{currentWeek}</p> 
+      <span style={{fontSize: 18, color: "green"}}><IoMdCheckmarkCircleOutline /></span>
+    </td>
+                <td><p>{student.weeklyRating}</p></td>
+                {/* <td><button  className="assessment-submit" type="submit" onClick={()=> {addAssessment(student.id, student.name), submit(student.id)}}>{ student.id === submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td> */}
               </tr>
             )): stack === 3? productD.map((student)=>(
               <tr className="assessment-user-info" key={student.id}>
                 <td><Link to={`/detail/${student.id}`}><img src={student.image} alt="imae" className="assessment-image"/></Link></td>
                 <td><Link to={`/punctuality/${student.id}`}><div className="assessment-item">{student.name}</div></Link></td>
-                <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={(e) => {
+                {/* <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={(e) => {
                 const value = e.target.value;
                 if (parseInt(value, 10) > 20) {
                   setPunctuality("20");
@@ -421,8 +493,16 @@ const Assessment = () => {
                 } else {
                   setPersonalDefense(value);
                 }}} min="0" max="20"/></td>
-                <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td>
-                <td><button className="assessment-submit" type="submit" onClick={()=> {addAssessment(student.id, student.name), submit(student.id)}}>{ student.id === submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td>
+                <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td> */}
+                <td 
+      style={{display: "flex", justifyContent: "center", gap:10, cursor: 'pointer'}} 
+      onClick={() => handleGradeClick(student)}
+    >
+      <p>{currentWeek}</p> 
+      <span style={{fontSize: 18, color: "green"}}><IoMdCheckmarkCircleOutline /></span>
+    </td>
+                <td><p>{student.weeklyRating}</p></td>
+                {/* <td><button className="assessment-submit" type="submit" onClick={()=> {addAssessment(student.id, student.name), submit(student.id)}}>{ student.id === submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td> */}
               </tr>
             )): null
             }
@@ -446,6 +526,38 @@ const Assessment = () => {
         }
         
         </div>
+
+        </div>
+
+        {isGradingOpen && (
+        <div className="grading-popup-overlay">
+          <div className="grading-popup">
+            <h2>Weekly grading for {selectedStudent?.name} week: {currentWeek}</h2>
+            <div className="grading-inputs">
+              {Object.entries(gradeInputs).map(([key, value]) => (
+                <div key={key} className="input-group">
+                  {/* <label>{key.charAt(0).toUpperCase() + key.slice(1)}</label> */}
+                  <input
+                    type="number"
+                    defaultValue={value}
+                    onChange={(e) => setGradeInputs(prev => ({
+                      ...prev,
+                      [key]: Math.min(20, Number(e.target.value))
+                    }))}
+                    min="0"
+                    max="20"
+                  />
+                  <span className='input-span'>{key.charAt(0).toUpperCase() + key.slice(1)}</span>
+                </div>
+              ))}
+            </div>
+            <div className="grading-actions">
+              <button onClick={() => setIsGradingOpen(false)}>Cancel</button>
+              <button onClick={handleGradeSubmit}>Save Grade</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

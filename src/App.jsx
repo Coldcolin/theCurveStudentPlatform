@@ -1,4 +1,4 @@
-import {createHashRouter, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, createHashRouter, RouterProvider} from "react-router-dom";
 import './App.css'
 import DashboardLayout from "./components/DashboardLayout/DashboardLayout";
 import Home from "./pages/Home/Home";
@@ -16,6 +16,7 @@ import ResetPassword from "./pages/Recovery/ResetPassword"
 import Upload from "./Upload/Upload";
 import Punctuality from "./pages/CheckIn/Punctuality";
 import Message from "./pages/MessageUs/Message";
+import SuccessPage from "./pages/SuccessPage/SuccessPage";
 
 
 
@@ -128,6 +129,11 @@ const router = createHashRouter([
     path: 'reg045678',
     // errorElement: <ErrorPage/>,
     element:<Registration/>,
+  },
+  {
+    path: 'success',
+    // errorElement: <ErrorPage/>,
+    element:<SuccessPage/>,
   },
   
 ])

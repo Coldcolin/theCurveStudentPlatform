@@ -31,7 +31,7 @@ const AllStudents = () => {
   const Id = useSelector((e)=> e.Id.Id);
   const stack = useSelector((e)=> e.Id.allState);
   const dispatch = useDispatch()
-  const { loading, error, data } = useQuery(GET_USERS);
+  const { loading, error, data, refetch } = useQuery(GET_USERS);
 
 
   const navigate = useNavigate();
@@ -106,7 +106,8 @@ const AllStudents = () => {
                 'Student has been removed.',
                 'success'
         )
-        getUsers();
+        // getUsers();
+        refetch();
       }
       
     }catch(error){
@@ -142,7 +143,8 @@ const AllStudents = () => {
                 'Student is now an Alumni.',
                 'success'
         )
-        getUsers();
+        // getUsers();
+        refetch();
       }
       
     }catch(error){
@@ -188,11 +190,11 @@ const AllStudents = () => {
     }
   };
   
-console.log(frontStudents)
+// console.log(frontStudents)
 const [searchValue, setSearchValue] = useState((""))
-console.log(searchValue)
-console.log( "frontend", frontStudents.filter((e)=>  e.name.toLowerCase().includes(searchValue.toLowerCase())))
-console.log( "backend", backStudents.filter((e)=>  e.name.toLowerCase().includes(searchValue.toLowerCase())))
+// console.log(searchValue)
+// console.log( "frontend", frontStudents.filter((e)=>  e.name.toLowerCase().includes(searchValue.toLowerCase())))
+// console.log( "backend", backStudents.filter((e)=>  e.name.toLowerCase().includes(searchValue.toLowerCase())))
 // console.log( "product", productStudents.filter((e)=>  e.name.toLowerCase().includes(searchValue.toLowerCase())))
 
 
@@ -202,19 +204,18 @@ console.log( "backend", backStudents.filter((e)=>  e.name.toLowerCase().includes
       <div className="all-body">
       <div className="all-head">
       {loading? <div><h1>Loading Students...</h1></div>:<div className="all-head-holder">
-      {/* <input placeholder="Search Students" type="search" className="searchInput" value={user} onChange={(e)=> setUser(e.target.value)}/> <button  className="searchButton" onClick={()=> setAllStudents(backUpStudents)}>Reset</button> */}
               <div className='Stack-buttons-holder'>
                 <div className='Stack-buttons'>
                   <div className={stack === 1?'front-button active': 'front-button'} onClick={()=> dispatch(changeAll(1))} style={{fontSize:"14px"}}>Front-End</div>
                   <div className={stack === 2?'back-button active': 'back-button'} onClick={()=> dispatch(changeAll(2))} style={{fontSize:"14px"}}>Back-End</div>
-                  <div className={stack === 3?'product-button active': 'product-button'} onClick={()=> dispatch(changeAll(3))} style={{fontSize:"13px"}}>Product Design</div>
+                  <div className={stack === 3?'product-button active': 'product-button'} onClick={()=> dispatch(changeAll(3))} style={{fontSize:"14px"}}>Product Design</div>
                 </div>
               </div>
               <div className="searchHolder">
                 <div className="holdSearchIcon">
                 <IoIosSearch size={20} />
                 </div>
-                <input className='SearchInput' type="text" placeholder='Search' onChange={(e)=>setSearchValue(e.target.value)} />
+                <input className='SearchInput' type="search" placeholder='Search' onChange={(e)=>setSearchValue(e.target.value)} />
                 <div className="holdSortIcon">
                 <TbSlash />
                 </div>
@@ -241,9 +242,9 @@ console.log( "backend", backStudents.filter((e)=>  e.name.toLowerCase().includes
           </thead>
             <tbody>
               {
-                stack === 1 ? frontStudents?.map((student)=>(
+                stack === 1 ? frontStudents?.map((student, i)=>(
               <tr className="assessment-user-info" key={student?.id}>
-                <td>1</td>
+                <td>{i + 1}</td>
                 <td><Link to={`/detail/${student.id}`}><img src={student?.image} alt="imae" className="assessment-image"/></Link></td>
                 <td><div onClick={()=> navigate(`/detail/${student.id}`)} className="assessment-item">{student?.name}</div></td>
                 <td>{student?.stack}</td>
@@ -251,9 +252,9 @@ console.log( "backend", backStudents.filter((e)=>  e.name.toLowerCase().includes
                 {Id?.role === "admin"? <td><button className="all-delete" onClick={()=> deleteUser(student.id)}>Delete</button></td>: null}
                 {(Id?.role === "tutor" || Id?.role === "admin")? <td><button className="all-submit" onClick={()=> makeAlumni(student.id)}>Make Alumni</button></td>: null}
               </tr>
-            )): stack === 2? backStudents?.map((student)=>(
+            )): stack === 2? backStudents?.map((student, i)=>(
               <tr className="assessment-user-info" key={student?.id}>
-                <td>0</td>
+                <td>{i + 1}</td>
                 <td><Link to={`/detail/${student.id}`}><img src={student?.image} alt="imae" className="assessment-image"/></Link></td>
                 <td><div onClick={()=> navigate(`/detail/${student.id}`)} className="assessment-item">{student?.name}</div></td>
                 <td>{student?.stack}</td>
@@ -261,9 +262,9 @@ console.log( "backend", backStudents.filter((e)=>  e.name.toLowerCase().includes
                 {Id?.role === "admin"? <td><button className="all-delete" onClick={()=> deleteUser(student.id)}>Delete</button></td>: null}
                 {(Id?.role === "tutor" || Id?.role === "admin")? <td><button className="all-submit" onClick={()=> makeAlumni(student.id)}>Make Alumni</button></td>: null}
               </tr>
-            )): stack === 3? productStudents?.map((student)=>(
+            )): stack === 3? productStudents?.map((student, i)=>(
               <tr className="assessment-user-info" key={student?.id}>
-                <td>0</td>
+                <td>{i + 1}</td>
                 <td><Link to={`/detail/${student.id}`}><img src={student?.image} alt="imae" className="assessment-image"/></Link></td>
                 <td><div onClick={()=> navigate(`/detail/${student.id}`)} className="assessment-item">{student?.name}</div></td>
                 <td>{student?.stack}</td>

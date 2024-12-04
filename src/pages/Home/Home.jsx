@@ -8,6 +8,9 @@ import giffy from "../../images/loader.gif";
 import {NavLink} from "react-router-dom";
 import Loader from "./Loader.jsx"
 import axiosInstance from "../../api/axios";
+import {useSelector, useDispatch} from "react-redux";
+
+
 const SOTWFE_URL = "/SOW/student"
 const ALLSOTWFE_URL = "/SOW/all"
 const SOTWBE_URL = "/BSOW/student"
@@ -18,8 +21,8 @@ const ALL_USERS = "/users/allusers"
 
 
 const Home = () => {
-  const [SOTWFE, setSOTWFE] = useState([]);
-  const [allSOTWFE, setAllSOTWFE] = useState([]);
+    const [SOTWFE, setSOTWFE] = useState([]);
+    const [allSOTWFE, setAllSOTWFE] = useState([]);
     const [SOTWBE, setSOTWBE] = useState([]);
     const [SOTWPD, setSOTWPD] = useState([]);
     const [allSOTWBE, setAllSOTWBE] = useState([]);
@@ -30,6 +33,29 @@ const Home = () => {
     const [loadingRes, setLoadingRes] = useState(false)
     const [someError, setSomeError] = useState(false)
     const [hist, setHist] = useState(1)
+    const profile = useSelector((state) => state.Id.Id);
+    const [currentWeek, setCurrentWeek] = useState(0);
+
+    const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+
+    useEffect(() => {
+      // Define event handlers
+      const updateOnlineStatus = () => {
+        setIsOnline(navigator.onLine);
+      };
+  
+      // Add event listeners
+      window.addEventListener('online', updateOnlineStatus);
+      window.addEventListener('offline', updateOnlineStatus);
+  
+      // Cleanup event listeners on unmount
+      return () => {
+        window.removeEventListener('online', updateOnlineStatus);
+        window.removeEventListener('offline', updateOnlineStatus);
+      };
+    }, []);
+
 
     const getRes = async()=>{
       try{
@@ -66,6 +92,10 @@ const Home = () => {
         const allFest = await axiosInstance.get(ALLSOTWFE_URL);
         const allPest = await axiosInstance.get(ALLSOTWPD_URL);
 
+        const weeks = allFest.data.data.map(item => item.week);
+        const highestWeek = weeks.length > 0 ? Math.max(...weeks) : -1;
+        setCurrentWeek(highestWeek + 1);
+        // console.log(highestWeek)
         setAllSOTWFE(allFest.data.data);
         setAllSOTWBE(allBest.data.data);
         setAllSOTWPD(allPest.data.data);
@@ -150,8 +180,8 @@ const getUsers =async()=>{
     <div className="sotw-main">
     <div className="hold-main-container">
     <div className="hold-welcome">
-    <h2 style={{color:"#023047"}}>Hi Helen</h2>
-    <p style={{color:"#023047"}}>Its week 5 at The Curve Africa</p>
+    <h2 style={{color:"#023047"}}>Hi {profile.name}</h2>
+    <p style={{color:"#023047"}}>Its week {currentWeek} at The Curve Africa {isOnline ? 'You are online 🎉' : 'You are offline 😔'}</p>
     <hr/>
     </div>
     <main className="sotw-container">

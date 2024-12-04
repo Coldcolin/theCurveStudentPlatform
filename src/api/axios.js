@@ -1,12 +1,22 @@
 import axios from 'axios';
 const BASE_URL = import.meta.env.VITE_API_REST_URL;
-const PUNCTUALITY = "https://thecurvepuntualityapi.onrender.com/api/v1/"
+const PUNCTUALITY = "https://punctualiyapi-1.onrender.com/api/v1/"
+// const PUNCTUALITY = "https://the-curve-puntuality-api.vercel.app/api/v1/"
+
+const URL_SIGN_UP = import.meta.env.VITE_API_REST_URL_SIGN_UP
+const URL_LOGIN = "https://sotw-login.onrender.com"
 
 const axiosInstance = axios.create({
     baseURL: BASE_URL
 });
 export const axiosInstancePunc = axios.create({
     baseURL: PUNCTUALITY
+});
+export const axiosInstanceSign = axios.create({
+    baseURL: URL_SIGN_UP
+});
+export const axiosInstanceLogin = axios.create({
+    baseURL: URL_SIGN_UP
 });
 
 // Retry configuration
@@ -46,6 +56,28 @@ axiosInstance.interceptors.response.use(
 );
 
 axiosInstancePunc.interceptors.response.use(
+    response => response,
+    async error => {
+        const { config } = error;
+        if (!config || !retryConfig.retryCondition(error)) {
+            return Promise.reject(error);
+        }
+
+        config.__retryCount = config.__retryCount || 0;
+
+        if (config.__retryCount >= retryConfig.retries) {
+            return Promise.reject(error);
+        }
+
+        config.__retryCount += 1;
+
+        const delay = retryConfig.retryDelay(config.__retryCount);
+        await new Promise(resolve => setTimeout(resolve, delay));
+
+        return axiosInstance(config);
+    }
+);
+axiosInstanceSign.interceptors.response.use(
     response => response,
     async error => {
         const { config } = error;

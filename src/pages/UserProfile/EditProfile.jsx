@@ -18,12 +18,12 @@ const EditProfile = ({editnow}) => {
   }
 
 
-  const Info={
-    name:"Decorce Colin",
-    email: "decorcecolin@gmail.com",
-    phoneNumber: 90789978908,
-    stack:"Front-end"
-  }
+  // const Info={
+  //   name:"Decorce Colin",
+  //   email: "decorcecolin@gmail.com",
+  //   phoneNumber: 90789978908,
+  //   stack:"Front-end"
+  // }
   return (
     <div className='EditProfile'>
       {
@@ -51,10 +51,10 @@ const EditProfile = ({editnow}) => {
         <form action="" className="EditDetails">
         <div className="holdEditInputs">
           <div className="holdnameandemail">
-            <input type="text" placeholder={profile.name} className='Input1' /><input type="email" className='Input2'  placeholder={Info.email} />
+            <input type="text" placeholder={profile.name} className='Input1' /><input type="email" className='Input2'  placeholder={profile.email} />
           </div>
           <div className="holdnumberandstack">
-            <input type="" placeholder={Info.phoneNumber}  className='Input1' /><input type="text"  className='Input1' placeholder={profile.stack} />
+            <input type="" placeholder={profile.phone}  className='Input1' /><input type="text"  className='Input1' placeholder={profile.stack} />
           </div>
         </div>
           <div className="submitButtons">

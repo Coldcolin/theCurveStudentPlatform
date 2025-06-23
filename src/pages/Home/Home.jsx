@@ -143,13 +143,13 @@ const getUsers =async()=>{
     }
 
     const getStats = ()=>{
-      return allUsers.filter((i)=> i.role === "student");
+      return allUsers?.filter((i)=> i.role === "student");
     }
     const getTutor = ()=>{
-      return allUsers.filter((i)=> i.role === "tutor" || i.role === "admin");
+      return allUsers?.filter((i)=> i.role === "tutor" || i.role === "admin");
     }
     const getAlumni = ()=>{
-      return allUsers.filter((i)=> i.role === "alumni");
+      return allUsers?.filter((i)=> i.role === "alumni");
     }
     
     const memoizedVal = useMemo(() => getStats(), [allUsers]);

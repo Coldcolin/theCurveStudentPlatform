@@ -17,7 +17,7 @@ const Message = () => {
                 <input type="text" placeholder='example@gmail.com'/>
                 <textarea placeholder='Message'></textarea>
                <div className="holdfeedbackbutton">
-               <button>Send</button>
+                <button>Send</button>
                </div>
             </form>
         </main>

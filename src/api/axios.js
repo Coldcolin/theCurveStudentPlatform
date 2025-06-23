@@ -1,6 +1,6 @@
 import axios from 'axios';
 const BASE_URL = import.meta.env.VITE_API_REST_URL;
-const PUNCTUALITY = "https://punctualiyapi-1.onrender.com/api/v1/"
+const PUNCTUALITY = import.meta.env.VITE_PUNCTUALITY_API;
 // const PUNCTUALITY = "https://the-curve-puntuality-api.vercel.app/api/v1/"
 
 const URL_SIGN_UP = import.meta.env.VITE_API_REST_URL_SIGN_UP

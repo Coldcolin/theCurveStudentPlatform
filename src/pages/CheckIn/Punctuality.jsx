@@ -82,7 +82,7 @@ const Punctuality = () => {
                 confirmButtonText: 'Yes, delete it!'
               })
               if(Toaster.isConfirmed){
-                await axiosInstance.delete(`https://thecurvepuntualityapi.onrender.com/api/v1/deleteCheckInfullWeek/${id}`,{}, config);
+                await axiosInstancePunc.delete(`/deleteCheckInfullWeek/${id}`,{}, config);
                   
                 Toast.fire({
                     icon: 'success',

@@ -61,6 +61,8 @@ const Assessment = () => {
     personalDefence: 0
   });
 
+  console.log("this is email",selectedStudent?.id)
+
   // Add this new handler
   const handleGradeClick = (student) => {
     setSelectedStudent(student);
@@ -306,6 +308,10 @@ const Assessment = () => {
     }
   }, [])
 
+  const handleViewAssessment = (email) => {
+  navigate(`/assessment-submition-tutorView/${encodeURIComponent(email)}`);
+};
+
   return (
     <div className="assessment-content">
       <h1 className='assessment-heading'>Student assessment </h1>
@@ -534,22 +540,32 @@ const Assessment = () => {
           <div className="grading-popup">
             <h2>Weekly grading for {selectedStudent?.name} week: {currentWeek}</h2>
             <div className="grading-inputs">
-              {Object.entries(gradeInputs).map(([key, value]) => (
-                <div key={key} className="input-group">
-                  {/* <label>{key.charAt(0).toUpperCase() + key.slice(1)}</label> */}
-                  <input
-                    type="number"
-                    defaultValue={value}
-                    onChange={(e) => setGradeInputs(prev => ({
-                      ...prev,
-                      [key]: Math.min(20, Number(e.target.value))
-                    }))}
-                    min="0"
-                    max="20"
-                  />
-                  <span className='input-span'>{key.charAt(0).toUpperCase() + key.slice(1)}</span>
-                </div>
-              ))}
+            {Object.entries(gradeInputs).map(([key, value]) => (
+              <div key={key} className="input-group">
+                <input
+                  type="number"
+                  defaultValue={value}
+                  onChange={(e) => setGradeInputs(prev => ({
+                    ...prev,
+                    [key]: Math.min(20, Number(e.target.value))
+                  }))}
+                  min="0"
+                  max="20"
+                />
+                <span className='input-span'>{key.charAt(0).toUpperCase() + key.slice(1)}</span>
+
+                {/* Show "View Assessment" only for the 'assessment' input */}
+                {key === "Assignments" && (
+                  <button
+                    className="view-assessment-btn"
+                    onClick={() => handleViewAssessment(selectedStudent?.id)}
+                  >
+                    View Assessment
+                  </button>
+                )}
+              </div>
+            ))}
+
             </div>
             <div className="grading-actions">
               <button onClick={() => setIsGradingOpen(false)}>Cancel</button>

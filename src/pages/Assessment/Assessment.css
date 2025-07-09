@@ -371,3 +371,20 @@ tr:nth-child(even) {
     height: 35px;
     border-radius: 20px;
   }
+
+ .view-assessment-btn {
+  background-color: #FFB703;
+  color: #023047;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.view-assessment-btn:hover {
+  background-color: #e6a200;
+}

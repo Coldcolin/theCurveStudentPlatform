@@ -1,0 +1,67 @@
+.tutorViewContainer {
+  padding: 30px;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+.tutorViewContainer h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #023047;
+}
+
+.assessmentList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.assessmentCard {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.assessmentCard h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.assessmentCard p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.assessmentCard a {
+  color: #0077cc;
+  text-decoration: underline;
+}
+
+.approveBtn {
+  height: 40px;
+  background-color: #FFB703;
+  color: #023047;
+  border: none;
+  border-radius: 8px;
+  padding: 0 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.approveBtn:hover {
+  background-color: #e0a603;
+}
+
+.approveBtn.approved {
+  background-color: #4caf50;
+  color: white;
+  cursor: default;
+}

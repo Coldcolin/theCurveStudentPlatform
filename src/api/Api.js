@@ -14,14 +14,17 @@ export const createAssessment = async (data) => {
 };
 
 export const getOneUserAssessments = async (data) => {
-    try {
-        const res = await axios.get(`${BASE_URL}/getOneuser/${data.studentId}`);
-        console.log("Assessments fetched:", res.data);
-        return res;
-    } catch (error) {
-        console.error("Error fetching assessments:", error.response?.data || error.message);
-        throw error;
-    }
+  // console.log("Fetching assessments for user:", data);
+
+  try {
+    const response = await axios.get(`${BASE_URL}/getOneuser/${data}`);
+    console.log("Assessments fetched successfully:", response.data);
+    return response.data;
+  } catch (error) {
+    const errorMsg = error.response?.data?.message || error.message || "Unknown error";
+    console.error("Failed to fetch assessments:", errorMsg);
+    throw new Error(errorMsg); 
+  }
 };
 
 export const approveAssessment = async (id) => {

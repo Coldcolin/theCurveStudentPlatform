@@ -17,6 +17,8 @@ import Upload from "./Upload/Upload";
 import Punctuality from "./pages/CheckIn/Punctuality";
 import Message from "./pages/MessageUs/Message";
 import SuccessPage from "./pages/SuccessPage/SuccessPage";
+import AssessmentSubmission from "./pages/Assessment/AssessmentSubmission";
+import AssessmentSubmitionTutorView from "./pages/Tutors/AssessmentSubmitionTutorView";
 
 
 
@@ -75,6 +77,28 @@ const router = createHashRouter([
           {
             index: true,
             element: <Message />
+          },
+        
+        ]
+      },
+      {
+        path: "assessment-submition/:id",
+        element: <RequireAuth />,
+        children:[
+          {
+            index: true,
+            element: <AssessmentSubmission />
+          },
+        
+        ]
+      },
+      {
+        path: "assessment-submition-tutorView/:studentId",
+        element: <RequireAuth />,
+        children:[
+          {
+            index: true,
+            element: <AssessmentSubmitionTutorView />
           },
         
         ]

@@ -1,0 +1,328 @@
+.assessmentCotainner {
+    height: 100vh;
+    width: 100%;
+    background-color: #F6F6F6;
+    padding-inline: 30px;
+    padding-block: 30px;
+    box-sizing: border-box;
+}
+
+.assessmentCotainner h1 {
+    color: #023047;
+    font-size: 30px;
+    font-family: Roboto;
+    font-weight: 900;
+    line-height: 36px;
+    letter-spacing: 0.2px;
+}
+
+.assessmentCotainner p {
+    color: #505050;
+    font-size: 18px;
+    font-family: Roboto;
+    font-weight: 400;
+    line-height: 21px;
+    letter-spacing: 0.2px;
+}
+
+.assessmentWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0px 0px 0px 1px rgba(152, 161, 179, 0.1),
+                0px 15px 35px -5px rgba(17, 24, 38, 0.15),
+                0px 5px 15px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+}
+
+.assessmentWrapper p {
+    color: #505050;
+    font-size: 18px;
+    font-family: Roboto;
+    font-weight: 400;
+    line-height: 21px;
+    letter-spacing: 0.2px;
+}
+
+.assessmentWrapper input {
+    width: 100%;
+    height: 50px;
+    border: 1px solid #E0E0E0;
+    border-radius: 10px;
+    padding-left: 10px;
+    margin: 5px 0px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.assessmentWrapper button {
+    width: 20%;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    background-color: #FFB703;
+    color: #023047;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 30px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.assessmentWrapper button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.SubmittedassessmentWrapper {
+    width: 100%;
+    max-height: 55vh;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.assessmentResultBox {
+    width: 100%;
+    min-height: 40px;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0px 0px 0px 1px rgba(152, 161, 179, 0.1),
+                0px 15px 35px -5px rgba(17, 24, 38, 0.15),
+                0px 5px 15px rgba(0, 0, 0, 0.08);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    word-break: break-word;
+    box-sizing: border-box;
+}
+
+.assessmentResultBox h3 {
+    font-size: 15px;
+    font-weight: 500;
+}
+.assessmentResultBox p {
+    color: #505050;
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    line-height: 21px;
+    letter-spacing: 0.2px;
+    word-break: break-word;
+}
+
+.assessmentResultBox span {
+    color: #b70303;
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    line-height: 21px;
+    letter-spacing: 0.2px;
+    word-break: break-word;
+}
+
+@media screen and (max-width: 1024px) {
+  .assessmentCotainner {
+    padding-inline: 15px;
+    padding-block: 20px;
+  }
+
+  .assessmentCotainner h1 {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  .assessmentCotainner p,
+  .assessmentWrapper p {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .assessmentWrapper {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .assessmentWrapper input {
+    height: 45px;
+  }
+
+  .assessmentWrapper button {
+    width: 100%;
+    font-size: 18px;
+  }
+
+  .SubmittedassessmentWrapper {
+    padding: 15px;
+  }
+
+  .assessmentResultBox p,
+  .assessmentResultBox span {
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .assessmentCotainner h1 {
+    font-size: 20px;
+    line-height: 26px;
+  }
+
+  .assessmentCotainner p,
+  .assessmentWrapper p {
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .assessmentWrapper {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .assessmentWrapper input {
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .assessmentWrapper button {
+    height: 45px;
+    font-size: 16px;
+  }
+
+  .assessmentResultBox {
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .assessmentResultBox p,
+  .assessmentResultBox span {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .assessmentCotainner {
+    padding-inline: 10px;
+    padding-block: 15px;
+  }
+
+  .assessmentCotainner h1 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .assessmentCotainner p,
+  .assessmentWrapper p {
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .assessmentWrapper {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .assessmentWrapper input {
+    height: 38px;
+    font-size: 13px;
+    padding-left: 8px;
+  }
+
+  .assessmentWrapper button {
+    width: 100%;
+    height: 42px;
+    font-size: 15px;
+    line-height: 20px;
+  }
+
+  .SubmittedassessmentWrapper {
+    padding: 10px;
+    gap: 12px;
+  }
+
+  .assessmentResultBox {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 10px;
+    gap: 4px;
+  }
+
+  .assessmentResultBox p,
+  .assessmentResultBox span {
+    font-size: 12px;
+    line-height: 16px;
+  }
+}
+
+/* 360px and below (old iPhones, tiny Androids) */
+@media screen and (max-width: 360px) {
+  .assessmentCotainner {
+    padding-inline: 8px;
+    padding-block: 10px;
+  }
+
+  .assessmentCotainner h1 {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .assessmentCotainner p,
+  .assessmentWrapper p {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .assessmentWrapper {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .assessmentWrapper input {
+    height: 36px;
+    font-size: 12px;
+    padding-left: 6px;
+  }
+
+  .assessmentWrapper button {
+    width: 100%;
+    height: 40px;
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .SubmittedassessmentWrapper {
+    padding: 8px;
+    max-height: 60vh;
+    gap: 10px;
+  }
+
+  .assessmentResultBox {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px;
+    gap: 4px;
+    min-height: 60px;
+  }
+
+  .assessmentResultBox p,
+  .assessmentResultBox span {
+    font-size: 11px;
+    line-height: 14px;
+    word-break: break-word;
+  }
+}

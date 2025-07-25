@@ -24,7 +24,7 @@ import AssessmentSubmitionTutorView from "./pages/Tutors/AssessmentSubmitionTuto
 
 
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path: '/',
     // errorElement: <ErrorPage/>,

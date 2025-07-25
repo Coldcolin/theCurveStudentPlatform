@@ -4,7 +4,7 @@ const PUNCTUALITY = import.meta.env.VITE_PUNCTUALITY_API;
 // const PUNCTUALITY = "https://the-curve-puntuality-api.vercel.app/api/v1/"
 
 const URL_SIGN_UP = import.meta.env.VITE_API_REST_URL_SIGN_UP
-const URL_LOGIN = "https://sotw-login.onrender.com"
+const URL_LOGIN = import.meta.env.VITE_API_REST_URL_LOG_IN
 
 const axiosInstance = axios.create({
     baseURL: BASE_URL
@@ -16,7 +16,7 @@ export const axiosInstanceSign = axios.create({
     baseURL: URL_SIGN_UP
 });
 export const axiosInstanceLogin = axios.create({
-    baseURL: URL_SIGN_UP
+    baseURL: URL_LOGIN
 });
 
 // Retry configuration

@@ -26,6 +26,7 @@ const Registration = () => {
     name: yup.string().required("Please add your name"),
     stack: yup.string().required("Please add your stack"),
     role: yup.string().required("Please add your role"),
+    hub: yup.string().required("Please add your hub"),
     cohort: yup.number().required("Please add your cohort"),
     email: yup.string().email().required("Please input your email"),
     phone: yup.string().required("Please input your phone number"),
@@ -62,7 +63,7 @@ const Registration = () => {
           title: 'Please Add Image'
         })
       }
-      const {email, password, stack, name, role, cohort, phone}= data;
+      const {email, password, stack, name, role, cohort, phone, hub}= data;
       const firstName = name.split(' ')[0];
       localStorage.setItem('firstName', firstName);
       const formData = new FormData();
@@ -74,7 +75,7 @@ const Registration = () => {
       formData.append("role", role);
       formData.append("cohort", cohort);
       formData.append("image", imageDB);
-
+      formData.append("hub", hub);
       const config = {
         headers: {
           "content-type": "multipart/formData",
@@ -128,7 +129,7 @@ const Registration = () => {
           <label style={{color: "red", fontSize: "11px"}}>{errors.name && <p>Please enter the Name.</p>}</label>
           <input className="reg-input" placeholder="Phone Number" {...register("phone")}/>
           <label style={{color: "red", fontSize: "11px"}}>{errors.phone && <p>Please enter the phone number.</p>}</label>
-          <input className="reg-input" value={"5"} placeholder="cohort" {...register("cohort")} />
+          <input className="reg-input" value={"6"} placeholder="cohort" {...register("cohort")} />
           <label style={{color: "red", fontSize: "11px"}}>{errors.cohort && <p>Please enter the Cohort.</p>}</label>
           <input className="reg-input" placeholder="email" {...register("email")}/>
           <label style={{color: "red", fontSize: "11px"}}>{errors.email && <p>Please enter the email.</p>}</label>
@@ -139,7 +140,13 @@ const Registration = () => {
               <option>Back End</option>
               <option>Product Design</option>
             </select>
-          <label style={{color: "red", fontSize: "11px"}}>{errors.stack && <p>Please enter the Stack.</p>}</label>
+            <label style={{color: "red", fontSize: "11px"}}>{errors.stack && <p>Please enter the Stack.</p>}</label>
+            <select className="reg-input" {...register("hub")}>
+              <option>-- Select Hub --</option>
+              <option>Coconut</option>
+              <option>Festac</option>
+            </select>
+            <label style={{color: "red", fontSize: "11px"}}>{errors.hub && <p>Please enter the Hub.</p>}</label>
           <select className="reg-input" {...register("role")}>
               <option>-- Select Role --</option>
               <option>student</option>

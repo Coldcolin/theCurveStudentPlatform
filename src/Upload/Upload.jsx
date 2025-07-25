@@ -26,12 +26,21 @@ const Upload = () => {
   const [details, setDetails] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const HandleUploadImage = (e)=>{
-    const file = e.target.files[0];
-    const save = URL.createObjectURL(file);
-    setAvatar(save);
-    setImageDB(file);
-  }
+  // const HandleUploadImage = (e)=>{
+  //   const file = e.target.files[0];
+  //   const save = URL.createObjectURL(file);
+  //   setAvatar(save);
+  //   setImageDB(file);
+  // }
+
+  const HandleUploadImage = (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+  
+    const previewUrl = URL.createObjectURL(file);
+    setAvatar(previewUrl);   // for previewing the image
+    setImageDB(file);        // actual file for FormData
+  };
 
   const Toast = Swal.mixin({
     toast: true,
@@ -54,16 +63,21 @@ const Upload = () => {
       formData.append("image", imageDB);
       const config = {
         headers: {
-          "content-type": "multipart/formData",
+          // "content-type": "multipart/formData",
           "Authorization": `Bearer ${token}`
         }
       }
+      console.log('imageDB:', imageDB);
+      console.log('Is file?', imageDB instanceof File);
+      // console.log('FormData:', formData);
+
       // if(profile.stack === "Front End"){
       //   url = "https://the-curve-puntuality-api.vercel.app/api/v1/checkIn"
       // }else{
       //   url = "https://the-curve-puntuality-api.vercel.app/api/v1/checkIn"
       // }
-      await axiosInstancePunc.post(`/checkIn`,formData, config);
+      const response = await axiosInstancePunc.post(`/checkIn`,formData, config);
+      console.log(response)
 
       Toast.fire({
         icon: 'success',
@@ -192,7 +206,7 @@ const Upload = () => {
             <div className="hold-upload-date">
             <MdDateRange size={21} />
             <h3 style={{fontSize:"16px", fontWeight:"100"}}>
-            October 18th, 2024
+            {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
             </h3>
             </div>
             <div className="main-upload">

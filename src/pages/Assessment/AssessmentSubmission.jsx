@@ -12,8 +12,7 @@ const AssessmentSubmission = () => {
     const [github, setGithubrepo] = useState('');
     const [submittedRepos, setSubmittedRepos] = useState([]);
     const profile = useSelector((state) => state.Id.Id);
-    const { id } = useParams();
-    console.log(submittedRepos, "studentId from params");
+    const { studentId } = useParams();
     // console.log(
     //              "github", github.trim(),
     //             "name", profile?.name || "Anonymous",
@@ -40,19 +39,21 @@ const AssessmentSubmission = () => {
 
 useEffect(() => {
   const fetchSubmittedRepos = async () => {
+    console.log(studentId, "studentId from params");
+
     try {
-      const res = await getOneUserAssessments(id);
-      console.log("Response:", res.assessment);
+      const res = await getOneUserAssessments(studentId);
+    //   console.log("Response:", res.data.assessment);
     //   if (res?.status === 200) {
-        setSubmittedRepos(res.assessment); 
+        setSubmittedRepos(res?.data?.assessment); 
     //   }
     } catch (err) {
       console.log("Error fetching assessments:", err);
     }
   };
 
-  if (id) fetchSubmittedRepos();
-}, [id]);
+  if (studentId) fetchSubmittedRepos();
+}, [studentId]);
 
     const handleSubmit = async () => {
         if (!github.trim()) return;
@@ -62,7 +63,7 @@ useEffect(() => {
         
         try {
             const res = await createAssessment({
-                github: github.trim(),
+                submissionLink: github.trim(),
                 name: profile?.name || "Anonymous",
                 email: profile?.email,
                 stack: profile?.stack,
@@ -97,11 +98,11 @@ useEffect(() => {
 
     return (
         <div className='assessmentCotainner'>
-            <h2>GitHub Assignment Submission Portal</h2>
-            <p>Submit Your GitHub Assignment Here</p>
+            <h2>Assignment Submission Portal</h2>
+            <p>Submit Your Assignment Link Here</p>
 
             <div className="assessmentWrapper">
-                <p>Kindly submit the link to your assignment here.</p>
+                <p>Kindly submit the link to your completed assignment here.</p>
                 
                 <input
                     type="text"
@@ -131,14 +132,14 @@ useEffect(() => {
                         <article key={index} className="assessmentResultBox">
                             <h3>{repo.name}</h3>
                             <p>
-                            GitHub:{" "}
+                             Submission Link:{" "}
                             <a
-                                href={repo.github}
+                                href={repo.submissionLink}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-blue-600 underline"
                             >
-                                {repo.github}
+                                {repo.submissionLink}
                             </a>
                             </p>
                             <span>Status: {repo.status}</span>

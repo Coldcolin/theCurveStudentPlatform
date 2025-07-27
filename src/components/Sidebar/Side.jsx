@@ -15,6 +15,7 @@ import { AiOutlineSchedule } from "react-icons/ai";
 import {FiLogIn} from "react-icons/fi"
 import { AuthContext } from '../../Contexts/AuthProvider';
 import { IoMdHelpCircleOutline } from "react-icons/io";
+import { FaTasks } from 'react-icons/fa';
 
 const Side = ({toggle}) => {
     const dispatch = useDispatch();
@@ -48,6 +49,7 @@ const Side = ({toggle}) => {
         <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="/"><TbLayoutDashboard/> <span>Dashboard</span></NavLink>
         <NavLink className={({ isActive }) => (isActive ? "nav-active1" : "navigation1")}to="user"> <FiUser/> <span>Profile</span></NavLink>
         <NavLink className={({ isActive }) => (isActive ? "nav-active1" : "navigation1")}to="/upload"> <AiOutlineSchedule /> <span>Check-in</span></NavLink>
+        <NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to={`/assessment-submition/${profile.id}`}> <FaTasks /> <span>Assessment Submission</span></NavLink>
         <NavLink className={({ isActive }) => (isActive ? "nav-active1" : "navigation1")}to="/message-us"> <IoMdHelpCircleOutline /> <span>Message Us</span></NavLink>
         {profile.role === "tutor"?<NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="assessment"><MdOutlineAssessment/> <span>Student Assessment</span></NavLink>: null}
         {profile.role === "admin"?<NavLink className={({ isActive }) => (isActive ? "nav-active" : "navigation")}to="assessment"><MdOutlineAssessment/> <span>Student Assessment</span></NavLink>: null}

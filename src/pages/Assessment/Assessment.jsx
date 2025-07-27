@@ -61,7 +61,7 @@ const Assessment = () => {
     personalDefence: 0
   });
 
-  console.log("this is email",selectedStudent?.id)
+  console.log("this is selectedStudent",selectedStudent)
 
   // Add this new handler
   const handleGradeClick = (student) => {
@@ -308,8 +308,8 @@ const Assessment = () => {
     }
   }, [])
 
-  const handleViewAssessment = (email) => {
-  navigate(`/assessment-submition-tutorView/${encodeURIComponent(email)}`);
+  const handleViewAssessment = (studentId) => {
+  navigate(`/assessment-submition-tutorView/${studentId}`);
 };
 
   return (
@@ -353,7 +353,7 @@ const Assessment = () => {
             <th className="assessment-table-title">PERSONAL DEFENSE</th> */}
             <th className="assessment-table-title"> WEEK</th>
             <th className="assessment-table-title"> AV %</th>
-            <th className="assessment-table-title"></th>
+            <th className="assessment-table-title">View Assessments</th>
             {/* <th className="assessment-table-title">
             </th> */}
           </tr>
@@ -409,6 +409,14 @@ const Assessment = () => {
       <span style={{fontSize: 18, color: "green"}}><IoMdCheckmarkCircleOutline /></span>
     </td>
                 <td><p>{student.weeklyRating}</p></td>
+                <td>
+                   <button
+                    className="view-assessment-btn"
+                    onClick={() => handleViewAssessment(student?.id)}
+                  >
+                   View Assessments
+                  </button>
+                </td>
               </tr>
             )): stack === 2? backEnd.map((student)=>(
               <tr className="assessment-user-info" key={student?.id}>
@@ -458,6 +466,14 @@ const Assessment = () => {
       <span style={{fontSize: 18, color: "green"}}><IoMdCheckmarkCircleOutline /></span>
     </td>
                 <td><p>{student.weeklyRating}</p></td>
+                <td>
+                   <button
+                    className="view-assessment-btn"
+                    onClick={() => handleViewAssessment(student?.id)}
+                  >
+                   View Assessments
+                  </button>
+                </td>
                 {/* <td><button  className="assessment-submit" type="submit" onClick={()=> {addAssessment(student.id, student.name), submit(student.id)}}>{ student.id === submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td> */}
               </tr>
             )): stack === 3? productD.map((student)=>(
@@ -508,6 +524,14 @@ const Assessment = () => {
       <span style={{fontSize: 18, color: "green"}}><IoMdCheckmarkCircleOutline /></span>
     </td>
                 <td><p>{student.weeklyRating}</p></td>
+                <td>
+                   <button
+                    className="view-assessment-btn"
+                    onClick={() => handleViewAssessment(student?.id)}
+                  >
+                   View Assessments
+                  </button>
+                </td>
                 {/* <td><button className="assessment-submit" type="submit" onClick={()=> {addAssessment(student.id, student.name), submit(student.id)}}>{ student.id === submitLoading ? <p>initializing...</p> : <p>Submit</p>}</button></td> */}
               </tr>
             )): null
@@ -555,14 +579,14 @@ const Assessment = () => {
                 <span className='input-span'>{key.charAt(0).toUpperCase() + key.slice(1)}</span>
 
                 {/* Show "View Assessment" only for the 'assessment' input */}
-                {key === "Assignments" && (
+                {/* {key === "Assignments" && (
                   <button
                     className="view-assessment-btn"
                     onClick={() => handleViewAssessment(selectedStudent?.id)}
                   >
                     View Assessment
                   </button>
-                )}
+                )} */}
               </div>
             ))}
 

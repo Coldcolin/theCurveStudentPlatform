@@ -14,8 +14,9 @@ export const createAssessment = async (data) => {
 };
 
 export const getOneUserAssessments = async (data) => {
+  // console.log("my data coming from props",data)
     try {
-        const res = await axios.get(`${BASE_URL}/getOneuser/${data.studentId}`);
+        const res = await axios.get(`${BASE_URL}/getOneuser/${data}`);
         console.log("Assessments fetched:", res.data);
         return res;
     } catch (error) {

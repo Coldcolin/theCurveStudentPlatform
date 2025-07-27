@@ -82,7 +82,7 @@ const router = createBrowserRouter([
         ]
       },
       {
-        path: "assessment-submition/:id",
+        path: "assessment-submition/:studentId",
         element: <RequireAuth />,
         children:[
           {

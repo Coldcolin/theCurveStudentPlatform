@@ -9,6 +9,7 @@ const AssessmentSubmitionTutorView = () => {
   const [assessments, setAssessments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [studentName, setStudentName] = useState("");
+  console.log("Fetched assessments id:", studentId);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -21,28 +22,35 @@ const AssessmentSubmitionTutorView = () => {
     },
   });
 
-  useEffect(() => {
-    const fetchAssessments = async () => {
-      try {
-        const res = await getOneUserAssessments({ studentId });
+useEffect(() => {
+  if (!studentId) return;
 
-        if (res.status === 200 && res.data.assessment) {
-          const sorted = [...res.data.assessment].reverse();
-          setAssessments(sorted);
-          setStudentName(sorted[0]?.name || "Student"); // Get name from latest entry
-        } else {
-          setAssessments([]);
-        }
-      } catch (err) {
-        console.error("Error fetching assessments", err);
-        Toast.fire({ icon: 'error', title: 'Error loading assessments' });
-      } finally {
-        setLoading(false);
+  const fetchAssessments = async () => {
+    setLoading(true);
+    try {
+      const res = await getOneUserAssessments(studentId);
+      console.log("Fetched assessments:", res.data.assessment);
+
+      if (Array.isArray(res.data.assessment)) {
+        const sorted = [...res.data.assessment].reverse();
+        console.log("Sorted assessments:", sorted);
+        setAssessments(sorted);
+        setStudentName(sorted[0]?.name || "Student");
+      } else {
+        setAssessments([]);
+        setStudentName("Student");
       }
-    };
+    } catch (err) {
+      console.error("Error fetching assessments", err);
+      // Toast.fire({ icon: 'error', title: 'Error loading assessments' });
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchAssessments();
-  }, [studentId]);
+  fetchAssessments();
+}, [studentId]);
+
 
   const handleApprove = async (id) => {
     try {

@@ -3,6 +3,7 @@ import './AssessmentSubmission.css';
 import { createAssessment, getOneUserAssessments } from '../../api/Api';
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import { useParams } from 'react-router-dom';
 
 
 const AssessmentSubmission = () => {
@@ -11,6 +12,15 @@ const AssessmentSubmission = () => {
     const [github, setGithubrepo] = useState('');
     const [submittedRepos, setSubmittedRepos] = useState([]);
     const profile = useSelector((state) => state.Id.Id);
+    const { id } = useParams();
+    console.log(submittedRepos, "studentId from params");
+    // console.log(
+    //              "github", github.trim(),
+    //             "name", profile?.name || "Anonymous",
+    //             "email", profile?.email,
+    //             "stack", profile?.stack,
+    //             "studentId", profile?.id
+    // )
 
      const Toast = Swal.mixin({
         toast: true,
@@ -28,22 +38,21 @@ const AssessmentSubmission = () => {
     }, [github]);
 
 
-    useEffect(() => {
-        const fetchSubmittedRepos = async () => {
-            try {
-                const res = await getOneUserAssessments({
-                    email: profile?.email
-                });
-                console.log(res)
-                if (res?.status === 200) {
-                    setSubmittedRepos(res.data.assessment);
-                }
-            } catch (err) {
-                console.log(err);
-            }
-        };
-        fetchSubmittedRepos();
-    }, []);
+useEffect(() => {
+  const fetchSubmittedRepos = async () => {
+    try {
+      const res = await getOneUserAssessments(id);
+      console.log("Response:", res.assessment);
+    //   if (res?.status === 200) {
+        setSubmittedRepos(res.assessment); 
+    //   }
+    } catch (err) {
+      console.log("Error fetching assessments:", err);
+    }
+  };
+
+  if (id) fetchSubmittedRepos();
+}, [id]);
 
     const handleSubmit = async () => {
         if (!github.trim()) return;
@@ -56,7 +65,8 @@ const AssessmentSubmission = () => {
                 github: github.trim(),
                 name: profile?.name || "Anonymous",
                 email: profile?.email,
-                stack: profile?.stack
+                stack: profile?.stack,
+                studentId: profile?.id
             });
 
             if (res?.status === 201) {
@@ -91,11 +101,11 @@ const AssessmentSubmission = () => {
             <p>Submit Your GitHub Assignment Here</p>
 
             <div className="assessmentWrapper">
-                <p>Kindly submit the link to your GitHub assignment repository here.</p>
+                <p>Kindly submit the link to your assignment here.</p>
                 
                 <input
                     type="text"
-                    placeholder='GitHub Repository Link'
+                    placeholder='Add Your Url Link'
                     value={github}
                     name='github'
                     onChange={(e) => setGithubrepo(e.target.value)}
@@ -115,19 +125,31 @@ const AssessmentSubmission = () => {
                 {/* {error && <p style={{ color: 'red', marginTop: '8px', fontSize: '14px', fontFamily: 'sans-serif' }}>{error}</p>} */}
             </div>
 
-            <div className="SubmittedassessmentWrapper">
-                {submittedRepos.length > 0 ? (
-                    submittedRepos.map((repo, index) => (
-                        <article key={index} className='assessmentResultBox'>
+                 <div className="SubmittedassessmentWrapper">
+                    {submittedRepos && submittedRepos.length > 0 ? (
+                        submittedRepos.map((repo, index) => (
+                        <article key={index} className="assessmentResultBox">
                             <h3>{repo.name}</h3>
-                            <p>{repo.github}</p>
-                            <span>{repo.status}</span>
+                            <p>
+                            GitHub:{" "}
+                            <a
+                                href={repo.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-600 underline"
+                            >
+                                {repo.github}
+                            </a>
+                            </p>
+                            <span>Status: {repo.status}</span>
+                            <p>Date: {repo.date}</p>
                         </article>
-                    ))
-                ) : (
-                    <p>No submissions yet.</p>
-                )}
-            </div>
+                        ))
+                    ) : (
+                        <p>No submissions yet.</p>
+                    )}
+                </div>
+
         </div>
     );
 };

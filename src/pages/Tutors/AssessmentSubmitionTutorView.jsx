@@ -80,7 +80,7 @@ useEffect(() => {
             <div key={item._id} className="assessmentCard">
               <div>
                 <h3>{item.name}</h3>
-                <p><strong>GitHub:</strong> <a href={item.submissionLink} target="_blank" rel="noreferrer">{item.submissionLink}</a></p>
+                <p><strong>Submission Link:</strong> <a href={item.submissionLink} target="_blank" rel="noreferrer">{item.submissionLink}</a></p>
                 <p><strong>Date:</strong> {item.date}</p>
                 <p><strong>Time:</strong> {item.time}</p>
                 <p><strong>Status:</strong> {item.status}</p>

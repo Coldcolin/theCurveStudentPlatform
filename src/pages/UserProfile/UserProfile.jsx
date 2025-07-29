@@ -5,7 +5,7 @@ import "../CheckIn/uploadimage.css"
 import {useDispatch, useSelector} from "react-redux";
 import Swal from "sweetalert2";
 // import { AuthContext } from "../../Contexts/AuthProvider";
-import axiosInstance from "axios";
+import axiosInstance from "../../api/axios.js";
 import { useNavigate } from 'react-router-dom';
 import { addId, signOut, updateId } from "../../Contexts/IdReducer.js";
 import Loading from '../../components/Loader/Loading.jsx';
@@ -28,6 +28,7 @@ const UserProfile = () => {
   const [details, setDetails] = useState([]);
   const token = JSON.parse(localStorage.getItem("token"));
   const [loading, setLoading] = useState(false);
+  const [student, setStudent] = useState([]);
   const [checkEdit, setCheckEdit] = useState(false);
   const { displayEdit } = useContext(AuthContext)
   // console.log(profile.role);
@@ -92,10 +93,31 @@ const UserProfile = () => {
         }
     }
 }
+
+const getStudentInfo =async()=>{
+  try{
+    const res = await axiosInstance.get(`users/oneUser/${profile.id}`)
+    const student = res.data.data;
+    setStudent(student);
+    console.log(student)
+  }catch(error){
+    if (error.response) {
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log('Error', error.message);
+    }
+    console.log(error.config);
+  }
+}
   useEffect(()=>{
     if(profile.role === "student"){
       getRatings();
       getPunctualityInfo();
+      getStudentInfo();
     }
   }, [])
 
@@ -123,50 +145,50 @@ const UserProfile = () => {
 
 
 
- const saveChanges = async ()=>{
-  try{
-    setDisableSaveBtn(true)
-    const config = {
-      headers: {
-        "content-type": "multipart/formData"
-      }
-    }
-      const data = new FormData();
-      data.append("image", imageDB);
-      data.append("name", profileName);
+//  const saveChanges = async ()=>{
+//   try{
+//     setDisableSaveBtn(true)
+//     const config = {
+//       headers: {
+//         "content-type": "multipart/formData"
+//       }
+//     }
+//       const data = new FormData();
+//       data.append("image", imageDB);
+//       data.append("name", profileName);
 
-      setLoading(true);
-        // console.log(profile._id)
-        const res = await axiosInstance.patch(`https://sotw-app.onrender.com/users/update/${profile.id}`, data, config)
-        setCheckEdit(!checkEdit)
-      setLoading(false);
-      setCheckEdit(!checkEdit);
-      dispatch(updateId({name: res.data.data.name, image: res.data.data.image}))
-      Toast.fire({
-        icon:'success',
-        title: "Update Successful"
-        })
-      navigate("/user")
+//       setLoading(true);
+//         // console.log(profile._id)
+//         const res = await axiosInstance.patch(`https://sotw-app.onrender.com/users/update/${profile.id}`, data, config)
+//         setCheckEdit(!checkEdit)
+//       setLoading(false);
+//       setCheckEdit(!checkEdit);
+//       dispatch(updateId({name: res.data.data.name, image: res.data.data.image}))
+//       Toast.fire({
+//         icon:'success',
+//         title: "Update Successful"
+//         })
+//       navigate("/user")
 
-      // setProfileImage(res?.data?.image);
-      // setProfileName(res?.data?.name);
-      setDisableSaveBtn(false)
-      setCheckEdit(false)
-  }catch(error){
-    setLoading(false);
-        if(error.response){
-            Toast.fire({
-            icon:'error',
-            title: error.response
-            })
+//       // setProfileImage(res?.data?.image);
+//       // setProfileName(res?.data?.name);
+//       setDisableSaveBtn(false)
+//       setCheckEdit(false)
+//   }catch(error){
+//     setLoading(false);
+//         if(error.response){
+//             Toast.fire({
+//             icon:'error',
+//             title: error.response
+//             })
             
-        } else if (error.request){
-            console.log(error.request);
-        }else {
-            console.log("Error", error.message)
-        }
-  }
- }
+//         } else if (error.request){
+//             console.log(error.request);
+//         }else {
+//             console.log("Error", error.message)
+//         }
+//   }
+//  }
 
 
   const cancelChanges = ()=>{
@@ -226,17 +248,13 @@ const UserProfile = () => {
     <>
     {
       profile.role !== "student" ? null :
-      // <div className="viewAttendanceAndAddGrade">
-      //   <button className='attend'>View Attendance</button>
-      //   <button className='grade'>Add grade</button>
-      // </div>
       <div className="GradeShow">
         <div className="gradeshow-card">
           <div className="gradeShowCardIcon">
             <BsGraphDownArrow color='#00893D' size={50}/>
           </div>
           <div className="gradeCardDeets">
-            <h2 style={{color:"#00893D", fontSize:"36px"}}>0</h2>
+            <h2 style={{color:"#00893D", fontSize:"36px"}}>{student?.overallrating || 0}</h2>
             <p style={{color:"#8B8B8B", fontSize:"12px"}}>Overall Average</p>
           </div>
         </div>
@@ -245,7 +263,7 @@ const UserProfile = () => {
             <RiTodoLine color='#FB8500' size={50}/>
           </div>
           <div className="gradeCardDeets">
-            <h2 style={{color:"#FB8500", fontSize:"36px"}}>0</h2>
+            <h2 style={{color:"#FB8500", fontSize:"36px"}}>{student?.weeklyRating || 0}</h2>
             <p style={{color:"#8B8B8B", fontSize:"12px"}}>Current Grade</p>
           </div>
         </div>

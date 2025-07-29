@@ -150,7 +150,7 @@ const router = createBrowserRouter([
     element:<ResetPassword/>,
   },
   {
-    path: 'reg045678',
+    path: 'reg011145678',
     // errorElement: <ErrorPage/>,
     element:<Registration/>,
   },

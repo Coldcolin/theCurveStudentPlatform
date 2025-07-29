@@ -77,6 +77,7 @@ axiosInstancePunc.interceptors.response.use(
         return axiosInstance(config);
     }
 );
+
 axiosInstanceSign.interceptors.response.use(
     response => response,
     async error => {

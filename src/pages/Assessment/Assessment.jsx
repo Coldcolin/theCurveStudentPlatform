@@ -278,7 +278,8 @@ const Assessment = () => {
 
       const allFest = await axiosInstance.get(ALLSOTWPD_URL);
 
-      const highestWeek = Math.max(...allFest.data.data.map(item => item.week));
+      const weeks = allFest.data.data.map(item => item.week);
+      const highestWeek = weeks.length > 0 ? Math.max(...weeks) : 0;
       setCurrentWeek(highestWeek + 1)
 
       setFrontEnd(front);
@@ -346,16 +347,9 @@ const Assessment = () => {
           <tr className="assessment-table">
             <th className="assessment-table-title">IMAGE</th>
             <th className="assessment-table-title">FULL NAME (F/L)</th>
-            {/* <th className="assessment-table-title">PUNCTUALITY</th>
-            <th className="assessment-table-title">ASSIGNMENTS</th>
-            <th className="assessment-table-title">CLASS ASSESSMENT</th>
-            <th className="assessment-table-title">ATTENDANCE</th>
-            <th className="assessment-table-title">PERSONAL DEFENSE</th> */}
             <th className="assessment-table-title"> WEEK</th>
             <th className="assessment-table-title"> AV %</th>
             <th className="assessment-table-title">View Assessments</th>
-            {/* <th className="assessment-table-title">
-            </th> */}
           </tr>
           </thead>
             {
@@ -365,42 +359,6 @@ const Assessment = () => {
               <tr className="assessment-user-info" key={student.id}>
                 <td><Link to={`/detail/${student.id}`}><img src={student.image} alt="imae" className="assessment-image"/></Link></td>
                 <td><Link to={`/punctuality/${student.id}`}><div className="assessment-item">{student.name}</div></Link></td>
-                {/* <td><input type="number" className="assessment-input" placeholder="punctuality" defaultValue={punctuality} onChange={(e) => {
-                const value = e.target.value;
-                if (parseInt(value, 10) > 20) {
-                  setPunctuality("20");
-                } else {
-                  setPunctuality(value);
-                }}} min="0" max="20"/></td>
-                <td><input type="number" className="assessment-input" placeholder="assignment" defaultValue={Assignments} onChange={(e) => {
-                const value = e.target.value;
-                if (parseInt(value, 10) > 20) {
-                  setAssignments("20");
-                } else {
-                  setAssignments(value);
-                }}} min="0" max="20"/></td>
-                <td><input type="number" className="assessment-input" placeholder="Class Assessment"  defaultValue={classAssessment} onChange={(e) => {
-                const value = e.target.value;
-                if (parseInt(value, 10) > 20) {
-                  setClassAssessment("20");
-                } else {
-                  setClassAssessment(value);
-                }}} min="0" max="20"/></td>
-                <td><input type="number" className="assessment-input" placeholder="Attendance"  defaultValue={classParticipation} onChange={(e) => {
-                const value = e.target.value;
-                if (parseInt(value, 10) > 20) {
-                  setClassParticipation("20");
-                } else {
-                  setClassParticipation(value);
-                }}} min="0" max="20"/></td>
-                <td><input type="number" className="assessment-input" placeholder="Personal Defense"  defaultValue={personalDefense} onChange={(e) => {
-                const value = e.target.value;
-                if (parseInt(value, 10) > 20) {
-                  setPersonalDefense("20");
-                } else {
-                  setPersonalDefense(value);
-                }}} min="0" max="20"/></td> */}
-                {/* <td><input type="number" className="assessment-input" placeholder="week" defaultValue={week} onChange={e => setWeek(e.target.value)}/></td> */}
                 <td 
       style={{display: "flex", justifyContent: "center", gap:10, cursor: 'pointer'}} 
       onClick={() => handleGradeClick(student)}

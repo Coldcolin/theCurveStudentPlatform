@@ -20,6 +20,8 @@ const GET_USERS = gql`
       stack
       image
       weeklyRating
+      assessedForTheWeek
+      hub
     }
   }
 `;
@@ -65,8 +67,16 @@ const Assessment = () => {
 
   // Add this new handler
   const handleGradeClick = (student) => {
-    setSelectedStudent(student);
-    setIsGradingOpen(true);
+    if(student.assessedForTheWeek){
+      Toast.fire({
+        icon:'warning',
+        title: 'Assessment Already Added'
+      })
+    }else{
+      setSelectedStudent(student);
+      setIsGradingOpen(true);
+    }
+    
   };
 
   const handleGradeSubmit = async () => {
@@ -327,7 +337,7 @@ const Assessment = () => {
                 </div>
 
 
-                <div className="searchHolder">
+                {/* <div className="searchHolder">
                 <div className="holdSearchIcon">
                 <IoIosSearch size={20} />
                 </div>
@@ -335,7 +345,7 @@ const Assessment = () => {
                 <div className="holdSortIcon">
                 <TbSlash />
                 </div>
-              </div>
+              </div> */}
               </div>
     }
       <div className="assessment-top">
@@ -364,7 +374,7 @@ const Assessment = () => {
       onClick={() => handleGradeClick(student)}
     >
       <p>{currentWeek}</p> 
-      <span style={{fontSize: 18, color: "green"}}><IoMdCheckmarkCircleOutline /></span>
+      {student.assessedForTheWeek?<span style={{fontSize: 18, color: "green"}}><IoMdCheckmarkCircleOutline /></span>: null}
     </td>
                 <td><p>{student.weeklyRating}</p></td>
                 <td>
@@ -421,7 +431,7 @@ const Assessment = () => {
       onClick={() => handleGradeClick(student)}
     >
       <p>{currentWeek}</p> 
-      <span style={{fontSize: 18, color: "green"}}><IoMdCheckmarkCircleOutline /></span>
+      {student.assessedForTheWeek?<span style={{fontSize: 18, color: "green"}}><IoMdCheckmarkCircleOutline /></span>: null}
     </td>
                 <td><p>{student.weeklyRating}</p></td>
                 <td>
@@ -479,7 +489,7 @@ const Assessment = () => {
       onClick={() => handleGradeClick(student)}
     >
       <p>{currentWeek}</p> 
-      <span style={{fontSize: 18, color: "green"}}><IoMdCheckmarkCircleOutline /></span>
+      {student.assessedForTheWeek?<span style={{fontSize: 18, color: "green"}}><IoMdCheckmarkCircleOutline /></span>: null}
     </td>
                 <td><p>{student.weeklyRating}</p></td>
                 <td>

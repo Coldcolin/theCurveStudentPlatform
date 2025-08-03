@@ -243,6 +243,7 @@ tr:nth-child(even) {
     }
     .a-table{
         overflow-x: scroll;
+        min-width: 300px;
     }
     .assessment-table {
 

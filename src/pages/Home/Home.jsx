@@ -18,6 +18,7 @@ const SOTWPD_URL = "/PSOW/student"
 const ALLSOTWBE_URL = "/BSOW/all"
 const ALLSOTWPD_URL = "/PSOW/all"
 const ALL_USERS = "/users/allusers"
+const CHECK_STATUS = "/users/update-all-week-status"
 
 
 const Home = () => {
@@ -38,6 +39,14 @@ const Home = () => {
 
     const [isOnline, setIsOnline] = useState(navigator.onLine);
 
+    const setStudentsStatus=async()=>{
+      try{
+          await axiosInstance.patch(CHECK_STATUS)
+      }catch(err){
+        console.error(err)
+      }
+    }
+
 
     useEffect(() => {
       // Define event handlers
@@ -48,6 +57,7 @@ const Home = () => {
       // Add event listeners
       window.addEventListener('online', updateOnlineStatus);
       window.addEventListener('offline', updateOnlineStatus);
+      setStudentsStatus()
   
       // Cleanup event listeners on unmount
       return () => {
@@ -55,6 +65,8 @@ const Home = () => {
         window.removeEventListener('offline', updateOnlineStatus);
       };
     }, []);
+
+    
 
 
     const getRes = async()=>{
